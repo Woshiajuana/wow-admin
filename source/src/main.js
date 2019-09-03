@@ -7,7 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 
 import '@/assets/scss/index.scss' // global css
-import '@/icons' // icon
+import '@/assets/icons' // icon
 import '@/permission' // permission control
 
 import App from './App.vue'
