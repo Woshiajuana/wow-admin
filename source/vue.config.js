@@ -13,7 +13,7 @@ module.exports = {
     lintOnSave: false,
     productionSourceMap: false,
     configureWebpack: {
-        name: name,
+        name: 'Wow-Admin',
         resolve: {
             alias: {
                 '@': resolve('src')
