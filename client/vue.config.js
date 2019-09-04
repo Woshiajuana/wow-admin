@@ -17,7 +17,13 @@ module.exports = {
         name: 'Wow-Admin',
         resolve: {
             alias: {
-                '@': resolve('src')
+                '@': resolve('src'),
+                '@components': resolve('src/components'),
+                '@router': resolve('src/router'),
+                '@store': resolve('src/store'),
+                '@layout': resolve('src/layout'),
+                '@assets': resolve('src/assets'),
+                '@views': resolve('src/views'),
             }
         }
     },
