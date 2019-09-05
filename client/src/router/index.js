@@ -23,6 +23,20 @@ export const constantRoutes = [
     },
 
     {
+        path: '/',
+        component: Layout,
+        redirect: '/welcome',
+        children: [
+            {
+                path: 'welcome',
+                name: 'Welcome',
+                component: () => import('@views/welcome/index'),
+                meta: { title: 'Welcome', icon: 'dashboard' }
+            }
+        ],
+    },
+
+    {
         path: '*',
         redirect: '/404',
         hidden: true,
