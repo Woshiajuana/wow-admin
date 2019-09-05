@@ -33,12 +33,12 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 
-window.appRuntime = function() {
+// window.appRuntime = function() {
   new Vue({
     el: '#app',
     router,
     store,
     render: h => h(App)
   })
-}
+// }
 
