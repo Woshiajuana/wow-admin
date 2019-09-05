@@ -24,6 +24,7 @@ module.exports = {
                 '@layout': resolve('src/layout'),
                 '@assets': resolve('src/assets'),
                 '@views': resolve('src/views'),
+                '@utils': resolve('src/utils'),
             }
         }
     },
