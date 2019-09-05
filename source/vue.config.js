@@ -11,6 +11,9 @@ module.exports = {
     // outputDir: 'dist',
     // assetsDir: 'static',
     lintOnSave: false,
+    devServer: {
+        port: 8081,
+    },
     productionSourceMap: false,
     configureWebpack: {
         name: 'Wow-Admin',
