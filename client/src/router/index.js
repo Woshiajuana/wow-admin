@@ -35,18 +35,6 @@ export const constantRoutes = [
     },
 
     {
-        path: '/welcome',
-        component: Layout,
-        redirect: '/welcome',
-        children: [{
-            path: 'index',
-            name: 'Welcome',
-            component: () => import('@views/welcome/index'),
-            meta: { title: 'Welcome', icon: 'dashboard' }
-        }]
-    },
-
-    {
         path: '*',
         redirect: '/404',
         hidden: true,
