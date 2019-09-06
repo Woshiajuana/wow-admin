@@ -1,0 +1,57 @@
+# 端口号
+cluster:
+  listen:
+    port: 17011
+
+# redis
+redis:
+  client:
+    host: '47.95.202.71'
+    port: '6379'
+    password: 'zbDHVaWOgMdV4rPQ3wETRYfRFjlEos83'
+
+# mysql
+sequelize:
+#  passwordEncrypt: true
+#  usernameEncrypt: true
+  host: '47.103.3.222'
+  port: '3306'
+  database: 'score_mall'
+  username: 'dbagroup'
+  password: 'k5mLTK2tcv4kbgKe1234'
+
+# aliyun oss
+oss:
+  client: 
+    accessKeyId: 'LTAIYt7l1QCxDuv8'
+    accessKeySecret: 'KU3ZfJIy83OPNncw0B3UVyvNW4jXOH'
+    bucket: 'scoremall'
+    endpoint: 'oss-cn-beijing-internal.aliyuncs.com'
+    timeout: '60s'
+
+# 短信服务 - NoticeService
+SmsService:
+  apiUrl: '127.0.0.1:17000'
+
+# 积分商城服务
+ScoreMallService:
+  apiUrl: '127.0.0.1:17012'
+
+# 是否反向代理(在NG后设置为true)
+proxy: true
+
+# 日志
+logger:
+  dir: '/opt/logs/mall-boss-api'
+  level: 'INFO'
+  consoleLevel: 'INFO'
+
+# 应用文件目录
+fileRootDir: '/opt/files/mall-boss'
+
+# 登陆有效时间
+accessToken:
+  maxAge: '72h'
+
+# 最大登陆人数
+maxUserLoginCount: 5

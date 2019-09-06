@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+basepath=$(cd `dirname $0`; pwd)
+echo $basepath
+cd $basepath && npm run stop && cd -
