@@ -47,7 +47,6 @@ module.exports = appInfo => {
         options: {
             user: 'wow_admin',
             pass: 'wow_admin123',
-            password: 'wow_admin123',
         },
     };
 
