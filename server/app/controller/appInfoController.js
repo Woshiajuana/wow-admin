@@ -9,13 +9,13 @@ module.exports = class AppInfoController extends Controller {
     async info () {
         const { ctx, service, app } = this;
         try {
-            const arrData = await ctx.model.AppInfoModel.find();
+            const { objApp } = await ctx.model.AppInfoModel.find();
             const { domain } = ctx.query;
-            
-
-            console.log('ctx.model1 => ', arrData);
+            if (!objApp) throw new Error('xxx');
+            console.log('ctx.model1 => ', objApp);
             console.log('ctx.domain => ', domain);
         } catch (e) {
+            console.log(Object.prototype.toString.apply(e));
             ctx.respError(e);
         }
     }

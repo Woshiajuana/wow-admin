@@ -11,13 +11,13 @@ module.exports = {
             successCode,
             codes,
         } = Object.assign(config, app.config.response);
-        const stringOptions = Object.prototype.toString.apply(options) === '[object Object]';
+        const isObjectOptions = Object.prototype.toString.apply(options) === '[object Object]';
         let {
             code = successCode,
             data = options,
             msg = codes[successCode],
             status,
-        } = stringOptions
+        } = isObjectOptions
             ? options
             : {};
         status && (this.status = status);
@@ -38,15 +38,15 @@ module.exports = {
             callbackError,
             errorMsgHock,
         } = Object.assign(config, app.config.response);
-        const stringOptions = Object.prototype.toString.apply(options) === '[object Object]';
+        const isObjectOptions = Object.prototype.toString.apply(options) === '[object Object]';
         let {
             code = codes[options] ? options : errorCode,
             data = null,
             status,
-        } = stringOptions
+        } = isObjectOptions
             ? options
             : {};
-        let msg = stringOptions
+        let msg = isObjectOptions
             ? errorMsgHock(options)
             : codes[options]
                 ? codes[code]
