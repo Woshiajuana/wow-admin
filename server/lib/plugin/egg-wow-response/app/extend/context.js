@@ -38,7 +38,9 @@ module.exports = {
             callbackError,
             errorMsgHock,
         } = Object.assign(config, app.config.response);
-        const isObjectOptions = Object.prototype.toString.apply(options) === '[object Object]';
+        const stringOptions = Object.prototype.toString.apply(options);
+        const isObjectOptions = stringOptions === '[object Object]';
+        const isErrorOptions = stringOptions === '[object Error]';
         let {
             code = codes[options] ? options : errorCode,
             data = null,
@@ -46,12 +48,16 @@ module.exports = {
         } = isObjectOptions
             ? options
             : {};
+        console.log('isObjectOptions => ', isObjectOptions);
+        console.log('codes[options] => ', codes[options]);
+        console.log('options => ', options);
         let msg = isObjectOptions
             ? errorMsgHock(options)
             : codes[options]
                 ? codes[code]
                 : options;
         status && (this.status = status);
+        console.log('msg => ', msg);
         this.body = callbackError({
             code,
             data,
