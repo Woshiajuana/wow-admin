@@ -4,7 +4,7 @@
 module.exports = app => {
     const mongoose = app.mongoose;
     const Schema = mongoose.Schema;
-    const modelSchema = new Schema({
+    const postSchema = new Schema({
 
         // 名称
         name: {
@@ -50,5 +50,5 @@ module.exports = app => {
         },
 
     });
-    return mongoose.model('app_info', modelSchema);
+    return mongoose.model('app_info', postSchema);
 };
