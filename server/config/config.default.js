@@ -15,12 +15,11 @@ module.exports = appInfo => {
     // add redis
     config.redis = {
         client: {
-            port: 6379,
             host: '47.95.202.71',
-            password: '123456',
-            db: 0,
+            port: '6379',
+            db: '0',
             family: 'IPv4',
-            pass: 'zbDHVaWOgMdV4rPQ3wETRYfRFjlEos83',
+            password: 'zbDHVaWOgMdV4rPQ3wETRYfRFjlEos83',
         },
     };
 
@@ -45,9 +44,11 @@ module.exports = appInfo => {
 
     config.mongoose = {
         url: 'mongodb://47.95.202.71:27017/wow_admin',
+        password: 'wow_admin123',
         options: {
             user: 'wow_admin',
             pass: 'wow_admin123',
+            password: 'wow_admin123',
         },
     };
 
