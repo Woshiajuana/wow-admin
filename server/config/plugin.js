@@ -21,7 +21,10 @@ exports.cors = {
 };
 
 // 数据库mongoose
-export.
+exports.mongoose = {
+    enable: true,
+    package: 'egg-mongoose',
+};
 
 // 发送邮件
 exports.email = {

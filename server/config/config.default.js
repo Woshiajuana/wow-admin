@@ -16,14 +16,19 @@ module.exports = appInfo => {
     config.redis = {
         client: {
             port: 6379,
-            host: '127.0.0.1',
+            host: '47.95.202.71',
             password: '123456',
             db: 0,
+            family: 'IPv4',
+            pass: 'zbDHVaWOgMdV4rPQ3wETRYfRFjlEos83',
         },
     };
 
     // add cors
-    
+    config.cors = {
+        origin: '*', // 访问白名单,根据你自己的需要进行设置
+        allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+    };
 
     // add email
     config.email = {
@@ -35,6 +40,14 @@ module.exports = appInfo => {
                 user: 'zhigang.chen@owulia.com',
                 pass: 'liujiaoyan1120/',
             },
+        },
+    };
+
+    config.mongoose = {
+        url: 'mongodb://47.95.202.71:27017/wow_admin',
+        options: {
+            user: 'wow_admin',
+            pass: 'wow_admin123',
         },
     };
 
