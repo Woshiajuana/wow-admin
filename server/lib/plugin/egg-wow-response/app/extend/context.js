@@ -48,14 +48,13 @@ module.exports = {
         } = isObjectOptions
             ? options
             : {};
-        console.log('isObjectOptions => ', isObjectOptions);
-        console.log('codes[options] => ', codes[options]);
-        console.log('options => ', options);
         let msg = isObjectOptions
             ? errorMsgHock(options)
-            : codes[options]
-                ? codes[code]
-                : options;
+            : isErrorOptions
+                ? options.toString()
+                : codes[options]
+                    ? codes[code]
+                    : options;
         status && (this.status = status);
         console.log('msg => ', msg);
         this.body = callbackError({
