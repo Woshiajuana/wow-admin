@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>角色管理</title>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+  </head>
+  <body>
+    <div class="layui-fluid">
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+          <div class="layui-card">
+            <div class="layui-card-header">角色列表</div>
+            <form class="search-form">
+              <div class="layui-inline">
+                <select id="state" name="state" onchange="selectChange()">
+                  <option value="">--状态--</option>
+                  <option value="1">启用</option>
+                  <option value="2">停用</option>
+                </select>
+              </div>
+              <div class="layui-inline">
+                <input
+                  class="layui-input"
+                  name="searchInput"
+                  id="searchInput"
+                  autocomplete="off"
+                  placeholder="请输入角色名称/编码"
+                  style="width: 180px;"
+                />
+              </div>
+
+              <button
+                class="layui-btn layui-btn-normal"
+                id="datagrid-search-btn"
+                type="button"
+              >
+                <i class="fa fa-search"></i> 搜索
+              </button>
+              <div class="toolbar-right">
+                <div class="layui-btn-group">
+                  <button
+                    class="layui-btn layui-btn-normal layui-btn-sm"
+                    type="button"
+                    id="datagrid-refresh-btn"
+                  >
+                    <i class="fa fa-refresh"></i> 刷新
+                  </button>
+                  <button
+                    class="layui-btn layui-btn-normal layui-btn-sm"
+                    type="button"
+                    onclick="datagrid.form('添加角色信息','/basic/role/role-edit.html','600px','400px')"
+                  >
+                    <i class="fa fa-plus"></i> 添加
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div class="layui-card-body">
+              <table id="datagrid" lay-filter="datagrid">
+                <thead>
+                  <tr>
+                    <th lay-data="{type:'numbers',width:60}">序号</th>
+                    <th lay-data="{field:'name',width:120}">角色名称</th>
+                    <th lay-data="{field:'code', width:120, sort: true}">
+                      角色编码
+                    </th>
+                    <th
+                      lay-data="{field:'state', align:'center',minWidth: 80, templet: '#stateTpl'}"
+                    >
+                      状态
+                    </th>
+                    <th lay-data="{field:'creatorname', width:100}">创建人</th>
+                    <th lay-data="{field:'remark'}">说明</th>
+                    <th
+                      lay-data="{align:'center', width:300, toolbar: '#operationBar'}"
+                    ></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
