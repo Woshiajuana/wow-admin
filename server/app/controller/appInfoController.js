@@ -12,9 +12,25 @@ module.exports = class AppInfoController extends Controller {
             const { objApp } = await ctx.model.AppInfoModel.find();
             const { domain } = ctx.query;
             if (!objApp) throw new Error('APP');
-
+            ctx.respSuccess(objApp);
         } catch (e) {
-            console.log(Object.prototype.toString.apply(e));
+            ctx.respError(e);
+        }
+    }
+
+    // 创建信息
+    async create () {
+        const { ctx, service, app } = this;
+        try {
+            let objParams = await ctx.validateBody({
+                name: [ 'nonempty' ],
+                logo: [ 'nonempty' ],
+                theme: [ 'nonempty' ],
+                ownership: [ 'nonempty' ],
+            });
+            await ctx.model.AppInfoModel.create(objParams);
+            ctx.respSuccess();
+        } catch (e) {
             ctx.respError(e);
         }
     }

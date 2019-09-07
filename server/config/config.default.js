@@ -67,7 +67,11 @@ module.exports = appInfo => {
 
     // add response
     config.response = {
-        client: {},
+        client: {
+            codes: {
+                F00001: 'APP未设置，请先设置',
+            },
+        },
     };
 
     // add your user config here
