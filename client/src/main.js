@@ -14,6 +14,10 @@ import router from '@router'
 import '@assets/scss/index.scss'
 import '@assets/icons' // icon
 
+import Http from '@utils/http.util'
+
+
+
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
 
@@ -22,3 +26,4 @@ new Vue({
     router,
     render: h => h(App),
 }).$mount('#app');
+
