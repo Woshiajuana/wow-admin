@@ -11,7 +11,8 @@ module.exports = class AppInfoController extends Controller {
         try {
             const { objApp } = await ctx.model.AppInfoModel.find();
             const { domain } = ctx.query;
-            if (!objApp) throw new Error('APP');
+            console.log('domain => ', domain);
+            if (!objApp) throw 'F00001';
             ctx.respSuccess(objApp);
         } catch (e) {
             ctx.respError(e);

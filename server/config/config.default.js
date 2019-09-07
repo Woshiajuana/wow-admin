@@ -67,10 +67,8 @@ module.exports = appInfo => {
 
     // add response
     config.response = {
-        client: {
-            codes: {
-                F00001: 'APP未设置，请先设置',
-            },
+        codes: {
+            F00001: 'APP未设置，请先设置',
         },
     };
 
