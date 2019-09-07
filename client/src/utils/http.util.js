@@ -1,15 +1,26 @@
 
+import Config           from '@/config'
 
 class Http {
-    constructor () {
+
+    constructor (api, data, options) {
+        this.api = api;
+        this.data = Object.assign({}, data);
+        this.options = Object.assign({}, options);
+    }
+
+    _curl () {
 
     }
+
+    _log () {
+        console.log(this.api, '\n',  this.options.method, ...arguments)
+    }
+
 }
 
-function fn (url, data, options) {
-    return new Http();
+function fn (api = '', data = {}, options = {}) {
+    return new Http(api, data, options);
 }
 
-export default {
-    Http,
-}
+export default fn;
