@@ -17,6 +17,12 @@ import '@assets/icons' // icon
 import Http from '@utils/http.util'
 
 
+Http(Http.API.REQ_APP_INFO).then((res) => {
+    console.log('成功回调 => ', res);
+}).catch((err) => {
+    console.log('失败回调 => ', err);
+});
+
 
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;

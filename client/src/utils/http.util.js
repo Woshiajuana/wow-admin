@@ -42,3 +42,5 @@ function fn (api = '', data = {}, options = {}) {
 }
 
 export default fn;
+
+fn.API = Object.assign({}, Config.api);
