@@ -29,13 +29,6 @@ Http(Http.API.REQ_APP_INFO).then((res) => {
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
 
-new Vue({
-    store,
-    router,
-    render: h => h(App),
-}).$mount('#app');
-
-
 Vue.prototype.http$ = Http;
 
 const DEFAULT_OPTIONS = {
@@ -50,6 +43,7 @@ const DEFAULT_OPTIONS = {
 };
 
 window.wowRuntime = {
+    options: {},
     use (key, value) {
         value && (Vue.prototype[`$${key}`] = value);
         return this;
@@ -59,7 +53,16 @@ window.wowRuntime = {
             extend,
             api,
         } = _.merge({}, DEFAULT_OPTIONS, options);
+        this._handleExtend(extend);
+        new Vue({
+            store,
+            router,
+            render: h => h(App),
+        }).$mount('#app');
         return Vue;
+    },
+    getOptions () {
+        return this.options;
     },
     getDefaultOptions () {
         return DEFAULT_OPTIONS;
