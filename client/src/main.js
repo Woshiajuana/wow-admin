@@ -36,14 +36,23 @@ new Vue({
 
 Vue.prototype.http$ = Http;
 
+const DEFAULT_OPTIONS = {
+    // http 配置
+    httpConfig: {
+
+    },
+};
+
 window.wowRuntime = {
-
     init (options = {}) {
-        let {  } = options;
+        let {
+            httpConfig,
 
-
-    }
-
+        } = options;
+    },
+    getDefaultOptions () {
+        return DEFAULT_OPTIONS;
+    },
 };
 
 
