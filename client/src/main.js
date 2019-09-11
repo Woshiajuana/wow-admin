@@ -34,4 +34,16 @@ new Vue({
 }).$mount('#app');
 
 
+Vue.prototype.http$ = Http;
+
+window.wowRuntime = {
+
+    init (options = {}) {
+        let {  } = options;
+
+
+    }
+
+};
+
 
