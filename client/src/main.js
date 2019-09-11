@@ -66,7 +66,7 @@ window.wowRuntime = {
         return DEFAULT_OPTIONS;
     },
     _handleHttp () {
-
+        // return Http();
     },
     _handleExtend () {
         let { extend } = this.options;
