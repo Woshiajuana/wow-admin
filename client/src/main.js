@@ -7,6 +7,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 
+import _ from 'lodash'
+
 import App from '@/App.vue'
 import store from '@store'
 import router from '@router'
@@ -37,22 +39,44 @@ new Vue({
 Vue.prototype.http$ = Http;
 
 const DEFAULT_OPTIONS = {
-    // http 配置
-    httpConfig: {
-
+    // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
+    extend: {
+        a: 1,
+    },
+    // API配置
+    api: {
+        a: 1,
     },
 };
 
 window.wowRuntime = {
+    use (key, value) {
+        value && (Vue.prototype[`$${key}`] = value);
+        return this;
+    },
     init (options = {}) {
         let {
-            httpConfig,
-
-        } = options;
+            extend,
+            api,
+        } = _.merge({}, DEFAULT_OPTIONS, options);
+        return Vue;
     },
     getDefaultOptions () {
         return DEFAULT_OPTIONS;
     },
+    _handleExtend () {
+
+    },
 };
 
 
+window.wowRuntime.init({
+    extend: {
+        b: 2,
+        c: 3,
+    },
+    api: {
+        a: 2,
+        c: 4,
+    }
+});
