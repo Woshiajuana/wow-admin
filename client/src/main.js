@@ -43,23 +43,21 @@ const DEFAULT_OPTIONS = {
 };
 
 window.wowRuntime = {
+    wow: {},
     options: {},
-    use (key, value) {
-        value && (Vue.prototype[`$${key}`] = value);
-        return this;
-    },
     init (options = {}) {
-        let {
-            extend,
-            api,
-        } = _.merge({}, DEFAULT_OPTIONS, options);
-        this._handleExtend(extend);
-        new Vue({
+        this.options = _.merge({}, DEFAULT_OPTIONS, options);
+        this._handleExtend();
+        this._handleHttp();
+        let app = new Vue({
             store,
             router,
             render: h => h(App),
         }).$mount('#app');
-        return Vue;
+        return {
+            app,
+            wow: this.wow,
+        };
     },
     getOptions () {
         return this.options;
@@ -67,13 +65,23 @@ window.wowRuntime = {
     getDefaultOptions () {
         return DEFAULT_OPTIONS;
     },
-    _handleExtend () {
+    _handleHttp () {
 
+    },
+    _handleExtend () {
+        let { extend } = this.options;
+        _.forEach(extend, (item, key) => {
+            this._use(key, item);
+        });
+    },
+    _use (key, value) {
+        value && (this.wow[`$${key}`] = value);
+        return this;
     },
 };
 
 
-window.wowRuntime.init({
+let { wow, app } = window.wowRuntime.init({
     extend: {
         b: 2,
         c: 3,
@@ -83,3 +91,5 @@ window.wowRuntime.init({
         c: 4,
     }
 });
+
+console.log(wow);
