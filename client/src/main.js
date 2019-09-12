@@ -17,8 +17,9 @@ import '@assets/scss/index.scss'
 import '@assets/icons' // icon
 import '@utils/promise.util'
 
-import http from '@utils/http.util'
-import modal from '@utils/modal.util'
+import http from '@utils/http'
+import modal from '@utils/modal'
+import storage from '@uitls/storage'
 
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
@@ -27,6 +28,7 @@ const DEFAULT_OPTIONS = {
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
     extendUtils: {
         modal,
+        storage,
     },
     // API配置
     httpRequest: {
