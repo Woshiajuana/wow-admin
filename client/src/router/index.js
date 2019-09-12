@@ -64,7 +64,10 @@ export function resetRouter() {
 
 router.beforeEach(async(to, from, next) => {
     NProgress.start();
-    if (from.name === null) {
+    let { appInfo } = store.getters;
+    if (appInfo) {
+        next();
+    } else {
         let { $modal } = Vue.prototype;
         try {
             await store.dispatch('app/getAppInfo');
@@ -77,7 +80,6 @@ router.beforeEach(async(to, from, next) => {
 });
 
 router.afterEach(() => {
-    // finish progress bar
     NProgress.done()
 });
 

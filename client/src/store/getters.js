@@ -7,5 +7,6 @@ const getters = {
     cachedViews: state => state.tagsView.cachedViews,
     permission_routes: state => state.permission.routes,
     // name: state => state.user.name
+    appInfo: state => state.app.appInfo,
 };
 export default getters

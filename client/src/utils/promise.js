@@ -1,5 +1,5 @@
 
-import modal from '@utils/modal.util'
+import modal from '@utils/modal'
 
 Promise.prototype.finally = function (callback) {
     let P = this.constructor;

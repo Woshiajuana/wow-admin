@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import Vue from 'vue'
+import storage from '@utils/storage'
 
 const state = {
     sidebar: {
@@ -26,7 +27,10 @@ const mutations = {
         state.sidebar.withoutAnimation = withoutAnimation
     },
     TOGGLE_DEVICE: (state, device) => state.device = device,
-    SET_APP_INFO: (state, appInfo) => state.appInfo = appInfo,
+    SET_APP_INFO: (state, appInfo) => {
+        state.appInfo = appInfo;
+        storage.cache.set('APP_INFO', appInfo);
+    },
 };
 
 const actions = {
@@ -42,6 +46,8 @@ const actions = {
 
     getAppInfo ({ commit, state }) {
         return new Promise((resolve, reject) => {
+            let appInfo = storage.cache.get('APP_INFO');
+            if (appInfo) return commit('SET_APP_INFO', appInfo);
             let { $curl, $appConst } = Vue.prototype;
             $curl($appConst.REQ_APP_INFO).then((res) => {
                 commit('SET_APP_INFO', res);

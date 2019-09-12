@@ -15,11 +15,11 @@ import router from '@router'
 
 import '@assets/scss/index.scss'
 import '@assets/icons' // icon
-import '@utils/promise.util'
+import '@utils/promise'
 
 import http from '@utils/http'
 import modal from '@utils/modal'
-import storage from '@uitls/storage'
+import storage from '@utils/storage'
 
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
