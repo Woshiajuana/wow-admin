@@ -44,7 +44,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             let { $curl, $appConst } = Vue.prototype;
             $curl($appConst.REQ_APP_INFO).then((res) => {
-
+                commit('SET_APP_INFO', res);
             }).catch((err) => {
                 console.log(err);
                 reject(err);
