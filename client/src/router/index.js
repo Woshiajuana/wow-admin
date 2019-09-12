@@ -1,6 +1,7 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@store'
 import Layout from '@layout'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style

@@ -23,10 +23,15 @@ class Http {
                 url: this.api,
                 data: this.data,
                 params: this.data,
-            }).then((res) => {
-                this._log('请求成功：返回参数 => ', res);
-                console.log(res);
-                resolve(res);
+            }).then((response) => {
+                this._log('请求成功：返回参数 => ', response);
+                let { status, data: result, statusText } = response;
+                if (status !== 200)
+                    return reject(statusText);
+                let { code, msg, data } = result;
+                if (code !== '0000')
+                    return reject(result);
+                
             }).catch((err) => {
                 this._log('请求失败：返回参数 => ', err);
                 console.log(err);
