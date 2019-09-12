@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import Vue from 'vue'
 
 const state = {
     sidebar: {
@@ -24,9 +25,8 @@ const mutations = {
         state.sidebar.opened = false;
         state.sidebar.withoutAnimation = withoutAnimation
     },
-    TOGGLE_DEVICE: (state, device) => {
-        state.device = device
-    }
+    TOGGLE_DEVICE: (state, device) => state.device = device,
+    SET_APP_INFO: (state, appInfo) => state.appInfo = appInfo,
 };
 
 const actions = {
@@ -40,6 +40,17 @@ const actions = {
         commit('TOGGLE_DEVICE', device)
     },
 
+    getAppInfo ({ commit, state }) {
+        return new Promise((resolve, reject) => {
+            let { $curl, $appConst } = Vue.prototype;
+            $curl($appConst.REQ_APP_INFO).then((res) => {
+
+            }).catch((err) => {
+                console.log(err);
+                reject(err);
+            })
+        });
+    },
 
 };
 
