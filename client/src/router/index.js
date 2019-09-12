@@ -65,8 +65,10 @@ export function resetRouter() {
 router.beforeEach(async(to, from, next) => {
     NProgress.start();
     let { appInfo } = store.getters;
+    let { path: toPath } = to;
+    let { path: fromPath } = from;
     if (appInfo) {
-        next();
+        toPath === '/setup' ? next('/') : next();
     } else {
         let { $modal } = Vue.prototype;
         try {
@@ -74,6 +76,7 @@ router.beforeEach(async(to, from, next) => {
             next();
         } catch (e) {
             $modal.toast(e, 'error');
+            toPath === '/setup' ? next() : next(`/setup?redirect=${toPath}`);
         }
     }
     NProgress.done();
