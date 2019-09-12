@@ -17,6 +17,7 @@ class Http {
     _curl () {
         return new Promise((resolve, reject) => {
             this._log('请求参数 => ', this.data);
+            let { callbackSuccess, callbackError } = this.options;
             axios({
                 ...this.options,
                 url: this.api,

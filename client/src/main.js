@@ -31,6 +31,8 @@ const DEFAULT_OPTIONS = {
         baseURL: '',
         timeout: 3000,
         method: 'POST',
+        callbackSuccess: response => response,
+        callbackError: () => {},
     },
     // app 常量配置
     appConst: {
@@ -49,10 +51,8 @@ window.wowRuntime = {
         this._handleInitConst();
         this._handleInitApp();
         this._handleMountVue();
-        return {
-            app,
-            wow: this.wow,
-        };
+        window.wow = this.wow;
+        return { app: this.app, wow: this.wow};
     },
     getOptions () {
         return this.options;
@@ -107,6 +107,14 @@ let { wow, app } = window.wowRuntime.init({
     // app 常量配置
     appConst: {
         REQ_APP_INFO: 'api/v1/app/info',
+    },
+    // 路由配置
+    routerConfig: {
+
+    },
+    // 组件配置
+    component: {
+
     },
 });
 

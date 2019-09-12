@@ -19,7 +19,6 @@
         },
         methods: {
             testFun () {
-                this.$curl('haha');
             },
         }
     }
