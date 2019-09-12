@@ -65,7 +65,6 @@ router.beforeEach(async(to, from, next) => {
     // start progress bar
     NProgress.start();
     if (from.name === null) {
-
     }
     next();
     NProgress.done();
