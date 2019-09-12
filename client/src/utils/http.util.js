@@ -1,6 +1,6 @@
 
-import Config           from '@/config'
-import axios            from 'axios'
+import axios from 'axios'
+import _ from 'lodash'
 
 class Http {
 
@@ -9,8 +9,7 @@ class Http {
         this.data = Object.assign({}, data);
         this.options = Object.assign({
             method: 'POST',
-            baseURL: Config.baseURL,
-            timeout: 10000,
+            timeout: 3000,
         }, options);
         return this._curl();
     }
@@ -19,8 +18,8 @@ class Http {
         return new Promise((resolve, reject) => {
             this._log('请求参数 => ', this.data);
             axios({
-                url: this.api,
                 ...this.options,
+                url: this.api,
                 data: this.data,
                 params: this.data,
             }).then((res) => {
@@ -41,10 +40,9 @@ class Http {
 
 }
 
-function fn (api = '', data = {}, options = {}) {
-    return new Http(api, data, options);
-}
+export default (config) => {
+    return (api, data, options) => {
+        return new Http(api, data, _.merge({}, options, config));
+    };
+};
 
-export default fn;
-
-fn.API = Object.assign({}, Config.api);

@@ -123,7 +123,7 @@ const initConfig = {
   },
 };
 console.log(window.appRuntime)
-// const { app, utlis } = window.appRuntime.init(initConfig);
+const { app, utlis } = window.appRuntime.init(initConfig);
 // window.poppyUtils = utlis;
 // console.log('poppyUtils', poppyUtils); // 返回运行时内部vue实例上的工具
 
