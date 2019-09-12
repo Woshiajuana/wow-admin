@@ -41,8 +41,15 @@ class Http {
 }
 
 export default (config) => {
-    return (api, data, options) => {
+    const fn = (api, data, options) => {
         return new Http(api, data, _.merge({}, options, config));
     };
+    fn.get = (api, data, options) => {
+        return new Http(api, data, _.merge(options, config, { method: 'GET' }));
+    };
+    fn.post = (api, data, options) => {
+        return new Http(api, data, _.merge(options, config, { method: 'POST' }));
+    };
+    return fn;
 };
 

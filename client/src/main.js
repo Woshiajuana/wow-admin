@@ -18,14 +18,6 @@ import '@assets/icons' // icon
 
 import Http from '@utils/http.util'
 
-
-Http(Http.API.REQ_APP_INFO).then((res) => {
-    console.log('成功回调 => ', res);
-}).catch((err) => {
-    console.log('失败回调 => ', err);
-});
-
-
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
 
@@ -48,7 +40,7 @@ const DEFAULT_OPTIONS = {
 
 window.wowRuntime = {
     app: null, // app
-    wow: null, // 总体工具类
+    wow: {}, // 总体工具类
     options: {},
     init (options = {}) {
         this.options = _.merge({}, DEFAULT_OPTIONS, options);
@@ -56,6 +48,7 @@ window.wowRuntime = {
         this._handleInitHttp();
         this._handleInitConst();
         this._handleInitApp();
+        this._handleMountVue();
         return {
             app,
             wow: this.wow,
@@ -67,6 +60,10 @@ window.wowRuntime = {
     getDefaultOptions () {
         return DEFAULT_OPTIONS;
     },
+    _handleMountVue () {
+        Object.assign(Vue.prototype, this.wow);
+        return this;
+    },
     _handleInitApp () {
         this.app = new Vue({
             store,
@@ -77,12 +74,12 @@ window.wowRuntime = {
     },
     _handleInitConst () {
         let { appConst } = this.options;
-        this._use('appConst', appConst);
+        this.wow.$appConst = appConst;
         return this;
     },
     _handleInitHttp () {
         let { httpRequest } = this.options;
-        this._use('curl', Http(httpRequest));
+        this.wow.$curl = Http(httpRequest);
         return this;
     },
     _handleInitExtend () {
@@ -100,7 +97,7 @@ window.wowRuntime = {
 let { wow, app } = window.wowRuntime.init({
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
     extendUtils: {
-
+        ccc: () => { console.log('cacaca') },
     },
     // API配置
     httpRequest: {

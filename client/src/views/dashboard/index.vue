@@ -13,6 +13,14 @@
             ...mapGetters([
                 'name'
             ])
+        },
+        created () {
+            this.testFun();
+        },
+        methods: {
+            testFun () {
+                this.$curl('haha');
+            },
         }
     }
 </script>
