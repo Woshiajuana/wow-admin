@@ -36,7 +36,8 @@ const DEFAULT_OPTIONS = {
     },
     // app 常量配置
     appConst: {
-        REQ_APP_INFO: '',
+        // 查询 APPINFO
+        REQ_APP_INFO: 'api/v1/app/info',
     },
 };
 
@@ -49,8 +50,8 @@ window.wowRuntime = {
         this._handleInitExtend();
         this._handleInitHttp();
         this._handleInitConst();
-        this._handleInitApp();
         this._handleMountVue();
+        this._handleInitApp();
         window.wow = this.wow;
         return { app: this.app, wow: this.wow};
     },
@@ -106,7 +107,6 @@ let { wow, app } = window.wowRuntime.init({
     },
     // app 常量配置
     appConst: {
-        REQ_APP_INFO: 'api/v1/app/info',
     },
     // 路由配置
     routerConfig: {
