@@ -33,12 +33,13 @@ Vue.prototype.http$ = Http;
 
 const DEFAULT_OPTIONS = {
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
-    extend: {
+    extendUtils: {
         a: 1,
     },
     // API配置
-    api: {
-        a: 1,
+    httpRequest: {
+        baseURL: '',
+        timeout: 3000,
     },
 };
 
@@ -65,14 +66,17 @@ window.wowRuntime = {
     getDefaultOptions () {
         return DEFAULT_OPTIONS;
     },
+    _handleApi () {
+
+    },
     _handleHttp () {
+        let { httpRequest } = this.options;
+
         // return Http();
     },
     _handleExtend () {
-        let { extend } = this.options;
-        _.forEach(extend, (item, key) => {
-            this._use(key, item);
-        });
+        let { extendUtils } = this.options;
+        _.forEach(extendUtils, (item, key) => this._use(key, item));
     },
     _use (key, value) {
         value && (this.wow[`$${key}`] = value);
@@ -82,7 +86,7 @@ window.wowRuntime = {
 
 
 let { wow, app } = window.wowRuntime.init({
-    extend: {
+    extendUtils: {
         b: 2,
         c: 3,
     },
