@@ -15,8 +15,10 @@ import router from '@router'
 
 import '@assets/scss/index.scss'
 import '@assets/icons' // icon
+import '@utils/promise.util'
 
-import Http from '@utils/http.util'
+import http from '@utils/http.util'
+import modal from '@utils/modal.util'
 
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
@@ -24,7 +26,7 @@ Vue.config.productionTip = false;
 const DEFAULT_OPTIONS = {
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
     extendUtils: {
-
+        modal,
     },
     // API配置
     httpRequest: {
@@ -80,7 +82,7 @@ window.wowRuntime = {
     },
     _handleInitHttp () {
         let { httpRequest } = this.options;
-        this.wow.$curl = Http(httpRequest);
+        this.wow.$curl = http(httpRequest);
         return this;
     },
     _handleInitExtend () {

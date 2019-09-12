@@ -66,11 +66,12 @@ router.beforeEach(async(to, from, next) => {
     // start progress bar
     NProgress.start();
     if (from.name === null) {
+        let { $modal } = Vue.prototype;
         try {
             await store.dispatch('app/getAppInfo');
             next();
         } catch (e) {
-            console.log(e);
+            $modal.toast(e, 'error');
         }
     }
     NProgress.done();
