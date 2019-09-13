@@ -102,6 +102,7 @@ window.wowRuntime = {
 let { wow, app } = window.wowRuntime.init({
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
     extendUtils: {
+        ccc1: () => { console.log('cacaca') },
         ccc: () => { console.log('cacaca') },
     },
     // API配置
