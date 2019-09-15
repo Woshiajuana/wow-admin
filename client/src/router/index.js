@@ -70,13 +70,18 @@ router.beforeEach(async(to, from, next) => {
     if (appInfo) {
         toPath === '/setup' ? next('/') : next();
     } else {
+        if (toPath === '/setup') {
+
+        }
         let { $modal } = Vue.prototype;
         try {
             await store.dispatch('app/getAppInfo');
             next();
         } catch (e) {
             $modal.toast(e, 'error');
-            toPath === '/setup' ? next() : next(`/setup?redirect=${toPath}`);
+            if (e.code === 'F00001') {
+                toPath === '/setup' ? next() : next(`/setup?redirect=${toPath}`);
+            }
         }
     }
     NProgress.done();

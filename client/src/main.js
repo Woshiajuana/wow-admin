@@ -107,7 +107,7 @@ let { wow, app } = window.wowRuntime.init({
     },
     // API配置
     httpRequest: {
-        baseURL: 'http://192.168.2.160:7001/',
+        baseURL: 'http://127.0.0.1:7001/',
         timeout: 3000,
     },
     // app 常量配置
