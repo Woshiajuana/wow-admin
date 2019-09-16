@@ -70,9 +70,6 @@ router.beforeEach(async(to, from, next) => {
     if (appInfo) {
         toPath === '/setup' ? next('/') : next();
     } else {
-        if (toPath === '/setup') {
-
-        }
         let { $modal } = Vue.prototype;
         try {
             await store.dispatch('app/getAppInfo');
