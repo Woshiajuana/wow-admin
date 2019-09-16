@@ -34,8 +34,10 @@ class Http {
                     return reject(result);
                 resolve(data);
             }).catch((err) => {
-                this._log('请求失败：返回参数 => ', err);
-                reject(err);
+                let { response = {} } = err;
+                this._log('请求失败：返回参数 => ', response);
+                let { status, statusText } = response;
+                reject(statusText || err);
             });
         });
     }
