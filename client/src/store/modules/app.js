@@ -8,7 +8,7 @@ const state = {
         withoutAnimation: false,
     },
     device: 'desktop',
-    appInfo: '',
+    appInfo: '1',
 };
 
 const mutations = {
@@ -47,10 +47,14 @@ const actions = {
     getAppInfo ({ commit, state }) {
         return new Promise((resolve, reject) => {
             let appInfo = storage.cache.get('APP_INFO');
-            if (appInfo) return commit('SET_APP_INFO', appInfo);
+            if (appInfo) {
+                commit('SET_APP_INFO', appInfo);
+                return resolve(appInfo);
+            }
             let { $curl, $appConst } = Vue.prototype;
             $curl($appConst.REQ_APP_GET).then((res) => {
                 commit('SET_APP_INFO', res);
+                resolve(res);
             }).catch((err) => {
                 reject(err);
             })

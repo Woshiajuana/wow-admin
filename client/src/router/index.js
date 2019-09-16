@@ -67,13 +67,19 @@ router.beforeEach(async(to, from, next) => {
     let { appInfo } = store.getters;
     let { path: toPath } = to;
     let { path: fromPath } = from;
+    console.log('appInfo', appInfo)
     if (appInfo) {
+        console.log(toPath)
+        console.log(toPath === '/setup')
         toPath === '/setup' ? next('/') : next();
     } else {
+        console.log(1)
         let { $modal } = Vue.prototype;
         try {
+            console.log(2)
             await store.dispatch('app/getAppInfo');
-            next();
+            console.log(3)
+            toPath === '/setup' ? next('/') : next();
         } catch (e) {
             $modal.toast(e, 'error');
             if (e.code === 'F00001') {
