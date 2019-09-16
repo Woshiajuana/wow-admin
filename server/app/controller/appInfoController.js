@@ -9,8 +9,7 @@ module.exports = class AppInfoController extends Controller {
     async get () {
         const { ctx, service, app } = this;
         try {
-            const [ objApp ] = await ctx.model.AppInfoModel.find();
-            if (!objApp) throw 'F00001';
+            const objApp = await service.appInfoService.find();
             ctx.respSuccess(objApp);
         } catch (e) {
             ctx.respError(e);
@@ -27,9 +26,8 @@ module.exports = class AppInfoController extends Controller {
                 theme: [ 'nonempty' ],
                 ownership: [ 'nonempty' ],
             });
-            const numCount = await ctx.model.AppInfoModel.count();
-            if (numCount) throw '已设置 APP，不能重复设置，请刷新页面...';
-            await ctx.model.AppInfoModel.create(objParams);
+            await service.appInfoService.count();
+            await service.appInfoService.create(objParams);
             ctx.respSuccess();
         } catch (e) {
             ctx.respError(e);
