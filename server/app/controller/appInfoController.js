@@ -6,7 +6,7 @@ const { Controller } = require('egg');
 module.exports = class AppInfoController extends Controller {
 
     // 查询信息
-    async info () {
+    async get () {
         const { ctx, service, app } = this;
         try {
             const { objApp } = await ctx.model.AppInfoModel.find();
@@ -20,7 +20,7 @@ module.exports = class AppInfoController extends Controller {
     }
 
     // 创建信息
-    async create () {
+    async set () {
         const { ctx, service, app } = this;
         try {
             let objParams = await ctx.validateBody({

@@ -49,7 +49,7 @@ const actions = {
             let appInfo = storage.cache.get('APP_INFO');
             if (appInfo) return commit('SET_APP_INFO', appInfo);
             let { $curl, $appConst } = Vue.prototype;
-            $curl($appConst.REQ_APP_INFO).then((res) => {
+            $curl($appConst.REQ_APP_GET).then((res) => {
                 commit('SET_APP_INFO', res);
             }).catch((err) => {
                 reject(err);
