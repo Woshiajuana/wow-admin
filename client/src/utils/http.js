@@ -30,7 +30,7 @@ class Http {
                     return reject(statusText);
                 let { code, msg, data } = result;
                 this._log('请求成功：返回参数 => ', result);
-                if (code !== '0000')
+                if (code !== 'S00000')
                     return reject(result);
                 resolve(data);
             }).catch((err) => {

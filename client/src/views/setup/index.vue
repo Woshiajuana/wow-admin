@@ -92,13 +92,7 @@
         data () {
             return {
                 loginForm: {
-                    name: '',
-                    logo: 'https://img.mukewang.com/5d7ee31e00017e2118720632.jpg',
-                    theme: 'DEFAULT',
-                    ownership: '归属 AJUAN 所有',
-                },
-                loginForm1: {
-                    name: 'Wow Admin Manage',
+                    name: 'Wow-Admin Manage',
                     logo: 'https://img.mukewang.com/5d7ee31e00017e2118720632.jpg',
                     theme: 'DEFAULT',
                     ownership: '归属 AJUAN 所有',
