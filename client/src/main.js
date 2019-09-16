@@ -20,6 +20,7 @@ import '@utils/promise'
 import http from '@utils/http'
 import modal from '@utils/modal'
 import storage from '@utils/storage'
+import verify from '@utils/verify'
 
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
@@ -29,6 +30,7 @@ const DEFAULT_OPTIONS = {
     extendUtils: {
         modal,
         storage,
+        verify,
     },
     // API配置
     httpRequest: {
