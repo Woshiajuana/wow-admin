@@ -56,7 +56,6 @@ module.exports = {
                     ? codes[code]
                     : options;
         status && (this.status = status);
-        console.log('msg => ', msg);
         this.body = callbackError({
             code,
             data,
