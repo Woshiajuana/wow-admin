@@ -72,7 +72,7 @@ router.beforeEach(async(to, from, next) => {
     } else {
         let { $modal } = Vue.prototype;
         try {
-            await store.dispatch('app/getAppInfo');
+            await store.dispatch('app/getInfo');
             toPath === '/setup' ? next('/') : next();
         } catch (e) {
             $modal.toast(e, 'error');

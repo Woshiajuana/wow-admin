@@ -44,7 +44,7 @@ const actions = {
         commit('TOGGLE_DEVICE', device)
     },
 
-    getAppInfo ({ commit, state }) {
+    getInfo ({ commit, state }) {
         return new Promise((resolve, reject) => {
             let objAppInfo = storage.cache.get('APP_INFO');
             if (objAppInfo) {

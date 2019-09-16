@@ -46,6 +46,10 @@ const DEFAULT_OPTIONS = {
         REQ_APP_GET: 'api/v1/app/get',
         // 设置 APPINFO
         DO_APP_SET: 'api/v1/app/set',
+        // 用户登录
+        DO_USER_LOGIN: 'api/v1/user/login',
+        // 查询用户信息
+        REQ_USER_INFO: 'api/v1/user/info',
     },
 };
 

@@ -1,49 +1,36 @@
-import { resetRouter }                      from '@/router'
+import { resetRouter } from '@/router'
+import Vue from 'vue'
+import storage from '@utils/storage'
 
 const state = {
-    objUserInfo: '',
+    objUserInfo: {},
 };
 
 const mutations = {
     SET_USER_INFO: (state, objUserInfo) => {
-        state.objUserInfo = objUserInfo
+        state.objUserInfo = Object.assign({}, state.objUserInfo, objUserInfo);
     },
 };
 
 const actions = {
 
     login({ commit }, userInfo) {
-        const { username, password } = userInfo
+        const { username, password } = userInfo;
         return new Promise((resolve, reject) => {
-            login({ username: username.trim(), password: password }).then(response => {
-                const { data } = response
-                commit('SET_TOKEN', data.token)
-                setToken(data.token)
-                resolve()
-            }).catch(error => {
-                reject(error)
-            })
+
         })
     },
 
     // get user info
     getInfo({ commit, state }) {
         return new Promise((resolve, reject) => {
-            getInfo(state.token).then(response => {
-                const { data } = response
-
-                if (!data) {
-                    reject('Verification failed, please Login again.')
-                }
-
-                const { name, avatar } = data
-
-                commit('SET_NAME', name)
-                commit('SET_AVATAR', avatar)
-                resolve(data)
-            }).catch(error => {
-                reject(error)
-            })
+            let objUserInfo = storage.cache.get('USER_INFO');
+            if (objUserInfo) {
+                commit('SET_USER_INFO', objUserInfo);
+                return resolve(objUserInfo);
+            }
+            let { $curl, $appConst } = Vue.prototype;
+            $curl($appConst.)
         })
     },
 
@@ -69,7 +56,7 @@ const actions = {
             resolve()
         })
     }
-}
+};
 
 export default {
     namespaced: true,
