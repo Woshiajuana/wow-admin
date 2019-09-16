@@ -76,18 +76,34 @@ router.beforeEach(async(to, from, next) => {
     } = from;
     if (!objUserInfo)
         objUserInfo = await store.dispatch('user/getInfo');
+    let {
+        $modal,
+    } = Vue.prototype;
+    let {
+        accessToken,
+    } = objUserInfo || {};
     if (objAppInfo) {
-
         if (toPath === '/setup') {
-
+            next('/');
+        } else {
+            if (accessToken) {
+                toPath === '/login' ? next('/') : next()
+            } else {
+                toPath === '/login' ? next() : next(`/login?redirect=${to.path}`)
+            }
         }
-
-        toPath === '/setup' ? next('/') : next();
     } else {
-        let { $modal } = Vue.prototype;
         try {
             await store.dispatch('app/getInfo');
-            toPath === '/setup' ? next('/') : next();
+            if (toPath === '/setup') {
+                next('/');
+            } else {
+                if (accessToken) {
+                    toPath === '/login' ? next('/') : next()
+                } else {
+                    toPath === '/login' ? next() : next(`/login?redirect=${to.path}`)
+                }
+            }
         } catch (e) {
             $modal.toast(e, 'error');
             if (e.code === 'F00001') {
