@@ -3,7 +3,7 @@ import Vue from 'vue'
 import storage from '@utils/storage'
 
 const state = {
-    objUserInfo: {},
+    objUserInfo: '',
 };
 
 const mutations = {
@@ -27,10 +27,8 @@ const actions = {
             let objUserInfo = storage.cache.get('USER_INFO');
             if (objUserInfo) {
                 commit('SET_USER_INFO', objUserInfo);
-                return resolve(objUserInfo);
             }
-            let { $curl, $appConst } = Vue.prototype;
-            $curl($appConst.)
+            resolve(objUserInfo);
         })
     },
 

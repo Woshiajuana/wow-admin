@@ -64,10 +64,24 @@ export function resetRouter() {
 
 router.beforeEach(async(to, from, next) => {
     NProgress.start();
-    let { objAppInfo } = store.getters;
-    let { path: toPath } = to;
-    let { path: fromPath } = from;
+    let {
+        objAppInfo,
+        objUserInfo,
+    } = store.getters;
+    let {
+        path: toPath,
+    } = to;
+    let {
+        path: fromPath,
+    } = from;
+    if (!objUserInfo)
+        objUserInfo = await store.dispatch('user/getInfo');
     if (objAppInfo) {
+
+        if (toPath === '/setup') {
+
+        }
+
         toPath === '/setup' ? next('/') : next();
     } else {
         let { $modal } = Vue.prototype;
