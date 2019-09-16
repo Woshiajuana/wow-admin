@@ -17,9 +17,6 @@ Promise.prototype.null = function () {
 
 Promise.prototype.toast = function () {
     return this.catch(err => {
-        if (typeof err === 'object') {
-            err = err.respMessage || JSON.stringify(err);
-        }
         modal.toast(err, 'error');
     });
 };
