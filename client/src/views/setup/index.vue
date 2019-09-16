@@ -11,50 +11,84 @@
                 <h3 class="title">设置 APP</h3>
             </div>
 
-            <el-form-item prop="username">
+            <el-form-item prop="name">
                 <span class="svg-container">
                     <svg-icon icon-class="user" />
                 </span>
                 <el-input
-                    ref="username"
-                    v-model="loginForm.username"
-                    placeholder="Username"
-                    name="username"
+                    ref="name"
+                    v-model="loginForm.name"
+                    placeholder="APP名称"
+                    name="name"
                     type="text"
                     tabindex="1"
                     auto-complete="on"
                 />
             </el-form-item>
 
-            <el-form-item prop="password">
+            <el-form-item prop="logo">
                 <span class="svg-container">
-                    <svg-icon icon-class="password" />
+                    <svg-icon icon-class="user" />
                 </span>
                 <el-input
-                    :key="passwordType"
-                    ref="password"
-                    v-model="loginForm.password"
-                    :type="passwordType"
-                    placeholder="Password"
-                    name="password"
-                    tabindex="2"
+                    ref="logo"
+                    v-model="loginForm.logo"
+                    placeholder="APP LOGO URL"
+                    name="logo"
+                    type="text"
+                    tabindex="1"
                     auto-complete="on"
-                    @keyup.enter.native="handleLogin"
                 />
-                <span class="show-pwd" @click="showPwd">
-                    <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-                </span>
             </el-form-item>
 
-            <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">提交</el-button>
+            <el-form-item prop="theme">
+                <span class="svg-container">
+                    <svg-icon icon-class="user" />
+                </span>
+                <el-input
+                    ref="theme"
+                    v-model="loginForm.theme"
+                    placeholder="主题"
+                    name="theme"
+                    type="text"
+                    tabindex="1"
+                    auto-complete="on"
+                />
+            </el-form-item>
+
+            <el-form-item prop="ownership">
+                <span class="svg-container">
+                    <svg-icon icon-class="user" />
+                </span>
+                <el-input
+                    ref="ownership"
+                    v-model="loginForm.ownership"
+                    placeholder="所有权"
+                    name="ownership"
+                    type="text"
+                    tabindex="1"
+                    auto-complete="on"
+                />
+            </el-form-item>
+
+            <el-button
+                :loading="loading"
+                type="primary"
+                style="width:100%;margin-bottom:30px;"
+                @click.native.prevent="handleLogin"
+            >提交</el-button>
 
         </el-form>
     </div>
 </template>
 
 <script>
+    import Mixin from './index.mixin'
     export default {
         name: 'SetUp',
+        mixins: [
+            Mixin,
+        ],
         data () {
             return {
                 loginForm: {
@@ -69,19 +103,10 @@
                     theme: [{ required: true, trigger: 'blur' }],
                     ownership: [{ required: true, trigger: 'blur' }],
                 },
+                loading: false,
             }
         },
         methods: {
-            showPwd() {
-                if (this.passwordType === 'password') {
-                    this.passwordType = ''
-                } else {
-                    this.passwordType = 'password'
-                }
-                this.$nextTick(() => {
-                    this.$refs.password.focus()
-                })
-            },
             handleLogin() {
                 this.$refs.loginForm.validate(valid => {
                     if (valid) {
