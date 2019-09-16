@@ -1,0 +1,53 @@
+
+'use strict';
+
+module.exports = app => {
+    const mongoose = app.mongoose;
+    const Schema = mongoose.Schema;
+    const postSchema = new Schema({
+
+        // 名称
+        name: {
+            type: String,
+            trim: true,
+            minlength: 2,
+            maxlength: 20,
+            default: '',
+        },
+
+        // 头像
+        avatar: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+
+        // 手机
+        phone: {
+            type: String,
+            trim: true,
+            maxlength: 13,
+        },
+
+        // 邮箱
+        email: {
+            type: String,
+            trim: true,
+            maxlength: 30,
+        },
+
+        // 创建时间
+        created_at: {
+            type: Date,
+            default: Date.now,
+        },
+
+        // 更新时间
+        updated_at: {
+            type: Date,
+            default: Date.now,
+        },
+
+    });
+    return mongoose.model('user_info', postSchema);
+};
