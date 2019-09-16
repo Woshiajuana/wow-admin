@@ -15,39 +15,16 @@ module.exports = app => {
             default: '',
         },
 
-        // 密码
-        password: {
-            type: String,
-            trim: true,
-            required: true,
-            maxlength: 32,
+        // 路由权限 or 菜单权限
+        routes: {
+            type: Array,
+            default: [],
         },
 
-        // 头像
-        avatar: {
-            type: String,
-            trim: true,
-            required: true,
-        },
-
-        // 手机
-        phone: {
-            type: String,
-            trim: true,
-            maxlength: 13,
-        },
-
-        // 邮箱
-        email: {
-            type: String,
-            trim: true,
-            maxlength: 30,
-        },
-
-        // 用户组
-        group: {
-            type: Schema.Types.ObjectId,
-            ref: 'user_group',
+        // 接口权限
+        api: {
+            type: Array,
+            default: [],
         },
 
         // 创建时间
