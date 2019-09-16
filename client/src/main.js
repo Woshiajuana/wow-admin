@@ -44,6 +44,8 @@ const DEFAULT_OPTIONS = {
     appConst: {
         // 查询 APPINFO
         REQ_APP_INFO: 'api/v1/app/info',
+        // 设置 APPINFO
+        DO_APP_SET: 'api/v1/app/set',
     },
 };
 
@@ -114,6 +116,7 @@ let { wow, app } = window.wowRuntime.init({
     },
     // app 常量配置
     appConst: {
+
     },
     // 路由配置
     routerConfig: {

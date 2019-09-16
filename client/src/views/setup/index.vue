@@ -107,21 +107,28 @@
             }
         },
         methods: {
-            handleLogin() {
-                this.$refs.loginForm.validate(valid => {
-                    if (valid) {
-                        this.loading = true
-                        this.$store.dispatch('user/login', this.loginForm).then(() => {
-                            this.$router.push({ path: this.redirect || '/' })
-                            this.loading = false
-                        }).catch(() => {
-                            this.loading = false
-                        })
-                    } else {
-                        console.log('error submit!!')
-                        return false
-                    }
-                })
+            handleLogin () {
+                this.loading = true;
+                this.$curl(this.$appConst.DO_APP_SET, this.loginForm).then(() => {
+                    
+                }).toast().finally(() => {
+                    this.loading = false;
+                });
+
+                // this.$refs.loginForm.validate(valid => {
+                //     if (valid) {
+                //         this.loading = true
+                //         this.$store.dispatch('user/login', this.loginForm).then(() => {
+                //             this.$router.push({ path: this.redirect || '/' })
+                //             this.loading = false
+                //         }).catch(() => {
+                //             this.loading = false
+                //         })
+                //     } else {
+                //         console.log('error submit!!')
+                //         return false
+                //     }
+                // })
             }
         }
     }
