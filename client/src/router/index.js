@@ -82,7 +82,9 @@ router.beforeEach(async(to, from, next) => {
     let {
         accessToken,
     } = objUserInfo || {};
-    if (objAppInfo) {
+    if (toPath === '/404') {
+        next();
+    } else if (objAppInfo) {
         if (toPath === '/setup') {
             next('/');
         } else {
@@ -108,6 +110,8 @@ router.beforeEach(async(to, from, next) => {
             $modal.toast(e, 'error');
             if (e.code === 'F00001') {
                 toPath === '/setup' ? next() : next(`/setup?redirect=${toPath}`);
+            } else {
+                next('/404');
             }
         }
     }
