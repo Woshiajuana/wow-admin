@@ -8,7 +8,7 @@ const state = {
         withoutAnimation: false,
     },
     device: 'desktop',
-    appInfo: '',
+    objAppInfo: '',
 };
 
 const mutations = {
@@ -27,9 +27,9 @@ const mutations = {
         state.sidebar.withoutAnimation = withoutAnimation
     },
     TOGGLE_DEVICE: (state, device) => state.device = device,
-    SET_APP_INFO: (state, appInfo) => {
-        state.appInfo = appInfo;
-        storage.cache.set('APP_INFO', appInfo);
+    SET_APP_INFO: (state, objAppInfo) => {
+        state.objAppInfo = objAppInfo;
+        storage.cache.set('APP_INFO', objAppInfo);
     },
 };
 
@@ -46,10 +46,10 @@ const actions = {
 
     getAppInfo ({ commit, state }) {
         return new Promise((resolve, reject) => {
-            let appInfo = storage.cache.get('APP_INFO');
-            if (appInfo) {
-                commit('SET_APP_INFO', appInfo);
-                return resolve(appInfo);
+            let objAppInfo = storage.cache.get('APP_INFO');
+            if (objAppInfo) {
+                commit('SET_APP_INFO', objAppInfo);
+                return resolve(objAppInfo);
             }
             let { $curl, $appConst } = Vue.prototype;
             $curl($appConst.REQ_APP_GET).then((res) => {

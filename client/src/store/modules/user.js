@@ -1,27 +1,17 @@
-import { login, logout, getInfo }           from '@/api/user'
-import { getToken, setToken, removeToken }  from '@/utils/auth'
 import { resetRouter }                      from '@/router'
 
 const state = {
-    token: getToken(),
-    name: '',
-    avatar: ''
+    objUserInfo: '',
 };
 
 const mutations = {
-    SET_TOKEN: (state, token) => {
-        state.token = token
+    SET_USER_INFO: (state, objUserInfo) => {
+        state.objUserInfo = objUserInfo
     },
-    SET_NAME: (state, name) => {
-        state.name = name
-    },
-    SET_AVATAR: (state, avatar) => {
-        state.avatar = avatar
-    }
 };
 
 const actions = {
-    // user login
+
     login({ commit }, userInfo) {
         const { username, password } = userInfo
         return new Promise((resolve, reject) => {
