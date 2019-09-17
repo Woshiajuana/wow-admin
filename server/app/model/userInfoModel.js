@@ -77,11 +77,11 @@ module.exports = app => {
     return mongoose.model('user_info', postSchema);
 };
 
-module.populate = [
+module.exports.populate = [
     {
         path: 'group',
         select: 'name menu_routes api_routes is_root_group created_at updated_at',
     },
 ];
 
-module.select = 'nickname avatar phone email group is_root created_at updated_at';
+module.exports.select = 'nickname avatar phone email group is_root created_at updated_at';

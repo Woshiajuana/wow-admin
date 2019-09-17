@@ -14,27 +14,24 @@ module.exports = class HandleServer extends Service {
 
     // 登录查询
     async auth ({ account, password }) {
-        console.log(select)
-        console.log(populate)
         let objUser = await this.findOne({ nickname: account, password });
         if (!objUser)
             objUser = await this.findOne({ phone: account, password });
         if (!objUser)
             objUser = await this.findOne({ email: account, password });
         if (!objUser) throw '用户账号不存在或密码错误';
-        delete objUser.password;
         return objUser;
     }
 
     // 查询用户信息
     async findOne (data) {
         const { ctx } = this;
-        return await ctx.model.UserInfoModel.findOne(data);
+        return await ctx.model.UserInfoModel.findOne(data).select(select).populate(populate).lean();
     }
 
     async findById (id) {
         const { ctx } = this;
-        return await ctx.model.UserInfoModel.findById(data);
+        return await ctx.model.UserInfoModel.findById(data).select(select).populate(populate).lean();
     }
 
 
