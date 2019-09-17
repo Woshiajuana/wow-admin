@@ -2,7 +2,7 @@
 
 const { Controller } = require('egg');
 
-module.exports = class UserController extends Controller {
+module.exports = class UserInfoController extends Controller {
     async register() {
         const { ctx, service, app } = this;
         try {

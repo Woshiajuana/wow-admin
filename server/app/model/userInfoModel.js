@@ -50,6 +50,12 @@ module.exports = app => {
             ref: 'user_group',
         },
 
+        // 是否是 root账号
+        is_root: {
+            type: Boolean,
+            default: false,
+        },
+
         // 创建时间
         created_at: {
             type: Date,
