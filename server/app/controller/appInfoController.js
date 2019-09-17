@@ -3,7 +3,7 @@
 
 const { Controller } = require('egg');
 
-module.exports = class AppInfoController extends Controller {
+module.exports = class HandleController extends Controller {
 
     // 查询信息
     async info () {

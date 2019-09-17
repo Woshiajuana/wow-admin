@@ -3,7 +3,7 @@
 
 const { Controller } = require('egg');
 
-module.exports = class UserGroupController extends Controller {
+module.exports = class HandleController extends Controller {
 
     async create () {
 

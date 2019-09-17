@@ -3,7 +3,7 @@
 
 const { Service } = require('egg');
 
-module.exports = class AppInfoService extends Service {
+module.exports = class HandleServer extends Service {
 
     async find () {
         const { ctx } = this;
