@@ -22,7 +22,20 @@ module.exports = class HandleController extends Controller {
 
     // 授权登录
     async login () {
+        const { ctx, service, app } = this;
+        try {
+            let {
+                account,
+                password,
+            } = await ctx.validateBody({
+                account: [ 'nonempty' ],
+                password: [ 'nonempty' ],
+            });
 
+            ctx.respSuccess();
+        } catch (err) {
+            ctx.respError(err);
+        }
     }
 
     // 授权验证
