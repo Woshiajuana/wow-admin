@@ -1,83 +1,32 @@
 <template>
     <div class="login-container">
-        <el-form ref="loginForm"
-                 :model="loginForm"
-                 :rules="loginRules"
-                 class="login-form"
-                 auto-complete="on"
-                 label-position="left">
-
+        <el-form
+            class="login-form"
+            auto-complete="on"
+            label-position="left">
             <div class="title-container">
                 <h3 class="title">设置 APP</h3>
             </div>
-
-            <el-form-item prop="name">
+            <el-form-item
+                v-for="(item, key) in objForm"
+                :key="key">
                 <span class="svg-container">
                     <svg-icon icon-class="user" />
                 </span>
                 <el-input
-                    ref="name"
-                    v-model="loginForm.name"
-                    placeholder="APP名称"
-                    name="name"
-                    type="text"
+                    v-model="item.value"
+                    :placeholder="item.placeholder"
+                    :type="item.type"
                     tabindex="1"
                     auto-complete="on"
-                />
+                ></el-input>
             </el-form-item>
-
-            <el-form-item prop="logo">
-                <span class="svg-container">
-                    <svg-icon icon-class="user" />
-                </span>
-                <el-input
-                    ref="logo"
-                    v-model="loginForm.logo"
-                    placeholder="APP LOGO URL"
-                    name="logo"
-                    type="text"
-                    tabindex="1"
-                    auto-complete="on"
-                />
-            </el-form-item>
-
-            <el-form-item prop="theme">
-                <span class="svg-container">
-                    <svg-icon icon-class="user" />
-                </span>
-                <el-input
-                    ref="theme"
-                    v-model="loginForm.theme"
-                    placeholder="主题"
-                    name="theme"
-                    type="text"
-                    tabindex="1"
-                    auto-complete="on"
-                />
-            </el-form-item>
-
-            <el-form-item prop="ownership">
-                <span class="svg-container">
-                    <svg-icon icon-class="user" />
-                </span>
-                <el-input
-                    ref="ownership"
-                    v-model="loginForm.ownership"
-                    placeholder="所有权"
-                    name="ownership"
-                    type="text"
-                    tabindex="1"
-                    auto-complete="on"
-                />
-            </el-form-item>
-
             <el-button
                 :loading="loading"
                 type="primary"
                 style="width:100%;margin-bottom:30px;"
                 @click.native.prevent="handleLogin"
             >提交</el-button>
-
         </el-form>
     </div>
 </template>
@@ -89,51 +38,17 @@
         mixins: [
             Mixin,
         ],
-        data () {
-            return {
-                loginForm: {
-                    name: 'Wow-Admin Manage',
-                    logo: 'https://img.mukewang.com/5d7ee31e00017e2118720632.jpg',
-                    theme: 'DEFAULT',
-                    ownership: '归属 AJUAN 所有',
-                    nickname: 'admin',
-                    password: '123456',
-                    avatar: 'https://img.mukewang.com/5d7ee31e00017e2118720632.jpg',
-                    phone: '13188888888',
-                    email: '979703986@qq.com',
-                },
-                loginRules: {
-                    name: [{ required: true, trigger: 'blur' }],
-                    logo: [{ required: true, trigger: 'blur' }],
-                    theme: [{ required: true, trigger: 'blur' }],
-                    ownership: [{ required: true, trigger: 'blur' }],
-                },
-                loading: false,
-            }
-        },
         methods: {
             handleLogin () {
+                if (this.$verify.check(this.objForm))
+                    return null;
+                let data = this.$verify.input(this.objForm);
                 this.loading = true;
-                this.$curl(this.$appConst.DO_APP_INIT, this.loginForm).then(() => {
+                this.$curl(this.$appConst.DO_APP_INIT, data).then(() => {
                     this.$router.push('/');
                 }).toast().finally(() => {
                     this.loading = false;
                 });
-
-                // this.$refs.loginForm.validate(valid => {
-                //     if (valid) {
-                //         this.loading = true
-                //         this.$store.dispatch('user/login', this.loginForm).then(() => {
-                //             this.$router.push({ path: this.redirect || '/' })
-                //             this.loading = false
-                //         }).catch(() => {
-                //             this.loading = false
-                //         })
-                //     } else {
-                //         console.log('error submit!!')
-                //         return false
-                //     }
-                // })
             }
         }
     }

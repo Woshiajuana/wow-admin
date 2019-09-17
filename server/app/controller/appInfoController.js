@@ -35,7 +35,7 @@ module.exports = class HandleController extends Controller {
                 logo: [ 'nonempty' ],
                 theme: [ 'nonempty' ],
                 ownership: [ 'nonempty' ],
-                username: [ 'nonempty' ],
+                nickname: [ 'nonempty' ],
                 password: [ 'nonempty' ],
                 avatar: [ 'nonempty' ],
                 phone: [ 'nonempty' ],
