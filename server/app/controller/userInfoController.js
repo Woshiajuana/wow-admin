@@ -34,12 +34,28 @@ module.exports = class HandleController extends Controller {
                 captcha: [],
             });
             let objUser = await service.userInfoService.auth({ account, password });
+            objUser = await service.userInfoService.token(objUser);
             ctx.respSuccess(objUser);
         } catch (err) {
             ctx.respError(err);
         }
     }
 
-    // 授权验证
+    // 用户列表
+    async list () {
+        const { ctx, service, app } = this;
+        try {
+            let {
+                pageIndex,
+                pageSize,
+            } = await ctx.validateBody({
+                pageIndex: [ 'nonempty' ],
+                pageSize: [ 'nonempty' ],
+            });
+
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
 
 };

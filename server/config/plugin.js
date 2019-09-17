@@ -26,6 +26,12 @@ exports.mongoose = {
     package: 'egg-mongoose',
 };
 
+// token
+exports.jwt = {
+    enable: true,
+    package: "egg-jwt"
+};
+
 // 发送邮件
 exports.email = {
     enable: true,

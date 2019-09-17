@@ -51,6 +51,11 @@ module.exports = appInfo => {
         },
     };
 
+    // add jwt
+    exports.jwt = {
+        secret: "wowadminajuan"
+    };
+
     // add security
     config.security = {
         csrf: {
