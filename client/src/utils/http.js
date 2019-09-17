@@ -7,10 +7,7 @@ class Http {
     constructor (api, data, options) {
         this.api = api;
         this.data = Object.assign({}, data);
-        this.options = Object.assign({
-            method: 'POST',
-            timeout: 3000,
-        }, options);
+        this.options = options;
         return this._curl();
     }
 

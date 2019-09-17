@@ -21,6 +21,8 @@ module.exports = app => {
     router.post('/api/v1/app/info', controller.appInfoController.info);
     // 初始化应用信息
     router.post('/api/v1/app/init', controller.appInfoController.init);
+    // 管理员用户授权登录
+    router.post('/api/v1/user/login', controller.userInfoController.login);
     // 初始化路由
     apiRoutes.forEach((item) => {
         let { path, handler, method } = Object.assign({ method: 'POST' }, item);

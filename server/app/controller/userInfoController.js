@@ -23,16 +23,19 @@ module.exports = class HandleController extends Controller {
     // 授权登录
     async login () {
         const { ctx, service, app } = this;
+        console.log('打扑克都怕死看大片打卡三大炮')
         try {
             let {
                 account,
                 password,
+                captcha,
             } = await ctx.validateBody({
                 account: [ 'nonempty' ],
                 password: [ 'nonempty' ],
+                captcha: [],
             });
-
-            ctx.respSuccess();
+            let objUser = await service.userInfoService.auth({ account, password });
+            ctx.respSuccess(objUser);
         } catch (err) {
             ctx.respError(err);
         }
