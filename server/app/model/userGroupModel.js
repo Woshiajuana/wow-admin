@@ -40,5 +40,5 @@ module.exports = app => {
         },
 
     });
-    return mongoose.model('user_info', postSchema);
+    return mongoose.model('user_group', postSchema);
 };
