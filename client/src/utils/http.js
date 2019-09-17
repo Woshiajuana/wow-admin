@@ -15,11 +15,12 @@ class Http {
         return new Promise((resolve, reject) => {
             this._log('请求参数 => ', this.data);
             let { callbackSuccess, callbackError } = this.options;
+            let isGet = this.options.method === 'GET';
             axios({
                 ...this.options,
                 url: this.api,
-                data: this.data,
-                params: this.data,
+                data: isGet ? '' : this.data,
+                params: isGet ? this.data : '',
             }).then((response) => {
                 this._log('请求成功：返回数据 => ', response);
                 let { status, data: result, statusText } = response;
@@ -47,7 +48,7 @@ class Http {
 
 export default (config) => {
     const fn = (api, data, options) => {
-        return new Http(api, data, _.merge({}, options, config));
+        return new Http(api, data, _.merge({ method: 'POST' }, options, config));
     };
     fn.get = (api, data, options) => {
         return new Http(api, data, _.merge(options, config, { method: 'GET' }));
