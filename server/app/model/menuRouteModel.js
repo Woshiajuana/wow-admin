@@ -6,32 +6,35 @@ module.exports = app => {
     const Schema = mongoose.Schema;
     const postSchema = new Schema({
 
-        // 名称
+        // 菜单名称
         name: {
             type: String,
             trim: true,
+            required: true,
             unique: true,
             minlength: 2,
             maxlength: 20,
+        },
+
+        // 路径
+        path: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+
+        // 参数
+        params: {
+            type: String,
+            trim: true,
             default: '',
         },
 
-        // 路由权限 or 菜单权限
-        menu_routes: [{
-            type: Schema.Types.ObjectId,
-            ref: 'menu_route',
-        }],
-
-        // 接口权限
-        api_routes: [{
-            type: Schema.Types.ObjectId,
-            ref: 'api_route',
-        }],
-
-        // 是否是超级管理员组
-        is_root_group: {
-            type: Boolean,
-            default: false,
+        // icon
+        icon: {
+            type: String,
+            trim: true,
+            default: '',
         },
 
         // 创建时间
@@ -47,5 +50,5 @@ module.exports = app => {
         },
 
     });
-    return mongoose.model('user_group', postSchema);
+    return mongoose.model('menu_route', postSchema);
 };

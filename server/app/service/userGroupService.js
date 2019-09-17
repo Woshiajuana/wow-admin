@@ -5,8 +5,10 @@ const { Service } = require('egg');
 
 module.exports = class HandleServer extends Service {
 
-    async create () {
-
+    // 创建用户组
+    async create (data) {
+        const { ctx } = this;
+        await ctx.model.UserGroupModel.create(data);
     }
 
 

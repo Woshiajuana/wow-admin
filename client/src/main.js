@@ -43,9 +43,9 @@ const DEFAULT_OPTIONS = {
     // app 常量配置
     appConst: {
         // 查询 APPINFO
-        REQ_APP_GET: 'api/v1/app/get',
+        REQ_APP_INFO: 'api/v1/app/info',
         // 设置 APPINFO
-        DO_APP_SET: 'api/v1/app/set',
+        DO_APP_INIT: 'api/v1/app/init',
         // 用户登录
         DO_USER_LOGIN: 'api/v1/user/login',
     },

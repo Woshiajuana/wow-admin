@@ -96,6 +96,11 @@
                     logo: 'https://img.mukewang.com/5d7ee31e00017e2118720632.jpg',
                     theme: 'DEFAULT',
                     ownership: '归属 AJUAN 所有',
+                    nickname: 'admin',
+                    password: '123456',
+                    avatar: 'https://img.mukewang.com/5d7ee31e00017e2118720632.jpg',
+                    phone: '13188888888',
+                    email: '979703986@qq.com',
                 },
                 loginRules: {
                     name: [{ required: true, trigger: 'blur' }],
@@ -109,8 +114,8 @@
         methods: {
             handleLogin () {
                 this.loading = true;
-                this.$curl(this.$appConst.DO_APP_SET, this.loginForm).then(() => {
-
+                this.$curl(this.$appConst.DO_APP_INIT, this.loginForm).then(() => {
+                    this.$router.push('/');
                 }).toast().finally(() => {
                     this.loading = false;
                 });

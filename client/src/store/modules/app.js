@@ -52,7 +52,7 @@ const actions = {
                 return resolve(objAppInfo);
             }
             let { $curl, $appConst } = Vue.prototype;
-            $curl($appConst.REQ_APP_GET).then((res) => {
+            $curl($appConst.REQ_APP_INFO).then((res) => {
                 commit('SET_APP_INFO', res);
                 resolve(res);
             }).catch((err) => {

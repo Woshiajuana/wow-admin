@@ -7,7 +7,7 @@ module.exports = app => {
     const postSchema = new Schema({
 
         // 名称
-        name: {
+        nickname: {
             type: String,
             trim: true,
             minlength: 2,
@@ -27,7 +27,7 @@ module.exports = app => {
         avatar: {
             type: String,
             trim: true,
-            required: true,
+            default: '',
         },
 
         // 手机
@@ -35,13 +35,17 @@ module.exports = app => {
             type: String,
             trim: true,
             maxlength: 13,
+            unique: true,
+            require: true,
         },
 
         // 邮箱
         email: {
             type: String,
             trim: true,
+            unique: true,
             maxlength: 30,
+            require: true,
         },
 
         // 用户组
