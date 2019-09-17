@@ -3,7 +3,7 @@
 const { Controller } = require('egg');
 
 module.exports = class UserInfoController extends Controller {
-    async register() {
+    async create() {
         const { ctx, service, app } = this;
         try {
             let { email, password, captcha } = await ctx.validateBody({

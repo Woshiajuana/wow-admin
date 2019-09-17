@@ -10,28 +10,24 @@ module.exports = app => {
         name: {
             type: String,
             trim: true,
+            required: true,
             unique: true,
             minlength: 2,
             maxlength: 20,
-            default: '',
         },
 
-        // 路由权限 or 菜单权限
-        menu_routes: {
-            type: Array,
-            default: [],
+        // 路径
+        path: {
+            type: String,
+            trim: true,
+            required: true,
         },
 
-        // 接口权限
-        api_routes: {
-            type: Array,
-            default: [],
-        },
-
-        // 是否是超级管理员组
-        is_root_group: {
-            type: Boolean,
-            default: false,
+        // 请求方式
+        method: {
+            type: String,
+            trim: true,
+            default: 'POST',
         },
 
         // 创建时间
@@ -47,5 +43,5 @@ module.exports = app => {
         },
 
     });
-    return mongoose.model('user_group', postSchema);
+    return mongoose.model('api_route', postSchema);
 };
