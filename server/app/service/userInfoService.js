@@ -29,9 +29,10 @@ module.exports = class HandleServer extends Service {
         return await ctx.model.UserInfoModel.findOne(data).select(select).populate(populate).lean();
     }
 
+    // 根据 id 查询用户信息
     async findById (id) {
         const { ctx } = this;
-        return await ctx.model.UserInfoModel.findById(data).select(select).populate(populate).lean();
+        return await ctx.model.UserInfoModel.findById(id).select(select).populate(populate).lean();
     }
 
 
