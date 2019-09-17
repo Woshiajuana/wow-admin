@@ -8,7 +8,7 @@ module.exports = class HandleServer extends Service {
     // 创建用户组
     async create (data) {
         const { ctx } = this;
-        await ctx.model.UserGroupModel.create(data);
+        return await ctx.model.UserGroupModel.create(data);
     }
 
 

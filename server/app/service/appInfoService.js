@@ -24,7 +24,7 @@ module.exports = class HandleServer extends Service {
     // 初始化 APP 应用
     async init (data) {
         const { ctx } = this;
-        await ctx.model.AppInfoModel.init(data);
+        return await ctx.model.AppInfoModel.create(data);
     }
 
 };

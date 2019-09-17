@@ -3,7 +3,9 @@
 const { Controller } = require('egg');
 
 module.exports = class HandleController extends Controller {
-    async create() {
+
+    // 创建管理员
+    async create () {
         const { ctx, service, app } = this;
         try {
             let { email, password, captcha } = await ctx.validateBody({
@@ -17,4 +19,12 @@ module.exports = class HandleController extends Controller {
             ctx.respError(err);
         }
     }
+
+    // 授权登录
+    async login () {
+
+    }
+
+    // 授权验证
+
 };

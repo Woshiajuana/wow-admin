@@ -51,11 +51,10 @@ module.exports = class HandleController extends Controller {
                 ownership,
             });
             // 初始化超级管理员用户组
-            let admin = await service.userGroupService.create({
+            const objAdminGroup = await service.userGroupService.create({
                 name: '超级管理员',
                 is_root_group: true,
             });
-            console.log(admin);
             // 初始化超级管理员用户
             await service.userInfoService.create({
                 nickname,
@@ -63,6 +62,8 @@ module.exports = class HandleController extends Controller {
                 avatar,
                 phone,
                 email,
+                is_root: true,
+                group: objAdminGroup._id,
             });
             ctx.respSuccess();
         } catch (e) {

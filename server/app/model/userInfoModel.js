@@ -12,7 +12,7 @@ module.exports = app => {
             trim: true,
             minlength: 2,
             maxlength: 20,
-            default: '',
+            unique: true,
         },
 
         // 密码
@@ -52,6 +52,7 @@ module.exports = app => {
         group: {
             type: Schema.Types.ObjectId,
             ref: 'user_group',
+            require: true,
         },
 
         // 是否是 root账号
