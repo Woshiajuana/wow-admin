@@ -2,9 +2,7 @@
 const data = () => {
 
     return {
-        arrTable: [
-
-        ],
+        arrTable: [],
         objInput: {
             goodsName: {
                 value: '',
