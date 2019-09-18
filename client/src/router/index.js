@@ -59,7 +59,13 @@ export const constantRoutes = [
                 name: 'Group',
                 component: () => import('@views/admin/group'),
                 meta: { title: '用户组列表', icon: 'table' },
-            }
+            },
+            {
+                path: 'menu',
+                name: 'Menu',
+                component: () => import('@views/admin/menu'),
+                meta: { title: '菜单列表', icon: 'table' },
+            },
         ],
     },
 

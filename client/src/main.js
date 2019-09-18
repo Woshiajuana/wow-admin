@@ -25,6 +25,14 @@ import verify from '@utils/verify'
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
 
+const componentFiles = require.context('./components', true, /index\.vue$/); // 不支持变量传路径
+
+componentFiles.keys().forEach((key) => {
+    let strName = key.substring(2, key.indexOf('/index.vue'));
+    Vue.component(strName, componentFiles(key).default || componentFiles(key));
+});
+
+
 const DEFAULT_OPTIONS = {
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
     extendUtils: {
