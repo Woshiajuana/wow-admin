@@ -19,7 +19,7 @@ const actions = {
     login({ commit }, data) {
         return new Promise((resolve, reject) => {
             let { $curl, $appConst } = Vue.prototype;
-            $curl($appConst.REQ_APP_INFO, data).then((objUserInfo) => {
+            $curl($appConst.DO_USER_LOGIN, data).then((objUserInfo) => {
                 commit('SET_USER_INFO', objUserInfo);
                 resolve(objUserInfo);
             }).catch((err) => {

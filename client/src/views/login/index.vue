@@ -41,14 +41,6 @@
         mixins: [
             Mixin,
         ],
-        watch: {
-            $route: {
-                handler: function(route) {
-                    this.redirect = route.query && route.query.redirect
-                },
-                immediate: true
-            }
-        },
         methods: {
             handleLogin() {
                 if (this.$verify.check(this.objForm))
