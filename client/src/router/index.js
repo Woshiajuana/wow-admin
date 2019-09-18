@@ -36,9 +36,31 @@ export const constantRoutes = [
         children: [{
             path: 'dashboard',
             name: 'Dashboard',
-            component: () => import('@views/dashboard/index'),
+            component: () => import('@views/dashboard'),
             meta: { title: 'Dashboard', icon: 'dashboard' }
-        }]
+        }],
+    },
+
+    {
+        path: '/admin',
+        component: Layout,
+        redirect: '/admin/user',
+        name: 'Admin',
+        meta: { title: '管理员用户管理', icon: 'user' },
+        children: [
+            {
+                path: 'user',
+                name: 'User',
+                component: () => import('@views/admin/user'),
+                meta: { title: '管理员列表', icon: 'table' },
+            },
+            {
+                path: 'group',
+                name: 'Group',
+                component: () => import('@views/admin/group'),
+                meta: { title: '用户组列表', icon: 'table' },
+            }
+        ],
     },
 
     {
