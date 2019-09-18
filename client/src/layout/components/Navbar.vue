@@ -49,6 +49,7 @@
                     type: 'warning'
                 }).then(async () => {
                     await this.$store.dispatch('user/logout');
+                    console.log('xsxxxaxa')
                     this.$router.push(`/login?redirect=${this.$route.fullPath}`)
                 }).null();
             }
