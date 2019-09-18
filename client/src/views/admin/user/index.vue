@@ -1,14 +1,22 @@
 <template>
     <div class="wrap">
-        <span>管理员用户列表</span>
+        <filter-view
+            :form-data="objInput"
+            :button-data="operateData"
+        ></filter-view>
+
     </div>
 </template>
 
 <script>
     import { mapGetters } from 'vuex'
+    import DataMixin from './data.mixin'
 
     export default {
         name: 'AdminUser',
+        mixins: [
+            DataMixin,
+        ],
         computed: {
             ...mapGetters([
                 'objAppInfo',

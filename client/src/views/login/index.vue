@@ -36,12 +36,12 @@
 
 <script>
     import { mapGetters } from 'vuex'
-    import Mixin from './index.mixin'
+    import DataMixin from './data.mixin'
 
     export default {
         name: 'Login',
         mixins: [
-            Mixin,
+            DataMixin,
         ],
         computed: {
             ...mapGetters([
