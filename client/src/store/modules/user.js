@@ -8,7 +8,7 @@ const state = {
 
 const mutations = {
     SET_USER_INFO: (state, objUserInfo) => {
-        state.objUserInfo = Object.assign({}, state.objUserInfo, objUserInfo);
+        state.objUserInfo = Object.assign({}, objUserInfo);
         storage.local.set('USER_INFO', objUserInfo);
     },
 };
