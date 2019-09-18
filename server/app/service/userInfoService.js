@@ -3,6 +3,7 @@
 
 const { Service } = require('egg');
 const { populate, select, listSelect } = require('./../model/userInfoModel');
+const ms = require('ms');
 
 module.exports = class HandleServer extends Service {
 
@@ -25,8 +26,13 @@ module.exports = class HandleServer extends Service {
 
     // 生成 token
     async token (objUser) {
-        const { ctx, app } = this;
-        objUser.access_token = await app.jwt.sign(objUser, app.config.jwt.secret);
+        const { ctx, app, config } = this;
+        const { redis } = app;
+        console.log('config.jwt.maxAge', config.jwt.maxAge);
+        const numMaxAge = ms(config.jwt.maxAge || '10m');
+        const strToken = ctx.jwt.sign(objUser);
+        await redis.set(strToken, objUser, 'EX', numMaxAge * 0.001);
+        objUser.access_token = strToken;
         return objUser;
     }
 
