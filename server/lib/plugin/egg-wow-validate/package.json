@@ -33,10 +33,7 @@
   "ci": {
     "version": "6, 7"
   },
-  "dependencies": {
-    "assert": "^1.4.1",
-    "nodemailer": "^4.0.1"
-  },
+  "dependencies": {},
   "deprecated": false,
   "description": "egg 验证服务",
   "devDependencies": {
