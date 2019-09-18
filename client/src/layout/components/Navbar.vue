@@ -2,27 +2,19 @@
     <div class="navbar">
         <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
         <breadcrumb class="breadcrumb-container" />
-
         <div class="right-menu">
             <el-dropdown class="avatar-container" trigger="click">
                 <div class="avatar-wrapper">
-                    <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-                    <i class="el-icon-caret-bottom" />
+                    <span>{{objUserInfo.nickname}}</span>
+                    <img :src="objUserInfo.avatar" class="user-avatar">
+                    <i class="el-icon-caret-bottom"></i>
                 </div>
                 <el-dropdown-menu slot="dropdown" class="user-dropdown">
                     <router-link to="/">
-                        <el-dropdown-item>
-                            Home
-                        </el-dropdown-item>
+                        <el-dropdown-item>首页</el-dropdown-item>
                     </router-link>
-                    <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-                        <el-dropdown-item>Github</el-dropdown-item>
-                    </a>
-                    <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-                        <el-dropdown-item>Docs</el-dropdown-item>
-                    </a>
                     <el-dropdown-item divided>
-                        <span style="display:block;" @click="logout">Log Out</span>
+                        <span style="display:block;" @click="logout">安全退出</span>
                     </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -43,7 +35,7 @@
         computed: {
             ...mapGetters([
                 'sidebar',
-                'avatar'
+                'objUserInfo'
             ])
         },
         methods: {
@@ -51,14 +43,21 @@
                 this.$store.dispatch('app/toggleSideBar')
             },
             async logout() {
-                await this.$store.dispatch('user/logout')
-                this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+                this.$confirm('确认退出改账号?', '温馨提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(async () => {
+                    await this.$store.dispatch('user/logout');
+                    this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+                }).null();
             }
         }
     }
 </script>
 
 <style lang="scss" scoped>
+    @import "~@assets/scss/define.scss";
     .navbar {
         height: 50px;
         overflow: hidden;
@@ -86,7 +85,6 @@
         .right-menu {
             float: right;
             height: 100%;
-            line-height: 50px;
 
             &:focus {
                 outline: none;
@@ -114,10 +112,16 @@
                 margin-right: 30px;
 
                 .avatar-wrapper {
+                    @extend %cp;
+                    @extend %df;
+                    @extend %aic;
                     margin-top: 5px;
                     position: relative;
-
+                    span{
+                        font-size: 20px;
+                    }
                     .user-avatar {
+                        margin-left: 10px;
                         cursor: pointer;
                         width: 40px;
                         height: 40px;
