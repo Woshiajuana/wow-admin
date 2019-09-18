@@ -6,7 +6,7 @@
             label-position="left">
 
             <div class="title-container">
-                <h3 class="title">登录</h3>
+                <h3 class="title">{{objAppInfo.name}}</h3>
             </div>
 
             <el-form-item
@@ -27,7 +27,7 @@
             <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
             <div class="tips">
-                <span style="margin-right:20px;">忘记密码请找超级管理员</span>
+                <span style="margin-right:20px;">忘记密码请联系超级管理员</span>
             </div>
 
         </el-form>
@@ -35,12 +35,19 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
     import Mixin from './index.mixin'
+
     export default {
         name: 'Login',
         mixins: [
             Mixin,
         ],
+        computed: {
+            ...mapGetters([
+                'objAppInfo',
+            ]),
+        },
         methods: {
             handleLogin() {
                 if (this.$verify.check(this.objForm))

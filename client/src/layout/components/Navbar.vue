@@ -35,8 +35,8 @@
         computed: {
             ...mapGetters([
                 'sidebar',
-                'objUserInfo'
-            ])
+                'objUserInfo',
+            ]),
         },
         methods: {
             toggleSideBar() {
