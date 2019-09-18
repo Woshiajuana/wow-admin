@@ -5,8 +5,8 @@
         <div class="right-menu">
             <el-dropdown class="avatar-container" trigger="click">
                 <div class="avatar-wrapper">
-                    <span>{{objUserInfo.nickname}}</span>
                     <img :src="objUserInfo.avatar" class="user-avatar">
+                    <span>{{objUserInfo.nickname}}</span>
                     <i class="el-icon-caret-bottom"></i>
                 </div>
                 <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -121,7 +121,7 @@
                         font-size: 20px;
                     }
                     .user-avatar {
-                        margin-left: 10px;
+                        margin-right: 10px;
                         cursor: pointer;
                         width: 40px;
                         height: 40px;
@@ -132,7 +132,6 @@
                         cursor: pointer;
                         position: absolute;
                         right: -20px;
-                        top: 25px;
                         font-size: 12px;
                     }
                 }
