@@ -61,8 +61,9 @@
 </script>
 
 <style lang="scss" scoped>
-
+    @import "~@assets/scss/define.scss";
     .inner{
-
+        @extend %bsb;
+        padding: 10px;
     }
 </style>

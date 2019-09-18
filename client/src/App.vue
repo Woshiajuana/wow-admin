@@ -9,3 +9,9 @@
         name: 'App'
     }
 </script>
+
+<style>
+    .app-main{
+        /*background-color: #f2f2f2;*/
+    }
+</style>
