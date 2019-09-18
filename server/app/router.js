@@ -14,7 +14,7 @@ const apiRoutes =  [
     {
         name: '查询管理员用户列表',
         path: '/api/v1/user-info/list',
-        handle: ({ controller }) => [ controller.userInfoController.list ],
+        handler: ({ controller }) => [ controller.userInfoController.list ],
     }
 ];
 

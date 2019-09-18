@@ -25,8 +25,10 @@ module.exports = class HandleServer extends Service {
 
     // 生成 token
     async token (objUser) {
-        const { app } = this;
-        objUser.access_token = app.jwt.sign(objUser, app.config.jwt.secret);
+        const { ctx, app } = this;
+        console.log('到这里了')
+        console.log(ctx.jwt)
+        objUser.access_token = ctx.jwt.sign(objUser, app.config.jwt.secret);
         return objUser;
     }
 

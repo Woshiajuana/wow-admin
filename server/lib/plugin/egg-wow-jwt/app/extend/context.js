@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const JWT = Symbol('Application#jwt');
 
 module.exports = {
+    haha: 'xxx',
 
     get jwt () {
         if (!this[JWT]) {
