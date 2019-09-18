@@ -1,2 +1,2 @@
-# egg-wow-email
+# egg-wow-response
 

@@ -29,6 +29,7 @@ exports.mongoose = {
 // token
 exports.jwt = {
     enable: true,
+    // package: 'egg-jwt',
     path: path.join(__dirname, '../lib/plugin/egg-wow-jwt'),
 };
 

@@ -4,33 +4,31 @@ const jwt = require('jsonwebtoken');
 const JWT = Symbol('Application#jwt');
 
 module.exports = {
-    haha: 'xxx',
-
     get jwt () {
         if (!this[JWT]) {
-            const config = this.config.jwt;
-            console.log('config => ', config);
-            this[JWT] = {};
-            this[JWT].verify = async (jwtString, secretOrPublicKey, options) => {
-                return new Promise((resolve, reject) => {
-                    jwt.verify(
-                        jwtString,
-                        secretOrPublicKey,
-                        options,
-                        (res) => resolve(res)
-                    );
-                });
+            let {
+                app,
+                logger,
+            } = this;
+            const config = app.config.jwt;
+            let { secret } = config;
+            this[JWT] = {
+                decode: jwt.decode,
+                UnauthorizedError: jwt.UnauthorizedError,
             };
-
-            this[JWT].sign = async (payload, secretOrPrivateKey, options) => {
-                return new Promise((resolve, reject) => {
-                    jwt.sign(
-                        payload,
-                        secretOrPrivateKey,
-                        Object.assign({}, config, options),
-                        (res) => resolve(res)
-                    );
-                });
+            this[JWT].verify = (jwtString, secretOrPublicKey, options = {}) => {
+                return jwt.verify(
+                    jwtString,
+                    secretOrPublicKey || secret,
+                    Object.assign({}, options),
+                );
+            };
+            this[JWT].sign = (payload, secretOrPrivateKey, options = {}) => {
+                return jwt.sign(
+                    payload,
+                    secretOrPrivateKey || secret,
+                    Object.assign({}, options)
+                );
             };
         }
         return this[JWT];
