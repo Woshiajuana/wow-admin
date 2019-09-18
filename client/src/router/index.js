@@ -80,7 +80,7 @@ router.beforeEach(async(to, from, next) => {
         $modal,
     } = Vue.prototype;
     let {
-        accessToken,
+        access_token,
     } = objUserInfo || {};
     if (toPath === '/404') {
         next();
@@ -88,7 +88,7 @@ router.beforeEach(async(to, from, next) => {
         if (toPath === '/setup') {
             next('/');
         } else {
-            if (accessToken) {
+            if (access_token) {
                 toPath === '/login' ? next('/') : next()
             } else {
                 toPath === '/login' ? next() : next(`/login?redirect=${to.path}`)
@@ -100,7 +100,7 @@ router.beforeEach(async(to, from, next) => {
             if (toPath === '/setup') {
                 next('/');
             } else {
-                if (accessToken) {
+                if (access_token) {
                     toPath === '/login' ? next('/') : next()
                 } else {
                     toPath === '/login' ? next() : next(`/login?redirect=${to.path}`)
