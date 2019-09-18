@@ -9,22 +9,29 @@ const state = {
 const mutations = {
     SET_USER_INFO: (state, objUserInfo) => {
         state.objUserInfo = Object.assign({}, state.objUserInfo, objUserInfo);
+        storage.local.set('USER_INFO', objUserInfo);
     },
 };
 
 const actions = {
 
-    login({ commit }, userInfo) {
-        const { username, password } = userInfo;
+    // 登录
+    login({ commit }, data) {
         return new Promise((resolve, reject) => {
-
+            let { $curl, $appConst } = Vue.prototype;
+            $curl($appConst.REQ_APP_INFO, data).then((objUserInfo) => {
+                commit('SET_USER_INFO', objUserInfo);
+                resolve(objUserInfo);
+            }).catch((err) => {
+                reject(err);
+            });
         })
     },
 
     // get user info
     getInfo({ commit, state }) {
         return new Promise((resolve, reject) => {
-            let objUserInfo = storage.cache.get('USER_INFO');
+            let objUserInfo = storage.local.get('USER_INFO');
             if (objUserInfo) {
                 commit('SET_USER_INFO', objUserInfo);
             }

@@ -55,8 +55,9 @@
                     return null;
                 let data = this.$verify.input(this.objForm);
                 this.loading = true;
-                this.$curl(this.$appConst.DO_USER_LOGIN, data).then(() => {
-
+                this.$store.dispatch('user/login', data).then(() => {
+                    let redirect = this.$route.query && this.$route.query.redirect;
+                    this.$router.push({ path: redirect || '/' });
                 }).toast().finally(() => {
                     this.loading = false;
                 });
