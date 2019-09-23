@@ -43,7 +43,8 @@ const actions = {
     logout({ commit, state }) {
         return new Promise((resolve, reject) => {
             commit('SET_USER_INFO', '');
-            Vue.$router.push(`/login?redirect=${Vue.$route.fullPath}`)
+            console.log('到达了这儿了')
+            Vue.prototype.$router.push(`/login?redirect=${Vue.prototype.$router.fullPath}`);
             resolve();
         })
     },

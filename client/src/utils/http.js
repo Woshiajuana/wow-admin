@@ -2,6 +2,7 @@
 import axios from 'axios'
 import _ from 'lodash'
 import Vue from 'vue'
+import store from '@store'
 
 class Http {
 
@@ -30,8 +31,8 @@ class Http {
                 let { code, msg, data } = result;
                 this._log('请求成功：返回参数 => ', result);
                 if (['F40001', 'F40002', 'F40003'].indexOf(code) > -1) {
-                    reject(result);
-                    return Vue.$router.push('/login');
+                    store.dispatch('user/logout');
+                    return reject(result);
                 }
                 if (code !== 'S00000')
                     return reject(result);
