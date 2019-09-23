@@ -56,11 +56,19 @@ module.exports = class HandleServer extends Service {
     }
 
     // 用户列表
-    async list ({ numIndex, numSize }) {
+    async list ({ numIndex, numSize, email, group, nickname, phone }) {
         const { ctx } = this;
-        const numTotal = await ctx.model.UserInfoModel.count();
+        const filter = {
+            $or: [  // 多字段同时匹配
+                { email: { $regex: keyword } },
+                { group: { $regex: keyword, $options: '$i' } }, //  $options: '$i' 忽略大小写
+                { nickname: { $regex: keyword, $options: '$i' } },
+                { nickname: { $regex: keyword, $options: '$i' } },
+            ]
+        };
+        const numTotal = await ctx.model.UserInfoModel.count(filter);
         const arrData = await ctx.model.UserInfoModel
-            .find()
+            .find(filter)
             .sort('-create_at')
             .skip((numIndex - 1) * numSize)
             .limit(numSize)
