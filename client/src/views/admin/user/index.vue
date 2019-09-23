@@ -3,6 +3,7 @@
         <filter-view
             :form-data="objInput"
             :button-data="operateData"
+            @filter="reqTableDataList"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -51,7 +52,11 @@
                 }).toast();
             },
             reqTableDataList (callback) {
-                this.$curl(this.$appConst.REQ_USER_LIST, this.objQuery).then((res) => {
+                let options = this.$verify.input(this.objInput);
+                this.$curl(this.$appConst.REQ_USER_LIST, {
+                    ...this.objQuery,
+                    ...options,
+                }).then((res) => {
                     let { arrData = [], numTotal } = res || {};
                     this.arrTable = arrData;
                     this.objQuery.numTotal = numTotal;
