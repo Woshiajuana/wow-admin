@@ -40,12 +40,12 @@
             this.reqTableDataList();
         },
         methods: {
-            reqTableDataList () {
+            reqTableDataList (callback) {
                 this.$curl(this.$appConst.REQ_USER_LIST, this.objQuery).then((res) => {
                     let { arrData = [], numTotal } = res || {};
                     this.arrTable = arrData;
                     this.objQuery.numTotal = numTotal;
-                }).toast();
+                }).toast().finally(() => typeof callback === 'function' && callback());
             },
         }
     }

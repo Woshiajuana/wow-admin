@@ -1,5 +1,8 @@
 <template>
-    <div class="wrap">
+    <div class="wrap"
+         element-loading-text="拼命加载中"
+         element-loading-spinner="el-icon-loading"
+         v-loading="tableUseLoading && tableLoading">
         <el-table
             :data="tableData"
             stripe
@@ -8,8 +11,8 @@
         </el-table>
         <el-pagination
             class="pagination"
-            @size-change="handleEmit('refresh')"
-            @current-change="handleEmit('refresh')"
+            @size-change="handleEmit('refresh', 'numSize', $event)"
+            @current-change="handleEmit('refresh', 'numIndex', $event)"
             :current-page="tableQuery.numIndex"
             :page-sizes="[10, 20, 50, 100]"
             :page-size="tableQuery.numSize"
@@ -22,13 +25,17 @@
 <script>
     export default {
         props: {
+            tableLoading: { default: false },
             tableTotal: { default: 0 },
             tableQuery: { default: {} },
             tableData: { default: [] },
+            tableUseLoading: { default: true },
         },
         methods: {
-            handleEmit (event) {
-                this.$emit(event);
+            handleEmit (eventName, key, event) {
+                this.tableQuery[key] = event;
+                this.tableLoading = this.tableUseLoading;
+                this.$emit(event, () => this.tableLoading = false);
             },
         },
     }
