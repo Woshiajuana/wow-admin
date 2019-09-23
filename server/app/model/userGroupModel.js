@@ -49,3 +49,5 @@ module.exports = app => {
     });
     return mongoose.model('user_group', postSchema);
 };
+
+module.exports.listSelect = 'name is_root_group created_at updated_at';

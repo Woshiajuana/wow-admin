@@ -58,6 +58,8 @@ const DEFAULT_OPTIONS = {
         DO_USER_LOGIN: 'api/v1/user-info/login',
         // 查询管理员用户列表
         REQ_USER_LIST: 'api/v1/user-info/list',
+        // 查询管理元用户组列表
+        REQ_USER_GROUP_LIST: 'api/v1/user-group/list',
     },
 };
 

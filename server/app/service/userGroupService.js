@@ -2,6 +2,7 @@
 'use strict';
 
 const { Service } = require('egg');
+const { listSelect } = require('./../model/userGroupModel');
 
 module.exports = class HandleServer extends Service {
 
@@ -11,6 +12,30 @@ module.exports = class HandleServer extends Service {
         return await ctx.model.UserGroupModel.create(data);
     }
 
+    // 列表
+    async list ({ numIndex, numSize }) {
+        const { ctx } = this;
+        if (numIndex && numSize) {
+            const numTotal = await ctx.model.UserGroupModel.count();
+            const arrData = await ctx.model.UserGroupModel
+                .find()
+                .sort('-create_at')
+                .skip((numIndex - 1) * numSize)
+                .limit(numSize)
+                .select(listSelect)
+                .lean();
+            return {
+                arrData,
+                numTotal,
+                numIndex,
+                numSize,
+            }
+        } else {
+            const arrData = await ctx.model.UserGroupModel
+                .find().sort('-create_at').select(listSelect).lean();
+            return arrData;
+        }
+    }
 
 
 };

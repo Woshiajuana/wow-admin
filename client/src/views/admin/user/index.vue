@@ -41,9 +41,15 @@
             DataMixin,
         ],
         created () {
+            this.reqUserGroupList();
             this.reqTableDataList();
         },
         methods: {
+            reqUserGroupList () {
+                this.$curl(this.$appConst.REQ_USER_GROUP_LIST).then(() => {
+
+                }).toast();
+            },
             reqTableDataList (callback) {
                 this.$curl(this.$appConst.REQ_USER_LIST, this.objQuery).then((res) => {
                     let { arrData = [], numTotal } = res || {};

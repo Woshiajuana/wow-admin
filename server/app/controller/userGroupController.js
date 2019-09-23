@@ -9,4 +9,18 @@ module.exports = class HandleController extends Controller {
 
     }
 
+    async list () {
+        const { ctx, service, app } = this;
+        try {
+            const objParams = await ctx.validateBody({
+                numIndex: [],
+                numSize: [],
+            });
+            const data = await service.userGroupService.list(objParams);
+            ctx.respSuccess(data);
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
 };
