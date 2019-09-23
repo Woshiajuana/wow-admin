@@ -3,6 +3,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import Vue from 'vue'
 import store from '@store'
+import storage from '@utils/storage'
 
 class Http {
 
@@ -16,8 +17,14 @@ class Http {
     _curl () {
         return new Promise((resolve, reject) => {
             this._log('请求参数 => ', this.data);
-            let { callbackSuccess, callbackError } = this.options;
-            let isGet = this.options.method === 'GET';
+            const { access_token = '' } = storage.local.get('USER_INFO') || {};
+            const isGet = this.options.method === 'GET';
+            this.options = _.merge({
+                headers: {
+                    'access-token': access_token,
+                    'content-type': 'application/json; charset=utf-8',
+                },
+            }, this.options);
             axios({
                 ...this.options,
                 url: this.api,
