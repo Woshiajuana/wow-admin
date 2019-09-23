@@ -1,6 +1,7 @@
-import { resetRouter } from '@/router'
+
 import Vue from 'vue'
 import storage from '@utils/storage'
+import router, { resetRouter } from '@router'
 
 const state = {
     objUserInfo: '',
@@ -43,8 +44,7 @@ const actions = {
     logout({ commit, state }) {
         return new Promise((resolve, reject) => {
             commit('SET_USER_INFO', '');
-            console.log('到达了这儿了')
-            Vue.prototype.$router.push(`/login?redirect=${Vue.prototype.$router.fullPath}`);
+            router.push(`/login`);
             resolve();
         })
     },
