@@ -21,6 +21,10 @@
                 label="手机">
             </el-table-column>
             <el-table-column
+                prop="group.name"
+                label="用户组">
+            </el-table-column>
+            <el-table-column
                 prop="created_at"
                 label="创建日期">
             </el-table-column>

@@ -64,7 +64,8 @@ module.exports = class HandleServer extends Service {
             .sort('-create_at')
             .skip((numIndex - 1) * numSize)
             .limit(numSize)
-            .select(listSelect)
+            .select(select)
+            .populate(populate)
             .lean();
         return {
             numTotal,
