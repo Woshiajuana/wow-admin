@@ -31,10 +31,10 @@
                 :style="item.style"
                 @change="handleTap(item)">
                 <el-option
-                    v-for="item in item.options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                    v-for="option in item.options"
+                    :key="option[item.valueKey || 'value']"
+                    :label="option[item.labelKey || 'label']"
+                    :value="option[item.valueKey|| 'value']"
                 ></el-option>
             </el-select>
         </template>

@@ -46,8 +46,8 @@
         },
         methods: {
             reqUserGroupList () {
-                this.$curl(this.$appConst.REQ_USER_GROUP_LIST).then(() => {
-
+                this.$curl(this.$appConst.REQ_USER_GROUP_LIST).then((res) => {
+                    this.objInput.group.options = res;
                 }).toast();
             },
             reqTableDataList (callback) {

@@ -36,6 +36,8 @@ const data = () => {
                 placeholder: '请选择用户组',
                 style: 'width: 170px; margin-right: 5px;',
                 mode: 'select',
+                valueKey: '_id',
+                labelKey: 'name',
                 options: [],
                 event: 'selectPlatform',
             },
