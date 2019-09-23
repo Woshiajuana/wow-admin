@@ -43,6 +43,7 @@ const actions = {
     logout({ commit, state }) {
         return new Promise((resolve, reject) => {
             commit('SET_USER_INFO', '');
+            Vue.$router.push(`/login?redirect=${Vue.$route.fullPath}`)
             resolve();
         })
     },
