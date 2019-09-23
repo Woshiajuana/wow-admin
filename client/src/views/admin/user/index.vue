@@ -5,26 +5,27 @@
             :button-data="operateData"
         ></filter-view>
 
-        <el-table
-            class="inner"
-            :data="arrTable"
-            stripe
-            style="width: 100%">
+        <table-view
+            @refresh="reqTableDataList"
+            :table-query="objQuery"
+            :table-data="arrTable">
             <el-table-column
-                prop="date"
-                label="日期"
-                width="180">
+                prop="nickname"
+                label="昵称">
             </el-table-column>
             <el-table-column
-                prop="name"
-                label="姓名"
-                width="180">
+                prop="email"
+                label="邮箱">
             </el-table-column>
             <el-table-column
-                prop="address"
-                label="地址">
+                prop="phone"
+                label="手机">
             </el-table-column>
-        </el-table>
+            <el-table-column
+                prop="created_at"
+                label="创建日期">
+            </el-table-column>
+        </table-view>
 
     </div>
 </template>
@@ -42,8 +43,10 @@
         },
         methods: {
             reqTableDataList () {
-                this.$curl(this.$appConst.REQ_USER_LIST, this.objQuery).then(() => {
-
+                this.$curl(this.$appConst.REQ_USER_LIST, this.objQuery).then((res) => {
+                    let { arrData = [], total } = res || {};
+                    this.arrTable = arrData;
+                    this.objQuery.numTotal = total;
                 }).toast();
             },
         }

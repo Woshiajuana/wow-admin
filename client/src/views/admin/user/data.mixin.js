@@ -6,6 +6,7 @@ const data = () => {
         objQuery: {
             numIndex: 1,
             numSize: 10,
+            numTotal: 0,
         },
         objInput: {
             goodsName: {
