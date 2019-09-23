@@ -74,6 +74,9 @@ module.exports = appInfo => {
     config.response = {
         codes: {
             F00001: 'APP未设置，请先设置',
+            F40001: 'TOKEN未设置',
+            F40002: 'TOKEN无效，请重新登录',
+            F40003: 'TOKEN已过期，请重新登录',
         },
     };
 

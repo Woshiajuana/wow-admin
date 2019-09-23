@@ -14,7 +14,7 @@ const apiRoutes =  [
     {
         name: '查询管理员用户列表',
         path: '/api/v1/user-info/list',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware, controller.userInfoController.list ],
+        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.list ],
     }
 ];
 
@@ -27,11 +27,11 @@ module.exports = app => {
     // 初始化应用信息
     router.post('/api/v1/app/init', controller.appInfoController.init);
     // 管理员用户授权登录
-    router.post('/api/v1/user/login', controller.userInfoController.login);
+    router.post('/api/v1/user-info/login', controller.userInfoController.login);
+    console.log('middleware.jwtMiddleware => ', middleware.jwtMiddleware)
     // 初始化路由
     apiRoutes.forEach((item) => {
         let { path, handler, method } = Object.assign({ method: 'POST' }, item);
-        router[method.toLocaleLowerCase()](path, ...handler(app))
+        router[method.toLocaleLowerCase()](path, ...handler(app));
     });
-
 };

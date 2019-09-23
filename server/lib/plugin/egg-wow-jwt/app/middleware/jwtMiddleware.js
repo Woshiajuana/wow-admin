@@ -15,11 +15,10 @@ module.exports = (options = {}) => {
         try {
             const accessToken = request.headers['access-token'] || request.body.access_token || query.access_token;
             if (!accessToken)
-                throw 'token 未设置';
+                throw 'F40001';
             const objUser = redis.get(accessToken);
-            console.log('objUser => ', objUser);
             if (!objUser)
-                throw 'token 无效，请重新登录';
+                throw 'F40003';
             ctx.state.user = objUser;
             await next();
         } catch (err) {

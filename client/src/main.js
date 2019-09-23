@@ -55,9 +55,9 @@ const DEFAULT_OPTIONS = {
         // 设置 APPINFO
         DO_APP_INIT: 'api/v1/app/init',
         // 管理员用户登录
-        DO_USER_LOGIN: 'api/v1/user/login',
+        DO_USER_LOGIN: 'api/v1/user-info/login',
         // 查询管理员用户列表
-        REQ_USER_LIST: 'api/v1/user/list',
+        REQ_USER_LIST: 'api/v1/user-info/list',
     },
 };
 
