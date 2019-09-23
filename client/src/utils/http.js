@@ -31,6 +31,7 @@ class Http {
                 this._log('请求成功：返回参数 => ', result);
                 if (['F40001', 'F40002', 'F40003'].indexOf(code) > -1) {
                     reject(result);
+                    console.log('11111')
                     return Vue.$router.push('/login');
                 }
                 if (code !== 'S00000')

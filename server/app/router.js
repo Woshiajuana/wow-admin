@@ -28,7 +28,6 @@ module.exports = app => {
     router.post('/api/v1/app/init', controller.appInfoController.init);
     // 管理员用户授权登录
     router.post('/api/v1/user-info/login', controller.userInfoController.login);
-    console.log('middleware.jwtMiddleware => ', middleware.jwtMiddleware)
     // 初始化路由
     apiRoutes.forEach((item) => {
         let { path, handler, method } = Object.assign({ method: 'POST' }, item);
