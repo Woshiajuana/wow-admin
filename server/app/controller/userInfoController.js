@@ -45,14 +45,12 @@ module.exports = class HandleController extends Controller {
     async list () {
         const { ctx, service, app } = this;
         try {
-            let {
-                pageIndex,
-                pageSize,
-            } = await ctx.validateBody({
-                pageIndex: [ 'nonempty' ],
-                pageSize: [ 'nonempty' ],
+            const objParams = await ctx.validateBody({
+                numIndex: [ 'nonempty' ],
+                numSize: [ 'nonempty' ],
             });
-
+            const data = await service.userInfoService.list(objParams);
+            ctx.respSuccess(data);
         } catch (err) {
             ctx.respError(err);
         }

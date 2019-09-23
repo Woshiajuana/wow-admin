@@ -42,7 +42,7 @@
         },
         methods: {
             reqTableDataList () {
-                this.$curl(this.$appConst.REQ_USER_LIST, { }).then(() => {
+                this.$curl(this.$appConst.REQ_USER_LIST, this.objQuery).then(() => {
 
                 }).toast();
             },

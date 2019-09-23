@@ -3,6 +3,10 @@ const data = () => {
 
     return {
         arrTable: [],
+        objQuery: {
+            numIndex: 1,
+            numSize: 10,
+        },
         objInput: {
             goodsName: {
                 value: '',
