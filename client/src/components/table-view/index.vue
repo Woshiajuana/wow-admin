@@ -2,7 +2,7 @@
     <div class="wrap"
          element-loading-text="拼命加载中"
          element-loading-spinner="el-icon-loading"
-         v-loading="tableUseLoading && tableLoading">
+         v-loading="tableUseLoading && loading">
         <el-table
             :data="tableData"
             stripe
@@ -24,6 +24,11 @@
 
 <script>
     export default {
+        data () {
+            return {
+                loading: false,
+            }
+        },
         props: {
             tableLoading: { default: false },
             tableTotal: { default: 0 },
@@ -31,11 +36,14 @@
             tableData: { default: [] },
             tableUseLoading: { default: true },
         },
+        created () {
+            this.loading = this.tableLoading;
+        },
         methods: {
             handleEmit (eventName, key, event) {
                 this.tableQuery[key] = event;
-                this.tableLoading = this.tableUseLoading;
-                this.$emit(event, () => this.tableLoading = false);
+                this.loading = this.tableUseLoading;
+                this.$emit(eventName, () => this.loading = false);
             },
         },
     }
