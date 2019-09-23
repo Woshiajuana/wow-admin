@@ -48,6 +48,10 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 numIndex: [ 'nonempty' ],
                 numSize: [ 'nonempty' ],
+                email: [],
+                group: [],
+                nickname: [],
+                phone: [],
             });
             const data = await service.userInfoService.list(objParams);
             ctx.respSuccess(data);

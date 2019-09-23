@@ -36,8 +36,7 @@ class Validate {
                 }
                 forEach(uses, (use) => {
                     let typeString = Object.prototype.toString.apply(use);
-                    let ruleFn = null;
-                    let prompt = null;
+                    let ruleFn, prompt;
                     if (typeString === '[object Object]') {
                         prompt = use.prompt;
                         use = use.rule;
@@ -52,7 +51,7 @@ class Validate {
                     if (typeString === '[object Function]') {
                         ruleFn = use;
                     }
-                    if (!ruleFn(value)) {
+                    if (ruleFn && !ruleFn(value)) {
                         this.errResult.push(`${prompt || errPrompt[use] || errPrompt.common}:${key}`);
                         if (mode === 'one') throw '';
                         isValidate = false;
