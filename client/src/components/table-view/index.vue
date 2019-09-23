@@ -16,7 +16,6 @@
             layout="total, sizes, prev, pager, next, jumper"
             :total="tableQuery.numTotal">
         </el-pagination>
-        <text>{{tableQuery}}</text>
     </div>
 </template>
 

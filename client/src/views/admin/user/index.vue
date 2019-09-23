@@ -4,7 +4,6 @@
             :form-data="objInput"
             :button-data="operateData"
         ></filter-view>
-
         <table-view
             @refresh="reqTableDataList"
             :table-query="objQuery"
@@ -26,7 +25,6 @@
                 label="创建日期">
             </el-table-column>
         </table-view>
-
     </div>
 </template>
 
@@ -44,9 +42,9 @@
         methods: {
             reqTableDataList () {
                 this.$curl(this.$appConst.REQ_USER_LIST, this.objQuery).then((res) => {
-                    let { arrData = [], total } = res || {};
+                    let { arrData = [], numTotal } = res || {};
                     this.arrTable = arrData;
-                    this.objQuery.numTotal = total;
+                    this.objQuery.numTotal = numTotal;
                 }).toast();
             },
         }

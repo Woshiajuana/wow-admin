@@ -4,7 +4,7 @@ const data = () => {
     return {
         arrTable: [],
         objQuery: {
-            numIndex: 1,
+            numIndex: 2,
             numSize: 10,
             numTotal: 0,
         },
