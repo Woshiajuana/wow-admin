@@ -10,20 +10,12 @@
             :table-query="objQuery"
             :table-data="arrTable">
             <el-table-column
-                prop="nickname"
-                label="昵称">
+                prop="name"
+                label="名称">
             </el-table-column>
             <el-table-column
-                prop="email"
-                label="邮箱">
-            </el-table-column>
-            <el-table-column
-                prop="phone"
-                label="手机">
-            </el-table-column>
-            <el-table-column
-                prop="group.name"
-                label="用户组">
+                prop="is_root_group"
+                label="是否是超级管理用户组">
             </el-table-column>
             <el-table-column
                 prop="created_at"

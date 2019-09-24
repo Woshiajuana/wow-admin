@@ -13,9 +13,13 @@ module.exports = class HandleServer extends Service {
     }
 
     // 列表
-    async list ({ numIndex, numSize }) {
+    async list ({ numIndex, numSize, name }) {
         const { ctx } = this;
         if (numIndex && numSize) {
+            let filter = { $or: [] }; // 多字段同事匹配
+            if (name) {
+                filter.$or.push({ name: { $regex: name, $options: '$i' } });
+            }
             const numTotal = await ctx.model.UserGroupModel.count();
             const arrData = await ctx.model.UserGroupModel
                 .find()

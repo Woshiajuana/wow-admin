@@ -15,6 +15,7 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 numIndex: [],
                 numSize: [],
+                name: [],
             });
             const data = await service.userGroupService.list(objParams);
             ctx.respSuccess(data);
