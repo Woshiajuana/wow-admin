@@ -4,6 +4,7 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
+            @add="objDialog.is = true"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -22,10 +23,9 @@
                 label="创建日期">
             </el-table-column>
         </table-view>
-
         <!--    新增    -->
         <dialog-view
-            :dialog_visible="objDialog.is">
+            :dialog_visible.sync="objDialog.is">
 
         </dialog-view>
     </div>

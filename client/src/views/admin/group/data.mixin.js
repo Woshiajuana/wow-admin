@@ -35,10 +35,6 @@ const data = () => {
                 text: '新增',
                 type: 'primary',
                 icon: 'el-icon-plus',
-                route: {
-                    path: '/',
-                    params: {},
-                },
                 event: 'add',
             }
         ],

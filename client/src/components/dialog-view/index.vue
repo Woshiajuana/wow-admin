@@ -17,7 +17,7 @@
         },
         methods: {
             handleClose () {
-                this.$emit('update:visible', false);
+                this.$emit('update:dialog_visible', false);
             },
         },
     }
