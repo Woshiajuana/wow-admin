@@ -38,6 +38,11 @@
                 ></el-option>
             </el-select>
         </template>
+        <el-button-group>
+<!--            <el-button type="primary" icon="el-icon-edit"></el-button>-->
+<!--            <el-button type="primary" icon="el-icon-share"></el-button>-->
+            <el-button type="primary" icon="el-icon-delete"></el-button>
+        </el-button-group>
         <template v-for="(item, key) in buttonData">
             <el-button
                 class="filter-item"
@@ -92,7 +97,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../../assets/scss/define";
+    @import "~@assets/scss/define.scss";
     .wrap{
         padding: 10px 10px 0 10px;
         background-color: #fff;
