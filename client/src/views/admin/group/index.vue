@@ -1,8 +1,8 @@
 <template>
     <div class="wrap">
         <filter-view
-            :form-data="objInput"
-            :button-data="operateData"
+            :filter-form="objFilterForm"
+            :filter-button="arrFilterButton"
             @filter="reqTableDataList"
         ></filter-view>
         <table-view
@@ -38,7 +38,7 @@
         },
         methods: {
             reqTableDataList (callback) {
-                let options = this.$verify.input(this.objInput);
+                let options = this.$verify.input(this.objFilterForm);
                 this.$curl(this.$appConst.REQ_USER_GROUP_LIST, {
                     ...this.objQuery,
                     ...options,

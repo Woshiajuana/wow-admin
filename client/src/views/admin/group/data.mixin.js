@@ -8,7 +8,7 @@ const data = () => {
             numSize: 10,
             numTotal: 0,
         },
-        objInput: {
+        objFilterForm: {
             name: {
                 value: '',
                 placeholder: '请输入名称关键字',
@@ -17,7 +17,7 @@ const data = () => {
                 event: 'filter',
             },
         },
-        operateData: [
+        arrFilterButton: [
             {
                 text: '查询',
                 loading: false,

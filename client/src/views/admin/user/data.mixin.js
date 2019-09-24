@@ -8,7 +8,7 @@ const data = () => {
             numSize: 10,
             numTotal: 0,
         },
-        objInput: {
+        objFilterForm: {
             nickname: {
                 value: '',
                 placeholder: '请输入昵称',
@@ -34,7 +34,7 @@ const data = () => {
                 value: '',
                 label: '',
                 placeholder: '请选择用户组',
-                style: 'width: 170px; margin-right: 5px;',
+                style: 'width: 200px; margin-right: 5px;',
                 mode: 'select',
                 valueKey: '_id',
                 labelKey: 'name',
@@ -42,7 +42,7 @@ const data = () => {
                 event: 'selectPlatform',
             },
         },
-        operateData: [
+        arrFilterButton: [
             {
                 text: '查询',
                 loading: false,
