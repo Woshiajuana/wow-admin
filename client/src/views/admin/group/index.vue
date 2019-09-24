@@ -24,14 +24,14 @@
             </el-table-column>
         </table-view>
         <!--    新增    -->
-        <dialog-view
-            :dialog_visible.sync="objDialog.is">
-
-        </dialog-view>
+        <operate-dialog
+            operation_title="新增用户组"
+        ></operate-dialog>
     </div>
 </template>
 
 <script>
+    import OperateDialog from './operation-dialog'
     import DataMixin from './data.mixin'
 
     export default {
@@ -54,7 +54,10 @@
                     this.objQuery.numTotal = numTotal;
                 }).toast().finally(() => typeof callback === 'function' && callback());
             },
-        }
+        },
+        components: {
+            OperateDialog,
+        },
     }
 </script>
 
