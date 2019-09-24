@@ -22,6 +22,8 @@
                 label="创建日期">
             </el-table-column>
         </table-view>
+
+        <!--    新增    -->
         <dialog-view
             :dialog_visible="objDialog.is">
 
