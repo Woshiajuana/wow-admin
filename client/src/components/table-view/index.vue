@@ -4,12 +4,14 @@
          element-loading-spinner="el-icon-loading"
          v-loading="tableUseLoading && loading">
         <el-table
+            size="small"
             :data="tableData"
             stripe
             style="width: 100%">
             <slot></slot>
         </el-table>
         <el-pagination
+            size="small"
             class="pagination"
             @size-change="handleEmit('refresh', 'numSize', $event)"
             @current-change="handleEmit('refresh', 'numIndex', $event)"
