@@ -22,6 +22,10 @@
                 label="创建日期">
             </el-table-column>
         </table-view>
+        <dialog-view
+            :dialog_visible="objDialog.is">
+
+        </dialog-view>
     </div>
 </template>
 
