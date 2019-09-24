@@ -9,7 +9,7 @@ const data = () => {
             numTotal: 0,
         },
         objInput: {
-            nickname: {
+            name: {
                 value: '',
                 placeholder: '请输入名称关键字',
                 style: 'width: 200px; margin-right: 5px;',

@@ -20,9 +20,10 @@ module.exports = class HandleServer extends Service {
             if (name) {
                 filter.$or.push({ name: { $regex: name, $options: '$i' } });
             }
-            const numTotal = await ctx.model.UserGroupModel.count();
+            if (!filter.$or.length) delete filter.$or;
+            const numTotal = await ctx.model.UserGroupModel.count(filter);
             const arrData = await ctx.model.UserGroupModel
-                .find()
+                .find(filter)
                 .sort('-create_at')
                 .skip((numIndex - 1) * numSize)
                 .limit(numSize)
