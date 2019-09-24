@@ -46,7 +46,7 @@
                 :icon="item.icon"
                 :style="item.style"
                 @click="handleTap(item)">
-                {{item.loading ? item.loadingText : item.text}}
+                {{item.loading ? item.loadingText || item.text : item.text}}
             </el-button>
         </template>
     </div>

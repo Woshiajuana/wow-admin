@@ -45,7 +45,6 @@ const data = () => {
         operateData: [
             {
                 text: '查询',
-                loadingText: '查询中',
                 loading: false,
                 type: 'primary',
                 icon: 'el-icon-search',
@@ -53,7 +52,6 @@ const data = () => {
             },
             {
                 text: '新增',
-                loadingText: '新增',
                 type: 'primary',
                 icon: 'el-icon-plus',
                 event: 'add',
