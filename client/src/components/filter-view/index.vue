@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
         <div class="input-wrap">
-            <template v-for="(item, key) in filterFrom">
+            <template v-for="(item, key) in filterForm">
                 <el-date-picker
                     v-if="item.mode === 'daterange'"
                     v-model="item.value"
