@@ -57,15 +57,18 @@ module.exports = class HandleServer extends Service {
 
     // 用户列表
     async list ({ numIndex, numSize, email, group, nickname, phone }) {
-        const { ctx } = this;
-        const filter = {
+        const { ctx, app} = this;
+        let filter = {
             $or: [  // 多字段同时匹配
-                { email: { $regex: keyword } },
-                { group: { $regex: keyword, $options: '$i' } }, //  $options: '$i' 忽略大小写
-                { nickname: { $regex: keyword, $options: '$i' } },
-                { nickname: { $regex: keyword, $options: '$i' } },
+                { email: { $regex: new RegExp(email || '', 'i') } },
+                { nickname: { $regex: new RegExp(nickname || '', 'i') } },
+                { phone: { $regex: new RegExp(phone || '', 'i') } },
             ]
         };
+        if (group) {
+            group = app.mongoose.Types.ObjectId(group);
+            filter.$or.push({ group: group })
+        }
         const numTotal = await ctx.model.UserInfoModel.count(filter);
         const arrData = await ctx.model.UserInfoModel
             .find(filter)
