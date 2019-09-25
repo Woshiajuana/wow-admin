@@ -11,10 +11,10 @@
             label-width="100px"
             class="demo-ruleForm">
             <el-form-item label="名称" prop="name">
-                <el-input v-model="ruleForm.name" maxlength="11"></el-input>
+                <el-input v-model="ruleForm.name" maxlength="20"></el-input>
             </el-form-item>
             <el-form-item label="备注" prop="remark">
-                <el-input type="textarea" v-model="ruleForm.remark"></el-input>
+                <el-input type="textarea" v-model="ruleForm.remark" maxlength="100"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleSubmit">立即创建</el-button>
