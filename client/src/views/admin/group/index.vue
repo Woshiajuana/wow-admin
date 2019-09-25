@@ -31,19 +31,18 @@
             <el-table-column
                 label="操作"
                 fixed="right"
-                width="90" >
-                <template slot-scope="scope">
+                width="150" >
+                <el-button-group slot-scope="scope">
                     <el-button
-                        type="primary"
                         size="mini"
                         @click="handleSelect(scope.row.orderNo)"
                     >编辑</el-button>
                     <el-button
-                        type="primary"
+                        type="danger"
                         size="mini"
                         @click="handleSelect(scope.row.orderNo)"
                     >删除</el-button>
-                </template>
+                </el-button-group>
             </el-table-column>
         </table-view>
         <!--    新增    -->
