@@ -17,10 +17,28 @@
             <el-table-column
                 prop="is_root_group"
                 label="是否是超级管理用户组">
+                <template slot-scope="scope">
+                    <el-tag
+                        :type="scope.row.is_root_group ? 'danger' : 'info'">
+                        {{scope.row.is_root_group ? '是' : '否'}}
+                    </el-tag>
+                </template>
             </el-table-column>
             <el-table-column
                 prop="created_at"
                 label="创建日期">
+            </el-table-column>
+            <el-table-column
+                label="操作"
+                fixed="right"
+                width="90" >
+                <template slot-scope="scope">
+                    <el-button
+                        type="primary"
+                        size="mini"
+                        @click="open(scope.row.orderNo)"
+                    >编辑</el-button>
+                </template>
             </el-table-column>
         </table-view>
         <!--    新增    -->
