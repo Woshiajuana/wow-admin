@@ -4,12 +4,12 @@ const apiRoutes =  [
     {
         name: '创建用户组',
         path: '/api/v1/user-group/create',
-        handler: ({ controller }) => [ controller.userGroupController.create ],
+        handler: ({ controller }) => [ middleware.jwtMiddleware(), controller.userGroupController.create ],
     },
     {
         name: '创建用户管理员',
         path: '/api/v1/user-info/create',
-        handler: ({ controller }) => [ controller.userInfoController.create ],
+        handler: ({ controller }) => [ middleware.jwtMiddleware(), controller.userInfoController.create ],
     },
     {
         name: '查询管理员用户列表',

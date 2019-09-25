@@ -28,6 +28,14 @@ module.exports = app => {
             ref: 'api_route',
         }],
 
+        // 备注
+        remark: {
+            type: String,
+            trim: true,
+            maxlength: 100,
+            default: '',
+        },
+
         // 是否是超级管理员组
         is_root_group: {
             type: Boolean,
@@ -50,4 +58,4 @@ module.exports = app => {
     return mongoose.model('user_group', postSchema);
 };
 
-module.exports.listSelect = 'name is_root_group created_at updated_at';
+module.exports.listSelect = 'name is_root_group remark created_at updated_at';

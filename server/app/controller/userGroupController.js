@@ -6,7 +6,17 @@ const { Controller } = require('egg');
 module.exports = class HandleController extends Controller {
 
     async create () {
-
+        const { ctx, service, app } = this;
+        try {
+            const objParams = await ctx.validateBody({
+                name: [ 'nonempty' ],
+                remark: [ 'nonempty' ],
+            });
+            const data = await service.userGroupService.create(objParams);
+            ctx.respSuccess(data);
+        } catch (err) {
+            ctx.respError(err);
+        }
     }
 
     async list () {
