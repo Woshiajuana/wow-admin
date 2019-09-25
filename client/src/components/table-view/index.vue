@@ -45,6 +45,9 @@
         },
         methods: {
             handleEmit (eventName, key, event) {
+                if (key === 'numSize') {
+                    this.tableQuery.numIndex = 1;
+                }
                 this.tableQuery[key] = event;
                 this.loading = this.tableUseLoading;
                 this.$emit(eventName, () => this.loading = false);
