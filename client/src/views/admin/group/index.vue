@@ -94,6 +94,9 @@
 
 <style lang="scss" scoped>
     @import "~@assets/scss/define.scss";
+    .wrap{
+        //@extend %h100;
+    }
     .inner{
         @extend %bsb;
         padding: 10px;

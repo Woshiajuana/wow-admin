@@ -1,7 +1,7 @@
 <template>
     <section class="app-main">
         <transition name="fade-transform" mode="out-in">
-            <router-view :key="key" />
+            <router-view :key="key" class="app-inner" />
         </transition>
     </section>
 </template>
@@ -35,6 +35,7 @@
         .app-main {
             /* 84 = navbar + tags-view = 50 + 34 */
             min-height: calc(100vh - 84px);
+            height: 100%;
         }
 
         .fixed-header+.app-main {
@@ -44,10 +45,16 @@
 </style>
 
 <style lang="scss">
+    @import "~@assets/scss/define.scss";
     // fix css style bug in open el-dialog
     .el-popup-parent--hidden {
         .fixed-header {
             padding-right: 15px;
         }
+    }
+    .app-inner{
+        @extend %h100;
+        @extend %df;
+        @extend %fdc;
     }
 </style>

@@ -57,6 +57,7 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "~@assets/scss/define.scss";
     @import "~@assets/scss/mixin.scss";
     @import "~@assets/scss/variables.scss";
     .app-wrapper {
@@ -68,6 +69,9 @@
             position: fixed;
             top: 0;
         }
+    }
+    .main-container{
+        @extend %h100;
     }
     .drawer-bg {
         background: #000;

@@ -4,8 +4,10 @@
          element-loading-spinner="el-icon-loading"
          v-loading="tableUseLoading && loading">
         <el-table
+            class="table"
             size="mini"
             :data="tableData"
+            height="100"
             stripe
             style="width: 100%">
             <slot></slot>
@@ -52,9 +54,16 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "~@assets/scss/define.scss";
     .wrap{
+        @extend %df;
+        @extend %fdc;
+        @extend %df1;
         text-align: center;
         padding: 10px;
+    }
+    .table{
+        @extend %df1;
     }
     .pagination{
         margin-top: 20px;
