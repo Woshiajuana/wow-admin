@@ -36,8 +36,13 @@
                     <el-button
                         type="primary"
                         size="mini"
-                        @click="open(scope.row.orderNo)"
+                        @click="handleSelect(scope.row.orderNo)"
                     >编辑</el-button>
+                    <el-button
+                        type="primary"
+                        size="mini"
+                        @click="handleSelect(scope.row.orderNo)"
+                    >删除</el-button>
                 </template>
             </el-table-column>
         </table-view>
@@ -72,6 +77,9 @@
                     this.arrTable = arrData;
                     this.objQuery.numTotal = numTotal;
                 }).toast().finally(() => typeof callback === 'function' && callback());
+            },
+            handleSelect () {
+
             },
         },
         components: {
