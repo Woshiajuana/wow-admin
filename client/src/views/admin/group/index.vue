@@ -34,7 +34,6 @@
             </el-table-column>
             <el-table-column
                 label="操作"
-                fixed="right"
                 width="150" >
                 <el-button-group slot-scope="scope">
                     <el-button
@@ -94,9 +93,6 @@
 
 <style lang="scss" scoped>
     @import "~@assets/scss/define.scss";
-    .wrap{
-        //@extend %h100;
-    }
     .inner{
         @extend %bsb;
         padding: 10px;
