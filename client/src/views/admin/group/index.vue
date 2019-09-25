@@ -51,6 +51,7 @@
         </table-view>
         <!--    新增    -->
         <operate-dialog
+            @refresh="reqTableDataList"
             :operation_visible.sync="objDialog.is"
             operation_title="新增用户组"
         ></operate-dialog>

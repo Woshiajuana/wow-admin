@@ -60,6 +60,8 @@ const DEFAULT_OPTIONS = {
         REQ_USER_LIST: 'api/v1/user-info/list',
         // 查询管理元用户组列表
         REQ_USER_GROUP_LIST: 'api/v1/user-group/list',
+        // 创建用户组
+        DO_CREATE_USER_GROUP: 'api/v1/user-group/create',
     },
 };
 
