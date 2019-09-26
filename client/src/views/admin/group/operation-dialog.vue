@@ -18,7 +18,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleSubmit">立即创建</el-button>
-                <el-button @click="resetForm">关闭</el-button>
+                <el-button @click="handleClose">关闭</el-button>
             </el-form-item>
         </el-form>
     </el-dialog>
@@ -58,7 +58,7 @@
         methods: {
             handleClose () {
                 this.$emit('update:operation_visible', false);
-                // this.resetForm();
+                this.resetForm();
             },
             handleSubmit () {
                 this.$refs.ruleForm.validate((valid) => {
@@ -77,8 +77,11 @@
                 this.$refs.ruleForm.resetFields();
             },
             assignmentData () {
-                let { type, data } = this.operation_data;
-                data && (this.ruleForm = { ...data, id: data._id });
+                this.$nextTick(() => {
+                    this.$refs.ruleForm.resetFields();
+                    let { type, data } = this.operation_data;
+                    data && (this.ruleForm = { ...data, id: data._id });
+                })
             },
         },
     };
