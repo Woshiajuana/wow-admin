@@ -18,7 +18,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleSubmit">立即创建</el-button>
-                <el-button @click="handleClose">关闭</el-button>
+                <el-button @click="resetForm">关闭</el-button>
             </el-form-item>
         </el-form>
     </el-dialog>
@@ -58,13 +58,16 @@
         methods: {
             handleClose () {
                 this.$emit('update:operation_visible', false);
-                this.resetForm();
+                // this.resetForm();
             },
             handleSubmit () {
                 this.$refs.ruleForm.validate((valid) => {
                     if (!valid) return false;
-                    this.$curl(this.$appConst.DO_CREATE_USER_GROUP, this.ruleForm).then((res) => {
-                        this.$modal.toast('新增成功', 'success');
+                    let { type, data } = this.operation_data;
+                    this.$curl(type === 'add'
+                        ? this.$appConst.DO_CREATE_USER_GROUP
+                        : this.$appConst.DO_UPDATE_USER_GROUP, this.ruleForm).then((res) => {
+                        this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();
                     }).toast();
@@ -75,7 +78,7 @@
             },
             assignmentData () {
                 let { type, data } = this.operation_data;
-                data && (this.ruleForm = { ...data });
+                data && (this.ruleForm = { ...data, id: data._id });
             },
         },
     };

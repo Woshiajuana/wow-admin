@@ -43,6 +43,7 @@ module.exports = class HandleController extends Controller {
                 id: [ 'nonempty' ],
             });
             await service.userGroupService.del(id);
+            ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
         }
@@ -57,6 +58,7 @@ module.exports = class HandleController extends Controller {
                 remark: [ 'nonempty' ],
             });
             await service.userGroupService.update(objParams);
+            ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
         }
