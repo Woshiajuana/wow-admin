@@ -42,5 +42,18 @@ module.exports = class HandleServer extends Service {
         }
     }
 
+    // 删除
+    async del (id) {
+        const { ctx, app } = this;
+        await ctx.model.UserGroupModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
+    }
+
+    // 更新
+    async update (data) {
+        const { ctx, app } = this;
+        const { id } = data;
+        delete data.id;
+        await ctx.model.UserGroupModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
+    }
 
 };

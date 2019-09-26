@@ -34,4 +34,32 @@ module.exports = class HandleController extends Controller {
         }
     }
 
+    async del () {
+        const { ctx, service, app } = this;
+        try {
+            const {
+                id,
+            } = await ctx.validateBody({
+                id: [ 'nonempty' ],
+            });
+            await service.userGroupService.del(id);
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
+    async update () {
+        const { ctx, service, app } = this;
+        try {
+            const objParams = await ctx.validateBody({
+                id: [ 'nonempty' ],
+                name: [ 'nonempty' ],
+                remark: [ 'nonempty' ],
+            });
+            await service.userGroupService.update(objParams);
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
 };

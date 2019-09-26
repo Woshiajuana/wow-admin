@@ -2,12 +2,27 @@
 
 const apiRoutes =  [
     {
-        name: '创建用户组',
+        name: '查询管理员用户组列表',
+        path: '/api/v1/user-group/list',
+        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.list ],
+    },
+    {
+        name: '创建管理员用户组',
         path: '/api/v1/user-group/create',
         handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.create ],
     },
     {
-        name: '创建用户管理员',
+        name: '更新管理员用户组',
+        path: '/api/v1/user-group/update',
+        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.update ],
+    },
+    {
+        name: '删除管理员用户组',
+        path: '/api/v1/user-group/delete',
+        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.del ],
+    },
+    {
+        name: '创建管理员用户',
         path: '/api/v1/user-info/create',
         handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.create ],
     },
@@ -15,11 +30,6 @@ const apiRoutes =  [
         name: '查询管理员用户列表',
         path: '/api/v1/user-info/list',
         handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.list ],
-    },
-    {
-        name: '查询管理员用户组列表',
-        path: '/api/v1/user-group/list',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.list ],
     },
 ];
 
