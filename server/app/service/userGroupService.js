@@ -24,7 +24,7 @@ module.exports = class HandleServer extends Service {
             const numTotal = await ctx.model.UserGroupModel.count(filter);
             const arrData = await ctx.model.UserGroupModel
                 .find(filter)
-                .sort('-create_at')
+                .sort('-created_at')
                 .skip((numIndex - 1) * numSize)
                 .limit(numSize)
                 .select(listSelect)
@@ -37,7 +37,7 @@ module.exports = class HandleServer extends Service {
             }
         } else {
             const arrData = await ctx.model.UserGroupModel
-                .find().sort('-create_at').select(listSelect).lean();
+                .find().sort('-created_at').select(listSelect).lean();
             return arrData;
         }
     }
