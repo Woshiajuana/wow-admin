@@ -38,12 +38,12 @@
                 <el-button-group slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="handleSelect(scope.row.orderNo)"
+                        @click="handleEdit(scope.row)"
                     >编辑</el-button>
                     <el-button
                         type="danger"
                         size="mini"
-                        @click="handleSelect(scope.row.orderNo)"
+                        @click="handleDelete(scope.row)"
                     >删除</el-button>
                 </el-button-group>
             </el-table-column>
@@ -81,9 +81,26 @@
                     this.objQuery.numTotal = numTotal;
                 }).toast().finally(() => typeof callback === 'function' && callback());
             },
-            handleSelect () {
+            handleEdit (item) {
 
             },
+            handleDelete (item) {
+                let { _id, name } = item;
+                this.$confirm(`确定删除 ${name} ?`, '温馨提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.doDeleteUserGroup(_id);
+                }).null();
+            },
+            doDeleteUserGroup (id) {
+                this.$curl(this.$appConst.DO_DELETE_USER_GROUP, {
+                    id,
+                }).then(() => {
+                    this.reqTableDataList();
+                }).toast();
+            }
         },
         components: {
             OperateDialog,

@@ -49,6 +49,7 @@
             operation_title: { default: '' },
             operation_visible: { default: false },
             operation_width: { default: '' },
+            operation_data: { default: '' }
         },
         methods: {
             handleClose () {

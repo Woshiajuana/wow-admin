@@ -62,6 +62,10 @@ const DEFAULT_OPTIONS = {
         REQ_USER_GROUP_LIST: 'api/v1/user-group/list',
         // 创建用户组
         DO_CREATE_USER_GROUP: 'api/v1/user-group/create',
+        // 编辑用户组
+        DO_UPDATE_USER_GROUP: 'api/v1/user-group/update',
+        // 删除用户组
+        DO_DELETE_USER_GROUP: 'api/v1/user-group/delete',
     },
 };
 
