@@ -4,7 +4,7 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
-            @add="objDialog.is = true"
+            @add="handleAdd"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -52,7 +52,7 @@
         <operate-dialog
             @refresh="reqTableDataList"
             :operation_visible.sync="objDialog.is"
-
+            :operation_data="objDialog"
             operation_title="新增用户组"
         ></operate-dialog>
     </div>
@@ -82,8 +82,15 @@
                     this.objQuery.numTotal = numTotal;
                 }).toast().finally(() => typeof callback === 'function' && callback());
             },
+            handleAdd () {
+                this.objDialog.is = true;
+                this.objDialog.type = 'add';
+                this.objDialog.data = '';
+            },
             handleEdit (item) {
-
+                this.objDialog.is = true;
+                this.objDialog.type = 'edit';
+                this.objDialog.data = item;
             },
             handleDelete (item) {
                 let { _id, name } = item;

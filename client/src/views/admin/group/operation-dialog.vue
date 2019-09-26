@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        :title="operation_title"
+        :title="operation_data.type === 'add' ? '新增用户组' : '编辑用户组'"
         :visible.sync="operation_visible"
         :before-close="handleClose">
         <el-form
@@ -51,7 +51,6 @@
             },
         },
         props: {
-            operation_title: { default: '' },
             operation_visible: { default: false },
             operation_width: { default: '' },
             operation_data: { default: '' }
@@ -75,7 +74,8 @@
                 this.$refs.ruleForm.resetFields();
             },
             assignmentData () {
-
+                let { type, data } = this.operation_data;
+                data && (this.ruleForm = { ...data });
             },
         },
     };

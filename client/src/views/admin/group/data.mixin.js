@@ -5,9 +5,8 @@ const data = () => {
         arrTable: [],
         objDialog: {
             is: false,
-            data: {
-
-            },
+            type: 'add',
+            data: '',
         },
         objQuery: {
             numIndex: 1,
