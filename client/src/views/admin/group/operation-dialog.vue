@@ -45,6 +45,11 @@
                 }
             }
         },
+        watch: {
+            operation_visible (val) {
+                if (val) this.assignmentData();
+            },
+        },
         props: {
             operation_title: { default: '' },
             operation_visible: { default: false },
@@ -66,9 +71,12 @@
                     }).toast();
                 });
             },
-            resetForm() {
+            resetForm () {
                 this.$refs.ruleForm.resetFields();
-            }
+            },
+            assignmentData () {
+
+            },
         },
     };
 </script>
