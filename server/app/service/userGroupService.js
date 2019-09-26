@@ -42,9 +42,16 @@ module.exports = class HandleServer extends Service {
         }
     }
 
+    async findById (id) {
+        const { ctx, app } = this;
+        return await ctx.model.UserGroupModel.findById(id).lean();
+    }
+
     // 删除
     async del (id) {
         const { ctx, app } = this;
+        const { is_root_group } = await this.findById(id);
+        if (is_root_group) throw '不能删除超级管理用户组';
         await ctx.model.UserGroupModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
     }
 
@@ -52,6 +59,8 @@ module.exports = class HandleServer extends Service {
     async update (data) {
         const { ctx, app } = this;
         const { id } = data;
+        const { is_root_group } = await this.findById(id);
+        if (is_root_group) throw '不能编辑超级管理用户组';
         delete data.id;
         await ctx.model.UserGroupModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
     }
