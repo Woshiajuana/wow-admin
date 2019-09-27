@@ -7,6 +7,12 @@ const ms = require('ms');
 
 module.exports = class HandleServer extends Service {
 
+    // 初始化
+    async init () {
+        const { ctx } = this;
+        
+    }
+
     // 创建管理用户
     async create (data) {
         const { ctx } = this;

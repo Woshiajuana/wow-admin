@@ -5,6 +5,16 @@ const { Controller } = require('egg');
 
 module.exports = class HandleController extends Controller {
 
+    // 初始化
+    async init () {
+        const { ctx, service, app } = this;
+        try {
+
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
     // 创建
     async create () {
         const { ctx, service, app } = this;
