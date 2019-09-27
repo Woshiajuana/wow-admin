@@ -3,11 +3,6 @@ const data = () => {
 
     return {
         arrTable: [],
-        objDialog: {
-            is: false,
-            type: 'add',
-            data: '',
-        },
         objQuery: {
             numIndex: 1,
             numSize: 10,

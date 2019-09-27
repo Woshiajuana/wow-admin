@@ -4,7 +4,7 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
-            @add="handleAdd"
+            @add="handleDialogAdd"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -38,7 +38,7 @@
                 <el-button-group slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="handleEdit(scope.row)"
+                        @click="handleDialogEdit(scope.row)"
                     >编辑</el-button>
                     <el-button
                         type="danger"
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+    import DialogMixin from '@/mixins/dialog'
     import OperateDialog from './operation-dialog'
     import DataMixin from './data.mixin'
 
@@ -66,6 +67,7 @@
         name: 'AdminUser',
         mixins: [
             DataMixin,
+            DialogMixin,
         ],
         created () {
             this.reqTableDataList();
@@ -81,16 +83,6 @@
                     this.arrTable = arrData;
                     this.objQuery.numTotal = numTotal;
                 }).toast().finally(() => typeof callback === 'function' && callback());
-            },
-            handleAdd () {
-                this.objDialog.is = true;
-                this.objDialog.type = 'add';
-                this.objDialog.data = '';
-            },
-            handleEdit (item) {
-                this.objDialog.is = true;
-                this.objDialog.type = 'edit';
-                this.objDialog.data = item;
             },
             handleDelete (item) {
                 let { _id, name } = item;
