@@ -14,7 +14,7 @@
                 <el-input v-model="ruleForm.name" maxlength="20"></el-input>
             </el-form-item>
             <el-form-item label="备注" prop="remark">
-                <el-input type="textarea" v-model="ruleForm.remark" maxlength="100"></el-input>
+                <el-input type="textarea" placeholder="请选择API" v-model="ruleForm.remark" maxlength="100"></el-input>
             </el-form-item>
             <el-form-item label="API" prop="api_routes">
                 <el-select v-model="ruleForm.api_routes" placeholder="请选择API">

@@ -14,4 +14,8 @@
     .app-main{
         /*background-color: #f2f2f2;*/
     }
+
+    .el-select.el-select--mini{
+        width: 100%;
+    }
 </style>

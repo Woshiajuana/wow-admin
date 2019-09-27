@@ -124,7 +124,4 @@
 </script>
 
 <style lang="scss" scoped>
-    .el-select.el-select--mini{
-        width: 100%;
-    }
 </style>
