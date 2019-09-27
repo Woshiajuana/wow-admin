@@ -4,13 +4,14 @@
 const { Service } = require('egg');
 const { populate, select, listSelect } = require('./../model/userInfoModel');
 const ms = require('ms');
+const { apiRoutes } = require('./../router');
 
 module.exports = class HandleServer extends Service {
 
     // 初始化
     async init () {
         const { ctx } = this;
-
+        
     }
 
     // 创建管理用户
