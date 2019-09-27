@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        :title="operation_data.type === 'add' ? '新增用户组' : '编辑用户组'"
+        :title="operation_data.type === 'add' ? '新增用户' : '编辑用户'"
         :visible.sync="operation_visible"
         :before-close="handleClose">
         <el-form
@@ -31,15 +31,23 @@
             return {
                 loading: false,
                 ruleForm: {
-                    name: '',
-                    remark: ''
+                    nickname: '',
+                    email: '',
+                    phone: '',
+                    group: '',
                 },
                 rules: {
-                    name: [
+                    nickname: [
                         { required: true, message: '请输入用户组名称', trigger: 'blur' },
                         { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
-                    remark: [
+                    email: [
+                        { required: true, message: '请填写备注', trigger: 'blur' }
+                    ],
+                    phone: [
+                        { required: true, message: '请填写备注', trigger: 'blur' }
+                    ],
+                    group: [
                         { required: true, message: '请填写备注', trigger: 'blur' }
                     ],
                 }
@@ -65,8 +73,8 @@
                     if (!valid) return false;
                     let { type, data } = this.operation_data;
                     this.$curl(type === 'add'
-                        ? this.$appConst.DO_CREATE_USER_GROUP
-                        : this.$appConst.DO_UPDATE_USER_GROUP, this.ruleForm).then((res) => {
+                        ? this.$appConst.DO_CREATE_USER_INFO
+                        : this.$appConst.DO_UPDATE_USER_INFO, this.ruleForm).then((res) => {
                         this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();

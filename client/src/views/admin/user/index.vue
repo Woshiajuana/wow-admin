@@ -4,6 +4,7 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
+            @add="handleDialogAdd"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -40,16 +41,25 @@
                 label="创建日期">
             </el-table-column>
         </table-view>
+        <!--    新增    -->
+        <operate-dialog
+            @refresh="reqTableDataList"
+            :operation_visible.sync="objDialog.is"
+            :operation_data="objDialog"
+        ></operate-dialog>
     </div>
 </template>
 
 <script>
+    import DialogMixin from '@/mixins/dialog'
+    import OperateDialog from './operation-dialog'
     import DataMixin from './data.mixin'
 
     export default {
         name: 'AdminUser',
         mixins: [
             DataMixin,
+            DialogMixin,
         ],
         created () {
             this.reqUserGroupList();
@@ -72,7 +82,10 @@
                     this.objQuery.numTotal = numTotal;
                 }).toast().finally(() => typeof callback === 'function' && callback());
             },
-        }
+        },
+        components: {
+            OperateDialog,
+        },
     }
 </script>
 
