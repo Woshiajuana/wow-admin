@@ -70,8 +70,8 @@ module.exports = class HandleController extends Controller {
         const { ctx, service, app } = this;
         try {
             const objParams = await ctx.validateBody({
-                numIndex: [ 'nonempty' ],
-                numSize: [ 'nonempty' ],
+                numIndex: [ ],
+                numSize: [ ],
                 name: [ ],
                 path: [ ],
                 method: [ ],

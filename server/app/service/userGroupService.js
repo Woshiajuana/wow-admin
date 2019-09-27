@@ -28,6 +28,7 @@ module.exports = class HandleServer extends Service {
                 .skip((numIndex - 1) * numSize)
                 .limit(numSize)
                 .select(listSelect)
+                .populate()
                 .lean();
             return {
                 arrData,

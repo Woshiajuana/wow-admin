@@ -16,6 +16,16 @@
             <el-form-item label="备注" prop="remark">
                 <el-input type="textarea" v-model="ruleForm.remark" maxlength="100"></el-input>
             </el-form-item>
+            <el-form-item label="API" prop="api_routes">
+                <el-select v-model="ruleForm.api_routes" placeholder="请选择API">
+                    <el-option
+                        v-for="(item, index) in operation_api_data"
+                        :key="index"
+                        :label="item.name"
+                        :value="item._id"
+                    ></el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleSubmit">确认</el-button>
                 <el-button @click="handleClose">关闭</el-button>
@@ -32,7 +42,8 @@
                 loading: false,
                 ruleForm: {
                     name: '',
-                    remark: ''
+                    remark: '',
+                    api_routes: [],
                 },
                 rules: {
                     name: [
@@ -40,6 +51,9 @@
                         { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
                     remark: [
+                        { required: true, message: '请填写备注', trigger: 'blur' }
+                    ],
+                    api_routes: [
                         { required: true, message: '请填写备注', trigger: 'blur' }
                     ],
                 }
@@ -53,7 +67,8 @@
         props: {
             operation_visible: { default: false },
             operation_width: { default: '' },
-            operation_data: { default: '' }
+            operation_data: { default: '' },
+            operation_api_data: { default: '' },
         },
         methods: {
             handleClose () {

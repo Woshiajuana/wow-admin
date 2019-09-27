@@ -53,6 +53,7 @@
             @refresh="reqTableDataList"
             :operation_visible.sync="objDialog.is"
             :operation_data="objDialog"
+            :operation_api_data="arrApiRouteData"
         ></operate-dialog>
     </div>
 </template>
@@ -70,8 +71,14 @@
         ],
         created () {
             this.reqTableDataList();
+            this.reqApiRouteList();
         },
         methods: {
+            reqApiRouteList () {
+                this.$curl(this.$appConst.REQ_API_ROUTE_LIST).then((res) => {
+                    this.arrApiRouteData = res || [];
+                }).toast();
+            },
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
                 this.$curl(this.$appConst.REQ_USER_GROUP_LIST, {

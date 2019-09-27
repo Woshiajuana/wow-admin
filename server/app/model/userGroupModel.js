@@ -58,4 +58,4 @@ module.exports = app => {
     return mongoose.model('user_group', postSchema);
 };
 
-module.exports.listSelect = 'name is_root_group remark created_at updated_at';
+module.exports.listSelect = 'name is_root_group remark menu_routes api_routes created_at updated_at';
