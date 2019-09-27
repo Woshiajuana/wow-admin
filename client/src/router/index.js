@@ -66,6 +66,12 @@ export const constantRoutes = [
                 component: () => import('@views/admin/menu'),
                 meta: { title: '菜单列表', icon: 'table' },
             },
+            {
+                path: 'api',
+                name: 'Api',
+                component: () => import('@views/admin/api'),
+                meta: { title: 'API列表', icon: 'table' },
+            },
         ],
     },
 
