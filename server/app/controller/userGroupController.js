@@ -11,6 +11,7 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 name: [ 'nonempty' ],
                 remark: [ 'nonempty' ],
+                api_routes: [ 'nonempty' ],
             });
             const data = await service.userGroupService.create(objParams);
             ctx.respSuccess(data);

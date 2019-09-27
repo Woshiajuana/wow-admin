@@ -4,7 +4,11 @@ const apiRoutes =  [
     {
         name: '查询管理员用户组列表',
         path: '/api/v1/user-group/list',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.list ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.userGroupController.list,
+        ],
     },
     {
         name: '创建管理员用户组',
