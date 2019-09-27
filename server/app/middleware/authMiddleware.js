@@ -14,10 +14,19 @@ module.exports = () => {
                 method,
                 path,
             } = request;
-            const objUser = ctx.state.user;
+            const {
+                group,
+                is_root,
+            } = JSON.parse(ctx.state.user);
+            const {
+                is_root_group,
+                api_routes,
+            } = group || {};
+            console.log('is_root => ', is_root);
             console.log('method => ', method);
             console.log('path => ', path);
-            console.log('objUser => ', objUser);
+            console.log('is_root_group => ', is_root_group);
+            console.log('api_routes => ', api_routes);
             await next();
         } catch (err) {
             ctx.respError(err);

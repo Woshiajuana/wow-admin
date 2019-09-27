@@ -16,10 +16,10 @@ module.exports = (options = {}) => {
             const accessToken = request.headers['access-token'] || request.body.access_token || query.access_token;
             if (!accessToken)
                 throw 'F40001';
-            const objUser = redis.get(accessToken);
+            const objUser = await redis.get(accessToken);
             if (!objUser)
                 throw 'F40003';
-            ctx.state.user = objUser;
+            ctx.state.user = JSON.stringify(objUser);
             await next();
         } catch (err) {
             ctx.respError(err);
