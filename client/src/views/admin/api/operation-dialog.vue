@@ -16,10 +16,10 @@
             <el-form-item label="路径" prop="path">
                 <el-input v-model="ruleForm.path"></el-input>
             </el-form-item>
-            <el-form-item label="特殊资源" prop="method">
+            <el-form-item label="请求方式" prop="method">
                 <el-radio-group v-model="ruleForm.method">
-                    <el-radio label="POST请求" value="POST"></el-radio>
-                    <el-radio label="GET请求" value="GET"></el-radio>
+                    <el-radio label="POST" value="POST"></el-radio>
+                    <el-radio label="GET" value="GET"></el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item>
