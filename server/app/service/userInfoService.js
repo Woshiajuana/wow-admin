@@ -78,7 +78,7 @@ module.exports = class HandleServer extends Service {
         const numTotal = await ctx.model.UserInfoModel.count(filter);
         const arrData = await ctx.model.UserInfoModel
             .find(filter)
-            .sort('-create_at')
+            .sort('-created_at')
             .skip((numIndex - 1) * numSize)
             .limit(numSize)
             .select(select)
