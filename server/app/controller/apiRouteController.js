@@ -9,7 +9,8 @@ module.exports = class HandleController extends Controller {
     async init () {
         const { ctx, service, app } = this;
         try {
-
+            await service.apiRouteService.init();
+            ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
         }
@@ -20,14 +21,11 @@ module.exports = class HandleController extends Controller {
         const { ctx, service, app } = this;
         try {
             let objParams = await ctx.validateBody({
-                nickname: [ 'nonempty' ],
-                password: [ 'nonempty' ],
-                avatar: [ 'nonempty' ],
-                phone: [ 'nonempty' ],
-                email: [ 'nonempty' ],
-                group: [ 'nonempty' ],
+                name: [ 'nonempty' ],
+                path: [ 'nonempty' ],
+                method: [ 'nonempty' ],
             });
-            await service.userInfoService.create(objParams);
+            await service.apiRouteService.create(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -43,7 +41,7 @@ module.exports = class HandleController extends Controller {
             } = await ctx.validateBody({
                 id: [ 'nonempty' ],
             });
-            await service.userInfoService.del(id);
+            await service.apiRouteService.del(id);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -56,34 +54,12 @@ module.exports = class HandleController extends Controller {
         try {
             let objParams = await ctx.validateBody({
                 id: [ 'nonempty' ],
-                nickname: [ 'nonempty' ],
-                password: [ 'nonempty' ],
-                avatar: [ 'nonempty' ],
-                phone: [ 'nonempty' ],
-                email: [ 'nonempty' ],
-                group: [ 'nonempty' ],
+                name: [ 'nonempty' ],
+                path: [ 'nonempty' ],
+                method: [ 'nonempty' ],
             });
-            await service.userInfoService.update(objParams);
+            await service.apiRouteService.update(objParams);
             ctx.respSuccess();
-        } catch (err) {
-            ctx.respError(err);
-        }
-    }
-
-    // 授权登录
-    async login () {
-        const { ctx, service, app } = this;
-        try {
-            let {
-                account,
-                password,
-            } = await ctx.validateBody({
-                account: [ 'nonempty' ],
-                password: [ 'nonempty' ],
-            });
-            let objUser = await service.userInfoService.auth({ account, password });
-            objUser = await service.userInfoService.token(objUser);
-            ctx.respSuccess(objUser);
         } catch (err) {
             ctx.respError(err);
         }
@@ -96,12 +72,11 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 numIndex: [ 'nonempty' ],
                 numSize: [ 'nonempty' ],
-                email: [],
-                group: [],
-                nickname: [],
-                phone: [],
+                name: [ 'nonempty' ],
+                path: [ 'nonempty' ],
+                method: [ 'nonempty' ],
             });
-            const data = await service.userInfoService.list(objParams);
+            const data = await service.apiRouteService.list(objParams);
             ctx.respSuccess(data);
         } catch (err) {
             ctx.respError(err);
