@@ -74,6 +74,17 @@ const DEFAULT_OPTIONS = {
         DO_UPDATE_USER_GROUP: 'api/v1/user-group/update',
         // 删除用户组
         DO_DELETE_USER_GROUP: 'api/v1/user-group/delete',
+
+        // 查询API路由列表
+        REQ_API_ROUTE_LIST: 'api/v1/api-route/list',
+        // 初始化路由列表
+        DO_INIT_API_ROUTE: 'api/v1/api-route/init',
+        // 创建API路由
+        DO_CREATE_API_ROUTE: 'api/v1/api-route/create',
+        // 更新API路由
+        DO_UPDATE_API_ROUTE: 'api/v1/api-route/update',
+        // 删除API路由
+        DO_DELETE_API_ROUTE: 'api/v1/api-route/delete',
     },
 };
 
