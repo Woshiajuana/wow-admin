@@ -5,6 +5,7 @@
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
             @add="handleDialogAdd"
+            @init="handleInit"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -15,22 +16,16 @@
                 label="名称">
             </el-table-column>
             <el-table-column
-                prop="is_root_group"
-                label="是否是超级管理用户组">
-                <template slot-scope="scope">
-                    <el-tag
-                        :type="scope.row.is_root_group ? 'danger' : 'info'">
-                        {{scope.row.is_root_group ? '是' : '否'}}
-                    </el-tag>
-                </template>
+                prop="path"
+                label="路径">
+            </el-table-column>
+            <el-table-column
+                prop="method"
+                label="请求方式">
             </el-table-column>
             <el-table-column
                 prop="created_at"
                 label="创建日期">
-            </el-table-column>
-            <el-table-column
-                prop="remark"
-                label="备注">
             </el-table-column>
             <el-table-column
                 label="操作"
@@ -74,7 +69,7 @@
         methods: {
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
-                this.$curl(this.$appConst.REQ_USER_GROUP_LIST, {
+                this.$curl(this.$appConst.REQ_API_ROUTE_LIST, {
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
@@ -94,12 +89,24 @@
                 }).null();
             },
             doDeleteUserGroup (id) {
-                this.$curl(this.$appConst.DO_DELETE_USER_GROUP, {
+                this.$curl(this.$appConst.DO_DELETE_API_ROUTE, {
                     id,
                 }).then(() => {
                     this.reqTableDataList();
                 }).toast();
-            }
+            },
+            handleInit () {
+                this.$confirm(`确定刷新初始化获取最新API ?`, '温馨提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$curl(this.$appConst.DO_INIT_API_ROUTE).then(() => {
+                        this.reqTableDataList();
+                    }).toast();
+                }).null();
+
+            },
         },
         components: {
             OperateDialog,

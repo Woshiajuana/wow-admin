@@ -72,9 +72,9 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 numIndex: [ 'nonempty' ],
                 numSize: [ 'nonempty' ],
-                name: [ 'nonempty' ],
-                path: [ 'nonempty' ],
-                method: [ 'nonempty' ],
+                name: [ ],
+                path: [ ],
+                method: [ ],
             });
             const data = await service.apiRouteService.list(objParams);
             ctx.respSuccess(data);

@@ -30,6 +30,12 @@ const data = () => {
                 type: 'primary',
                 icon: 'el-icon-plus',
                 event: 'add',
+            },
+            {
+                text: '初始化',
+                type: 'danger',
+                icon: 'el-icon-plus',
+                event: 'init',
             }
         ],
     };
