@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        :title="operation_data.type === 'add' ? '新增用户组' : '编辑用户组'"
+        :title="operation_data.type === 'add' ? '新增API' : '编辑API'"
         :visible.sync="operation_visible"
         :before-close="handleClose">
         <el-form
@@ -13,8 +13,14 @@
             <el-form-item label="名称" prop="name">
                 <el-input v-model="ruleForm.name" maxlength="20"></el-input>
             </el-form-item>
-            <el-form-item label="备注" prop="remark">
-                <el-input type="textarea" v-model="ruleForm.remark" maxlength="100"></el-input>
+            <el-form-item label="路径" prop="path">
+                <el-input v-model="ruleForm.path"></el-input>
+            </el-form-item>
+            <el-form-item label="特殊资源" prop="method">
+                <el-radio-group v-model="ruleForm.method">
+                    <el-radio label="POST请求" value="POST"></el-radio>
+                    <el-radio label="GET请求" value="GET"></el-radio>
+                </el-radio-group>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleSubmit">确认</el-button>
@@ -32,15 +38,19 @@
                 loading: false,
                 ruleForm: {
                     name: '',
-                    remark: ''
+                    path: '',
+                    method: 'POST',
                 },
                 rules: {
                     name: [
                         { required: true, message: '请输入用户组名称', trigger: 'blur' },
                         { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
-                    remark: [
-                        { required: true, message: '请填写备注', trigger: 'blur' }
+                    path: [
+                        { required: true, message: '请填写API路径', trigger: 'blur' }
+                    ],
+                    method: [
+                        { required: true, message: '请选择请求方式', trigger: 'blur' }
                     ],
                 }
             }
@@ -65,8 +75,8 @@
                     if (!valid) return false;
                     let { type, data } = this.operation_data;
                     this.$curl(type === 'add'
-                        ? this.$appConst.DO_CREATE_USER_GROUP
-                        : this.$appConst.DO_UPDATE_USER_GROUP, this.ruleForm).then((res) => {
+                        ? this.$appConst.DO_CREATE_API_ROUTE
+                        : this.$appConst.DO_UPDATE_API_ROUTE, this.ruleForm).then((res) => {
                         this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();

@@ -16,6 +16,27 @@ const data = () => {
                 mode: 'input',
                 event: 'filter',
             },
+            path: {
+                value: '',
+                placeholder: '请输入请求路径',
+                style: 'width: 200px; margin-right: 5px;',
+                mode: 'input',
+                event: 'filter',
+            },
+            method: {
+                value: '',
+                label: '',
+                placeholder: '请选择请求方式',
+                style: 'width: 200px; margin-right: 5px;',
+                mode: 'select',
+                valueKey: 'value',
+                labelKey: 'label',
+                options: [
+                    { label: 'POST请求', value: 'POST' },
+                    { label: 'GET请求', value: 'GET' },
+                ],
+                event: 'selectPlatform',
+            },
         },
         arrFilterButton: [
             {
