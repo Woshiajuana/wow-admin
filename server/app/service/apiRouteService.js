@@ -3,6 +3,7 @@
 
 const { Service } = require('egg');
 
+
 module.exports = class HandleServer extends Service {
 
     // 初始化
@@ -27,12 +28,18 @@ module.exports = class HandleServer extends Service {
     }
 
     // 列表
-    async list ({ numIndex, numSize, name }) {
+    async list ({ numIndex, numSize, name, path, method }) {
         const { ctx } = this;
         if (numIndex && numSize) {
             let filter = { $or: [] }; // 多字段同事匹配
             if (name) {
                 filter.$or.push({ name: { $regex: name, $options: '$i' } });
+            }
+            if (path) {
+                filter.$or.push({ path: { $regex: path, $options: '$i' } });
+            }
+            if (method) {
+                filter.$or.push({ method: { $regex: method, $options: '$i' } });
             }
             if (!filter.$or.length) delete filter.$or;
             const numTotal = await ctx.model.ApiRouteModel.count(filter);

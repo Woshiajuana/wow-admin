@@ -70,8 +70,6 @@ const apiRoutes =  [
     },
 ];
 
-module.apiRoutes = apiRoutes;
-
 module.exports = app => {
     const { router, controller, middleware } = app;
     // 获取应用基础信息
@@ -86,3 +84,6 @@ module.exports = app => {
         router[method.toLocaleLowerCase()](path, ...handler(app));
     });
 };
+
+module.exports.apiRoutes = apiRoutes;
+
