@@ -60,7 +60,7 @@ const DEFAULT_OPTIONS = {
         // 查询管理员用户列表
         REQ_USER_LIST: 'api/v1/user-info/list',
         // 创建管理员用户
-        DO_CREATE_USER_INFO: 'api/v1/user-info/list',
+        DO_CREATE_USER_INFO: 'api/v1/user-info/create',
         // 编辑管理员用户
         DO_UPDATE_USER_INFO: 'api/v1/user-info/update',
         // 删除管理员用户

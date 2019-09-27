@@ -11,16 +11,22 @@
             label-width="100px"
             class="demo-ruleForm">
             <el-form-item label="昵称" prop="nickname">
-                <el-input v-model="ruleForm.nickname" maxlength="20"></el-input>
+                <el-input v-model="ruleForm.nickname" placeholder="请输入昵称" maxlength="20"></el-input>
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
-                <el-input v-model="ruleForm.email" maxlength="20"></el-input>
+                <el-input v-model="ruleForm.email" placeholder="请输入邮箱" maxlength="20"></el-input>
             </el-form-item>
             <el-form-item label="手机" prop="phone">
-                <el-input v-model="ruleForm.phone" maxlength="20"></el-input>
+                <el-input v-model="ruleForm.phone" placeholder="请输入手机号" maxlength="11"></el-input>
             </el-form-item>
-            <el-form-item label="用户组">
-                <el-select v-model="form.group" placeholder="请选择用户组">
+            <el-form-item label="头像" prop="avatar">
+                <el-input v-model="ruleForm.avatar" placeholder="请输入头像链接"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+                <el-input v-model="ruleForm.password" placeholder="请输入密码" maxlength="20"></el-input>
+            </el-form-item>
+            <el-form-item label="用户组" prop="group">
+                <el-select v-model="ruleForm.group" placeholder="请选择用户组">
                     <el-option
                         v-for="(item, index) in operation_group_data"
                         :key="index"
@@ -47,7 +53,9 @@
                     nickname: '',
                     email: '',
                     phone: '',
+                    avatar: '',
                     group: '',
+                    password: '',
                 },
                 rules: {
                     nickname: [
@@ -59,6 +67,12 @@
                     ],
                     phone: [
                         { required: true, message: '请填写手机号', trigger: 'blur' }
+                    ],
+                    avatar: [
+                        { required: true, message: '请填写头像', trigger: 'blur' }
+                    ],
+                    password: [
+                        { required: true, message: '请输入密码', trigger: 'blur' }
                     ],
                     group: [
                         { required: true, message: '请选择用户组', trigger: 'blur' }
@@ -109,7 +123,8 @@
     };
 </script>
 
-<style>
-
-
+<style lang="scss" scoped>
+    .el-select.el-select--mini{
+        width: 100%;
+    }
 </style>
