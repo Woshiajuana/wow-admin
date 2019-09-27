@@ -56,8 +56,16 @@ const DEFAULT_OPTIONS = {
         DO_APP_INIT: 'api/v1/app/init',
         // 管理员用户登录
         DO_USER_LOGIN: 'api/v1/user-info/login',
+
         // 查询管理员用户列表
         REQ_USER_LIST: 'api/v1/user-info/list',
+        // 创建管理员用户
+        DO_CREATE_USER_INFO: 'api/v1/user-info/list',
+        // 编辑管理员用户
+        DO_UPDATE_USER_INFO: 'api/v1/user-info/update',
+        // 删除管理员用户
+        DO_DELETE_USER_INFO: 'api/v1/user-info/delete',
+
         // 查询管理元用户组列表
         REQ_USER_GROUP_LIST: 'api/v1/user-group/list',
         // 创建用户组

@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        :title="operation_title"
+        :title="operation_data.type === 'add' ? '新增用户组' : '编辑用户组'"
         :visible.sync="operation_visible"
         :before-close="handleClose">
         <el-form
@@ -17,7 +17,7 @@
                 <el-input type="textarea" v-model="ruleForm.remark" maxlength="100"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="handleSubmit">立即创建</el-button>
+                <el-button type="primary" @click="handleSubmit">确认</el-button>
                 <el-button @click="handleClose">关闭</el-button>
             </el-form-item>
         </el-form>
@@ -45,10 +45,15 @@
                 }
             }
         },
+        watch: {
+            operation_visible (val) {
+                if (val) this.assignmentData();
+            },
+        },
         props: {
-            operation_title: { default: '' },
             operation_visible: { default: false },
             operation_width: { default: '' },
+            operation_data: { default: '' }
         },
         methods: {
             handleClose () {
@@ -58,16 +63,26 @@
             handleSubmit () {
                 this.$refs.ruleForm.validate((valid) => {
                     if (!valid) return false;
-                    this.$curl(this.$appConst.DO_CREATE_USER_GROUP, this.ruleForm).then((res) => {
-                        this.$modal.toast('新增成功', 'success');
+                    let { type, data } = this.operation_data;
+                    this.$curl(type === 'add'
+                        ? this.$appConst.DO_CREATE_USER_GROUP
+                        : this.$appConst.DO_UPDATE_USER_GROUP, this.ruleForm).then((res) => {
+                        this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();
                     }).toast();
                 });
             },
-            resetForm() {
+            resetForm () {
                 this.$refs.ruleForm.resetFields();
-            }
+            },
+            assignmentData () {
+                this.$nextTick(() => {
+                    this.$refs.ruleForm.resetFields();
+                    let { type, data } = this.operation_data;
+                    data && (this.ruleForm = { ...data, id: data._id });
+                })
+            },
         },
     };
 </script>

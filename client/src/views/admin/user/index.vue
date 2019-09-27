@@ -26,6 +26,16 @@
                 label="用户组">
             </el-table-column>
             <el-table-column
+                prop="is_root_group"
+                label="是否是根账号">
+                <template slot-scope="scope">
+                    <el-tag
+                        :type="scope.row.is_root ? 'danger' : 'info'">
+                        {{scope.row.is_root ? '是' : '否'}}
+                    </el-tag>
+                </template>
+            </el-table-column>
+            <el-table-column
                 prop="created_at"
                 label="创建日期">
             </el-table-column>
