@@ -46,6 +46,7 @@
             @refresh="reqTableDataList"
             :operation_visible.sync="objDialog.is"
             :operation_data="objDialog"
+            :operation_group_data="arrUserGroup"
         ></operate-dialog>
     </div>
 </template>
@@ -68,7 +69,8 @@
         methods: {
             reqUserGroupList () {
                 this.$curl(this.$appConst.REQ_USER_GROUP_LIST).then((res) => {
-                    this.objFilterForm.group.options = res;
+                    this.arrUserGroup = res || [];
+                    this.objFilterForm.group.options = this.arrUserGroup;
                 }).toast();
             },
             reqTableDataList (callback) {

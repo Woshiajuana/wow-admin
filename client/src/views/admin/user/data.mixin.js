@@ -8,6 +8,7 @@ const data = () => {
             numSize: 10,
             numTotal: 0,
         },
+        arrUserGroup: [],
         objFilterForm: {
             nickname: {
                 value: '',

@@ -10,11 +10,24 @@
             ref="ruleForm"
             label-width="100px"
             class="demo-ruleForm">
-            <el-form-item label="名称" prop="name">
-                <el-input v-model="ruleForm.name" maxlength="20"></el-input>
+            <el-form-item label="昵称" prop="nickname">
+                <el-input v-model="ruleForm.nickname" maxlength="20"></el-input>
             </el-form-item>
-            <el-form-item label="备注" prop="remark">
-                <el-input type="textarea" v-model="ruleForm.remark" maxlength="100"></el-input>
+            <el-form-item label="邮箱" prop="email">
+                <el-input v-model="ruleForm.email" maxlength="20"></el-input>
+            </el-form-item>
+            <el-form-item label="手机" prop="phone">
+                <el-input v-model="ruleForm.phone" maxlength="20"></el-input>
+            </el-form-item>
+            <el-form-item label="用户组">
+                <el-select v-model="form.group" placeholder="请选择用户组">
+                    <el-option
+                        v-for="(item, index) in operation_group_data"
+                        :key="index"
+                        :label="item.name"
+                        :value="item._id"
+                    ></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleSubmit">确认</el-button>
@@ -38,17 +51,17 @@
                 },
                 rules: {
                     nickname: [
-                        { required: true, message: '请输入用户组名称', trigger: 'blur' },
+                        { required: true, message: '请输入用户名称', trigger: 'blur' },
                         { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
                     email: [
-                        { required: true, message: '请填写备注', trigger: 'blur' }
+                        { required: true, message: '请填写邮箱', trigger: 'blur' }
                     ],
                     phone: [
-                        { required: true, message: '请填写备注', trigger: 'blur' }
+                        { required: true, message: '请填写手机号', trigger: 'blur' }
                     ],
                     group: [
-                        { required: true, message: '请填写备注', trigger: 'blur' }
+                        { required: true, message: '请选择用户组', trigger: 'blur' }
                     ],
                 }
             }
@@ -61,7 +74,8 @@
         props: {
             operation_visible: { default: false },
             operation_width: { default: '' },
-            operation_data: { default: '' }
+            operation_data: { default: '' },
+            operation_group_data: { default: '' },
         },
         methods: {
             handleClose () {
