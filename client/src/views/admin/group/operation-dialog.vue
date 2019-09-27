@@ -17,7 +17,7 @@
                 <el-input type="textarea" v-model="ruleForm.remark" maxlength="100"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="handleSubmit">立即创建</el-button>
+                <el-button type="primary" @click="handleSubmit">确认</el-button>
                 <el-button @click="handleClose">关闭</el-button>
             </el-form-item>
         </el-form>

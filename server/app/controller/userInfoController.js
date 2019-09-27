@@ -8,12 +8,51 @@ module.exports = class HandleController extends Controller {
     async create () {
         const { ctx, service, app } = this;
         try {
-            let { email, password, captcha } = await ctx.validateBody({
-                email: [ 'nonempty', 'isEmail' ],
-                captcha: [ 'nonempty' ],
+            let objParams = await ctx.validateBody({
+                nickname: [ 'nonempty' ],
                 password: [ 'nonempty' ],
+                avatar: [ 'nonempty' ],
+                phone: [ 'nonempty' ],
+                email: [ 'nonempty' ],
+                group: [ 'nonempty' ],
             });
-            await service.captcha.checkByEmail(email, captcha);
+            await service.userInfoService.create(objParams);
+            ctx.respSuccess();
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
+    // 删除管理员
+    async del () {
+        const { ctx, service, app } = this;
+        try {
+            let {
+                id,
+            } = await ctx.validateBody({
+                id: [ 'nonempty' ],
+            });
+            await service.userInfoService.del(id);
+            ctx.respSuccess();
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
+    // 编辑管理员
+    async update () {
+        const { ctx, service, app } = this;
+        try {
+            let objParams = await ctx.validateBody({
+                id: [ 'nonempty' ],
+                nickname: [ 'nonempty' ],
+                password: [ 'nonempty' ],
+                avatar: [ 'nonempty' ],
+                phone: [ 'nonempty' ],
+                email: [ 'nonempty' ],
+                group: [ 'nonempty' ],
+            });
+            await service.userInfoService.update(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -27,11 +66,9 @@ module.exports = class HandleController extends Controller {
             let {
                 account,
                 password,
-                captcha,
             } = await ctx.validateBody({
                 account: [ 'nonempty' ],
                 password: [ 'nonempty' ],
-                captcha: [],
             });
             let objUser = await service.userInfoService.auth({ account, password });
             objUser = await service.userInfoService.token(objUser);

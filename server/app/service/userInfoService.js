@@ -92,4 +92,21 @@ module.exports = class HandleServer extends Service {
         }
     }
 
+    // 删除
+    async del (id) {
+        const { ctx, app } = this;
+        const { is_root } = await this.findById(id);
+        if (is_root) throw '不能删除 root 账号';
+        await ctx.model.UserInfoModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
+    }
+
+    // 更新
+    async update (data) {
+        const { ctx, app } = this;
+        const { id } = data;
+        const { is_root } = await this.findById(id);
+        if (is_root) throw '不能删除 root 账号';
+        delete data.id;
+        await ctx.model.UserInfoModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
+    }
 };

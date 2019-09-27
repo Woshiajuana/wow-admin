@@ -42,6 +42,7 @@ module.exports = class HandleServer extends Service {
         }
     }
 
+    // 根据 id 来查询
     async findById (id) {
         const { ctx, app } = this;
         return await ctx.model.UserGroupModel.findById(id).lean();

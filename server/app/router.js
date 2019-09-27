@@ -21,15 +21,27 @@ const apiRoutes =  [
         path: '/api/v1/user-group/delete',
         handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.del ],
     },
+
+
+    {
+        name: '查询管理员用户列表',
+        path: '/api/v1/user-info/list',
+        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.list ],
+    },
     {
         name: '创建管理员用户',
         path: '/api/v1/user-info/create',
         handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.create ],
     },
     {
-        name: '查询管理员用户列表',
-        path: '/api/v1/user-info/list',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.list ],
+        name: '更新管理员用户',
+        path: '/api/v1/user-info/update',
+        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.update ],
+    },
+    {
+        name: '删除管理员用户',
+        path: '/api/v1/user-info/delete',
+        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.del ],
     },
 ];
 
