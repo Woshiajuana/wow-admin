@@ -32,10 +32,10 @@
 
 <script>
 
+
     export default {
         data () {
             return {
-                loading: false,
                 ruleForm: {
                     name: '',
                     path: '',
