@@ -42,9 +42,11 @@
         },
         computed: {
             visitedViews() {
-                return this.$store.state.tagsView.visitedViews
+                console.log('this.$store.state.tagsView.visitedViews => ', this.$store.state.tagsView.visitedViews)
+                return this.$store.state.tagsView.visitedViews;
             },
             routes() {
+                console.log('this.$store.state.permission.routes => ', this.$store.state.permission.routes)
                 return this.$store.state.permission.routes
             }
         },
