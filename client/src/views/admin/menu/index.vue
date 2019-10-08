@@ -13,15 +13,19 @@
             :table-data="arrTable">
             <el-table-column
                 prop="title"
-                label="名称">
+                label="标题">
             </el-table-column>
             <el-table-column
                 prop="path"
                 label="路径">
             </el-table-column>
             <el-table-column
-                prop="method"
-                label="请求方式">
+                prop="sort"
+                label="排序">
+            </el-table-column>
+            <el-table-column
+                prop="component"
+                label="组件">
             </el-table-column>
             <el-table-column
                 prop="created_at"

@@ -37,9 +37,11 @@
         data () {
             return {
                 ruleForm: {
-                    name: '',
+                    title: '',
                     path: '',
-                    method: 'POST',
+                    params: '',
+                    father: [],
+                    sort: [],
                 },
                 rules: {
                     name: [
