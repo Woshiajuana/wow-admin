@@ -105,6 +105,7 @@ router.beforeEach(async(to, from, next) => {
     } = from;
     if (!objUserInfo)
         objUserInfo = await store.dispatch('user/getInfo');
+    console.log('objUserInfo => ', objUserInfo);
     let {
         $modal,
     } = Vue.prototype;

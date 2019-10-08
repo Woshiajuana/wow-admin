@@ -44,6 +44,7 @@ const actions = {
     logout({ commit, state }) {
         return new Promise((resolve, reject) => {
             commit('SET_USER_INFO', '');
+            resetRouter();
             router.push(`/login`);
             resolve();
         })
