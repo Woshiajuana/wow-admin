@@ -4,6 +4,7 @@ import _ from 'lodash'
 import Vue from 'vue'
 import store from '@store'
 import storage from '@utils/storage'
+import router from '@router'
 
 class Http {
 
@@ -37,8 +38,12 @@ class Http {
                     return reject(statusText);
                 let { code, msg, data } = result;
                 this._log('请求成功：返回参数 => ', result);
-                if (['F40001', 'F40002', 'F40003'].indexOf(code) > -1) {
+                if (['F40000', 'F40001', 'F40002'].indexOf(code) > -1) {
                     store.dispatch('user/logout');
+                    return reject(result);
+                }
+                if (['F40003'].indexOf(code) > -1) {
+                    router.push(`/404`);
                     return reject(result);
                 }
                 if (code !== 'S00000')

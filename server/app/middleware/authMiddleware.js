@@ -23,11 +23,10 @@ module.exports = () => {
                 api_routes,
             } = group || {};
             if (is_root || is_root_group || checkApiRoutes(path, method, api_routes)) {
-
+                await next();
             } else {
-                throw '';
+                throw 'F40003';
             }
-            await next();
         } catch (err) {
             ctx.respError(err);
         }
@@ -35,5 +34,8 @@ module.exports = () => {
 };
 
 function checkApiRoutes (path, method, routes) {
+    console.log('path => ', path);
+    console.log('method => ', method);
+    console.log('routes => ', routes);
     return routes.filter((item) => item.path === path && item.method === method).length > 0;
 }
