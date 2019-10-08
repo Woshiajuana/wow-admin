@@ -72,6 +72,9 @@ module.exports = class HandleController extends Controller {
             });
             let objUser = await service.userInfoService.auth({ account, password });
             objUser = await service.userInfoService.token(objUser);
+            if (objUser.group.is_root_group) {
+                objUser.group.menu_routes = await service.menuRouteService.list({});
+            }
             ctx.respSuccess(objUser);
         } catch (err) {
             ctx.respError(err);
