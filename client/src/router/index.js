@@ -41,39 +41,39 @@ export const constantRoutes = [
         }],
     },
 
-    {
-        path: '/admin',
-        component: Layout,
-        redirect: '/admin/user',
-        name: 'Admin',
-        meta: { title: '管理员用户管理', icon: 'user' },
-        children: [
-            {
-                path: 'user',
-                name: 'User',
-                component: () => import('@views/admin/user'),
-                meta: { title: '管理员列表', icon: 'table' },
-            },
-            {
-                path: 'group',
-                name: 'Group',
-                component: () => import('@views/admin/group'),
-                meta: { title: '用户组列表', icon: 'table' },
-            },
-            {
-                path: 'menu',
-                name: 'Menu',
-                component: () => import('@views/admin/menu'),
-                meta: { title: '菜单列表', icon: 'table' },
-            },
-            {
-                path: 'api',
-                name: 'Api',
-                component: () => import('@views/admin/api'),
-                meta: { title: 'API列表', icon: 'table' },
-            },
-        ],
-    },
+    // {
+    //     path: '/admin',
+    //     component: Layout,
+    //     redirect: '/admin/user',
+    //     name: 'Admin',
+    //     meta: { title: '管理员用户管理', icon: 'user' },
+    //     children: [
+    //         {
+    //             path: 'user',
+    //             name: 'User',
+    //             component: () => import('@views/admin/user'),
+    //             meta: { title: '管理员列表', icon: 'table' },
+    //         },
+    //         {
+    //             path: 'group',
+    //             name: 'Group',
+    //             component: () => import('@views/admin/group'),
+    //             meta: { title: '用户组列表', icon: 'table' },
+    //         },
+    //         {
+    //             path: 'menu',
+    //             name: 'Menu',
+    //             component: () => import('@views/admin/menu'),
+    //             meta: { title: '菜单列表', icon: 'table' },
+    //         },
+    //         {
+    //             path: 'api',
+    //             name: 'Api',
+    //             component: () => import('@views/admin/api'),
+    //             meta: { title: 'API列表', icon: 'table' },
+    //         },
+    //     ],
+    // },
 
     {
         path: '*',
@@ -90,6 +90,7 @@ const createRouter = () => new Router({
 });
 
 const router = createRouter();
+let asyncRouter = null;
 
 export function resetRouter() {
     const newRouter = createRouter();
@@ -117,7 +118,7 @@ router.beforeEach(async(to, from, next) => {
     let {
         access_token,
     } = objUserInfo || {};
-    if (objUserInfo) {
+    if (!asyncRouter && objUserInfo) {
         loadAsyncRouter(objUserInfo.group.menu_routes);
     }
     if (toPath === '/404') {
@@ -161,7 +162,8 @@ router.afterEach(() => {
 });
 
 function loadAsyncRouter (routes) {
-    const asyncRouter = routes.filter((item) => {
+    routes = JSON.parse(JSON.stringify(routes));
+    asyncRouter = routes.filter((item) => {
         let { path, component, icon, title, father } = item;
         item.path = father ? path : `/${path}`;
         item.meta = { title, icon };
@@ -179,7 +181,42 @@ function loadAsyncRouter (routes) {
     });
 
     console.log('asyncRouter => ', asyncRouter);
-
+    router.addRoutes([
+        {
+            path: '/admin',
+            component: Layout,
+            // redirect: '/admin/user',
+            // name: 'Admin',
+            meta: { title: '管理员用户管理', icon: 'user' },
+            children: [
+                {
+                    path: 'user',
+                    name: 'User',
+                    component: () => import('@views/admin/user'),
+                    meta: { title: '管理员列表', icon: 'table' },
+                },
+                {
+                    path: 'group',
+                    name: 'Group',
+                    component: () => import('@views/admin/group'),
+                    meta: { title: '用户组列表', icon: 'table' },
+                },
+                {
+                    path: 'menu',
+                    name: 'Menu',
+                    component: () => import('@views/admin/menu'),
+                    meta: { title: '菜单列表', icon: 'table' },
+                },
+                {
+                    path: 'api',
+                    name: 'Api',
+                    component: () => import('@views/admin/api'),
+                    meta: { title: 'API列表', icon: 'table' },
+                },
+            ],
+        },
+    ]);
+    global.antRouter = asyncRouter;
     return asyncRouter
 }
 
