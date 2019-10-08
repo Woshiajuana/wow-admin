@@ -110,12 +110,16 @@ router.beforeEach(async(to, from, next) => {
     } = from;
     if (!objUserInfo)
         objUserInfo = await store.dispatch('user/getInfo');
+    console.log('objUserInfo => ', objUserInfo);
     let {
         $modal,
     } = Vue.prototype;
     let {
         access_token,
     } = objUserInfo || {};
+    if (objUserInfo) {
+        loadAsyncRouter(objUserInfo.group.menu_routes);
+    }
     if (toPath === '/404') {
         next();
     } else if (objAppInfo) {
@@ -153,8 +157,11 @@ router.beforeEach(async(to, from, next) => {
 });
 
 router.afterEach(() => {
-    NProgress.done()
+    NProgress.done();
 });
 
+function loadAsyncRouter (routes) {
+
+}
 
 export default router;
