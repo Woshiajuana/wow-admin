@@ -31,7 +31,6 @@
                 'sidebar'
             ]),
             routes() {
-                console.log('路由数量哈 => ', this.$router.options.routes)
                 return this.$router.options.routes
             },
             activeMenu() {
