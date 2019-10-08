@@ -181,6 +181,8 @@ function loadAsyncRouter (routes) {
         hidden: true,
     });
     router.addRoutes(asyncRouter);
+    router.options.routes.push(...asyncRouter);
+    console.log('router.options.routes =>', router.options.routes)
 }
 
 export default router;
