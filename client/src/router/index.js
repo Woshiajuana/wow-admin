@@ -161,7 +161,33 @@ router.afterEach(() => {
 });
 
 function loadAsyncRouter (routes) {
+    const asyncRouter = routes.filter((item) => item.father);
+    routes.forEach((item, index) => {
+        let { path, component, icon, title, father } = item;
+        if (father) {
+            const fRouter = asyncRouter.filter((item) => item._id === father);
+            fRouter.children
+                ? fRouter.children.push(item)
+                : fRouter.children = [item];
+        }
+    });
 
+    // const asyncRouter = routes.filter(route => {
+    //     if (route.component) {
+    //     if (route.component === 'Layout') {//Layout组件特殊处理
+    //             route.component = Layout
+    //         } else {
+    //             route.component = _import(route.component)
+    //         }
+    //     }
+    //     if (route.children && route.children.length) {
+    //         route.children = filterAsyncRouter(route.children)
+    //     }
+    //     return true;
+    // });
+    console.log('asyncRouter => ', asyncRouter);
+
+    return asyncRouter
 }
 
 export default router;
