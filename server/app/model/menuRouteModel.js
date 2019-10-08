@@ -7,7 +7,7 @@ module.exports = app => {
     const postSchema = new Schema({
 
         // 菜单名称
-        name: {
+        title: {
             type: String,
             trim: true,
             required: true,

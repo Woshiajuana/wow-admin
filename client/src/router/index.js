@@ -51,8 +51,16 @@ export const constantRoutes = [
             {
                 path: 'user',
                 name: 'User',
-                component: () => import('@views/admin/user'),
+                component: Layout,
                 meta: { title: '管理员列表', icon: 'table' },
+                children: [
+                    {
+                        path: 'list',
+                        name: 'List',
+                        component: () => import('@views/admin/user'),
+                        meta: { title: '管理员列表', icon: 'table' },
+                    }
+                ],
             },
             {
                 path: 'group',
