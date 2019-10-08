@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        :title="operation_data.type === 'add' ? '新增API' : '编辑API'"
+        :title="operation_data.type === 'add' ? '新增菜单' : '编辑菜单'"
         :visible.sync="operation_visible"
         :before-close="handleClose">
         <el-form
@@ -10,17 +10,31 @@
             ref="ruleForm"
             label-width="100px"
             class="demo-ruleForm">
-            <el-form-item label="名称" prop="name">
-                <el-input v-model="ruleForm.name" maxlength="20"></el-input>
+            <el-form-item label="标题" prop="title">
+                <el-input v-model="ruleForm.title" maxlength="20"></el-input>
             </el-form-item>
             <el-form-item label="路径" prop="path">
                 <el-input v-model="ruleForm.path"></el-input>
             </el-form-item>
-            <el-form-item label="请求方式" prop="method">
-                <el-radio-group v-model="ruleForm.method">
-                    <el-radio label="POST" value="POST"></el-radio>
-                    <el-radio label="GET" value="GET"></el-radio>
-                </el-radio-group>
+            <el-form-item label="参数" prop="params">
+                <el-input v-model="ruleForm.params"></el-input>
+            </el-form-item>
+            <el-form-item label="排序" prop="sort">
+                <el-input v-model="ruleForm.sort"></el-input>
+            </el-form-item>
+            <el-form-item label="父路由" prop="father">
+                <el-select
+                    multiple
+                    collapse-tags
+                    v-model="ruleForm.father"
+                    placeholder="请选择API">
+                    <el-option
+                        v-for="(item, index) in operation_menu_data"
+                        :key="index"
+                        :label="item.title"
+                        :value="item._id"
+                    ></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="handleSubmit">确认</el-button>
@@ -44,15 +58,15 @@
                     sort: [],
                 },
                 rules: {
-                    name: [
-                        { required: true, message: '请输入用户组名称', trigger: 'blur' },
+                    title: [
+                        { required: true, message: '请输入菜单名称', trigger: 'blur' },
                         { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
                     path: [
-                        { required: true, message: '请填写API路径', trigger: 'blur' }
+                        { required: true, message: '请填写路径', trigger: 'blur' }
                     ],
-                    method: [
-                        { required: true, message: '请选择请求方式', trigger: 'blur' }
+                    sort: [
+                        { required: true, message: '请填写排序', trigger: 'blur' }
                     ],
                 }
             }
@@ -65,7 +79,8 @@
         props: {
             operation_visible: { default: false },
             operation_width: { default: '' },
-            operation_data: { default: '' }
+            operation_data: { default: '' },
+            operation_menu_data: { default: '' },
         },
         methods: {
             handleClose () {
