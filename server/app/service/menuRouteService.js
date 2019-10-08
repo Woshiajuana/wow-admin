@@ -6,23 +6,16 @@ const { Service } = require('egg');
 
 module.exports = class HandleServer extends Service {
 
-    // 初始化
-    async init () {
-        const { ctx } = this;
-        const { apiRoutes } = require('./../router');
-        await ctx.model.ApiRouteModel.insertMany(apiRoutes, { ordered: false });
-    }
-
     // 创建
     async create (data) {
         const { ctx } = this;
-        await ctx.model.ApiRouteModel.create(data);
+        await ctx.model.MenuRouteModel.create(data);
     }
 
     // 根据 id 查询
     async findById (id) {
         const { ctx } = this;
-        return await ctx.model.ApiRouteModel
+        return await ctx.model.MenuRouteModel
             .findById(id)
             .lean();
     }
@@ -31,7 +24,7 @@ module.exports = class HandleServer extends Service {
     async list ({ numIndex, numSize, name, path, method }) {
         const { ctx } = this;
         if (numIndex && numSize) {
-            let filter = { $or: [] }; // 多字段同事匹配
+            let filter = { $or: [] }; // 多字段匹配
             if (name) {
                 filter.$or.push({ name: { $regex: name, $options: '$i' } });
             }
@@ -42,8 +35,8 @@ module.exports = class HandleServer extends Service {
                 filter.$or.push({ method: { $regex: method, $options: '$i' } });
             }
             if (!filter.$or.length) delete filter.$or;
-            const numTotal = await ctx.model.ApiRouteModel.count(filter);
-            const arrData = await ctx.model.ApiRouteModel
+            const numTotal = await ctx.model.MenuRouteModel.count(filter);
+            const arrData = await ctx.model.MenuRouteModel
                 .find(filter)
                 .sort('-created_at')
                 .skip((numIndex - 1) * numSize)
@@ -56,7 +49,7 @@ module.exports = class HandleServer extends Service {
                 numSize,
             }
         } else {
-            const arrData = await ctx.model.ApiRouteModel
+            const arrData = await ctx.model.MenuRouteModel
                 .find().sort('-created_at').lean();
             return arrData;
         }
@@ -65,7 +58,7 @@ module.exports = class HandleServer extends Service {
     // 删除
     async del (id) {
         const { ctx, app } = this;
-        await ctx.model.ApiRouteModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
+        await ctx.model.MenuRouteModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
     }
 
     // 更新
@@ -73,6 +66,6 @@ module.exports = class HandleServer extends Service {
         const { ctx, app } = this;
         const { id } = data;
         delete data.id;
-        await ctx.model.ApiRouteModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
+        await ctx.model.MenuRouteModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
     }
 };

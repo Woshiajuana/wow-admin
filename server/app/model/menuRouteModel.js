@@ -23,7 +23,6 @@ module.exports = app => {
             required: true,
         },
 
-        // 参数
         params: {
             type: String,
             trim: true,

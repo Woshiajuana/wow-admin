@@ -10,11 +10,15 @@ module.exports = class HandleController extends Controller {
         const { ctx, service, app } = this;
         try {
             let objParams = await ctx.validateBody({
-                name: [ 'nonempty' ],
+                title: [ 'nonempty' ],
                 path: [ 'nonempty' ],
-                method: [ 'nonempty' ],
+                sort: [ 'nonempty' ],
+                component: [ 'nonempty' ],
+                icon: [ ],
+                params: [ ],
+                father: [ ],
             });
-            await service.apiRouteService.create(objParams);
+            await service.menuRouteService.create(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -30,7 +34,7 @@ module.exports = class HandleController extends Controller {
             } = await ctx.validateBody({
                 id: [ 'nonempty' ],
             });
-            await service.apiRouteService.del(id);
+            await service.menuRouteService.del(id);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -43,18 +47,22 @@ module.exports = class HandleController extends Controller {
         try {
             let objParams = await ctx.validateBody({
                 id: [ 'nonempty' ],
-                name: [ 'nonempty' ],
+                title: [ 'nonempty' ],
                 path: [ 'nonempty' ],
-                method: [ 'nonempty' ],
+                sort: [ 'nonempty' ],
+                component: [ 'nonempty' ],
+                icon: [ ],
+                params: [ ],
+                father: [ ],
             });
-            await service.apiRouteService.update(objParams);
+            await service.menuRouteService.update(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
         }
     }
 
-    // 用户列表
+    // 列表
     async list () {
         const { ctx, service, app } = this;
         try {
@@ -65,7 +73,7 @@ module.exports = class HandleController extends Controller {
                 path: [ ],
                 method: [ ],
             });
-            const data = await service.apiRouteService.list(objParams);
+            const data = await service.menuRouteService.list(objParams);
             ctx.respSuccess(data);
         } catch (err) {
             ctx.respError(err);
