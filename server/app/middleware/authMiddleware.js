@@ -14,16 +14,17 @@ module.exports = () => {
                 method,
                 path,
             } = request;
-            console.log('ctx.state.user => ', ctx.state.user);
-
             const {
                 group,
                 is_root,
-            } = JSON.parse(ctx.state.user);
+            } = ctx.state.user;
             const {
                 is_root_group,
                 api_routes,
             } = group || {};
+            if (is_root) {
+                
+            }
             console.log('is_root => ', is_root);
             console.log('ctx.state.user => ', ctx.state.user);
             console.log('method => ', method);
