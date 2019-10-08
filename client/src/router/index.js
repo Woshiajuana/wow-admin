@@ -161,9 +161,7 @@ router.afterEach(() => {
     NProgress.done();
 });
 
-// const _import = file => () => import('@views' + file + '/index.vue');
-// const _import = file => () => import('@views/admin/user/index.vue');
-const _import = require('./_import_production');
+const _import = file => () => import(`@/views${file}`);
 
 function loadAsyncRouter (routes) {
     routes = JSON.parse(JSON.stringify(routes));
