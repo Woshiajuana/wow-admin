@@ -75,12 +75,6 @@ export const constantRoutes = [
     //     ],
     // },
 
-    {
-        path: '*',
-        redirect: '/404',
-        hidden: true,
-    },
-
 ];
 
 const createRouter = () => new Router({
@@ -121,10 +115,8 @@ router.beforeEach(async(to, from, next) => {
         access_token,
     } = objUserInfo || {};
     if (!asyncRouter && objUserInfo) {
-        console.log(3)
         loadAsyncRouter(objUserInfo.group.menu_routes);
     }
-    console.log(4)
     if (toPath === '/404') {
         next();
     } else if (objAppInfo) {
@@ -185,9 +177,12 @@ function loadAsyncRouter (routes) {
                 : fRouter.children = [item];
         }
     });
-    console.log('asyncRouter => ', asyncRouter);
+    asyncRouter.push({
+        path: '*',
+        redirect: '/404',
+        hidden: true,
+    });
     router.addRoutes(asyncRouter);
-    global.antRouter = asyncRouter;
 }
 
 export default router;
