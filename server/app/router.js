@@ -1,6 +1,8 @@
 'use strict';
 
 const apiRoutes =  [
+
+    // 用户组
     {
         name: '查询管理员用户组列表',
         path: '/api/v1/user-group/list',
@@ -38,6 +40,7 @@ const apiRoutes =  [
         ],
     },
 
+    // 管理员用户
     {
         name: '查询管理员用户列表',
         path: '/api/v1/user-info/list',
@@ -75,6 +78,7 @@ const apiRoutes =  [
         ],
     },
 
+    // Api 路由
     {
         name: '查询API路由列表',
         path: '/api/v1/api-route/list',
@@ -120,6 +124,45 @@ const apiRoutes =  [
             controller.apiRouteController.del,
         ],
     },
+
+    // 菜单路由
+    {
+        name: '查询菜单路由列表',
+        path: '/api/v1/menu-route/list',
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.menuRouteController.list,
+        ],
+    },
+    {
+        name: '创建菜单路由',
+        path: '/api/v1/menu-route/create',
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.menuRouteController.create,
+        ],
+    },
+    {
+        name: '更新菜单路由',
+        path: '/api/v1/menu-route/update',
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.menuRouteController.update,
+        ],
+    },
+    {
+        name: '删除菜单路由',
+        path: '/api/v1/menu-route/delete',
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.menuRouteController.del,
+        ],
+    },
+
 ];
 
 module.exports = app => {

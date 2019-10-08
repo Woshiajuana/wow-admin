@@ -11,7 +11,8 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 name: [ 'nonempty' ],
                 remark: [ 'nonempty' ],
-                api_routes: [ 'nonempty' ],
+                api_routes: [ ],
+                menu_routes: [ ],
             });
             const data = await service.userGroupService.create(objParams);
             ctx.respSuccess(data);
@@ -57,7 +58,8 @@ module.exports = class HandleController extends Controller {
                 id: [ 'nonempty' ],
                 name: [ 'nonempty' ],
                 remark: [ 'nonempty' ],
-                api_routes: [ 'nonempty' ],
+                api_routes: [ ],
+                menu_routes: [ ],
             });
             await service.userGroupService.update(objParams);
             ctx.respSuccess();
