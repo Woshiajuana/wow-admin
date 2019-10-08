@@ -156,15 +156,13 @@ router.afterEach(() => {
     NProgress.done();
 });
 
-const _import = file => () => import(`@/views${file}`);
-
 function loadAsyncRouter (routes) {
     routes = JSON.parse(JSON.stringify(routes));
     asyncRouter = routes.filter((item) => {
         let { path, component, icon, title, father } = item;
         item.path = father ? path : `/${path}`;
         item.meta = { title, icon };
-        item.component = component.toLocaleLowerCase() === 'layout' ? Layout : _import(component);
+        item.component = component.toLocaleLowerCase() === 'layout' ? Layout : () => import(`@/views${component}`);
         return !item.father;
     });
     routes.forEach((item, index) => {
