@@ -81,6 +81,9 @@ module.exports.populate = [
     {
         path: 'group',
         select: 'name menu_routes api_routes is_root_group created_at updated_at',
+        populate: {
+            path: 'api_routes',
+        },
     },
 ];
 

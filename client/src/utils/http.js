@@ -43,7 +43,7 @@ class Http {
                     return reject(result);
                 }
                 if (['F40003'].indexOf(code) > -1) {
-                    router.push(`/404`);
+                    // router.push(`/404`);
                     return reject(result);
                 }
                 if (code !== 'S00000')
