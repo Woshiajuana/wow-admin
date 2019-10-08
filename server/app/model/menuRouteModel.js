@@ -34,6 +34,7 @@ module.exports = app => {
         father: {
             type: Schema.Types.ObjectId,
             ref: 'menu_route',
+            default: '',
         },
 
         // 排序

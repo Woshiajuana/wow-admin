@@ -5,7 +5,6 @@
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
             @add="handleDialogAdd"
-            @init="handleInit"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"

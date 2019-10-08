@@ -16,16 +16,20 @@
             <el-form-item label="路径" prop="path">
                 <el-input v-model="ruleForm.path"></el-input>
             </el-form-item>
-            <el-form-item label="参数" prop="params">
-                <el-input v-model="ruleForm.params"></el-input>
-            </el-form-item>
             <el-form-item label="排序" prop="sort">
                 <el-input v-model="ruleForm.sort"></el-input>
             </el-form-item>
+            <el-form-item label="组件" prop="component">
+                <el-input v-model="ruleForm.component"></el-input>
+            </el-form-item>
+            <el-form-item label="图标" prop="icon">
+                <el-input v-model="ruleForm.icon"></el-input>
+            </el-form-item>
+            <el-form-item label="参数" prop="params">
+                <el-input v-model="ruleForm.params"></el-input>
+            </el-form-item>
             <el-form-item label="父路由" prop="father">
                 <el-select
-                    multiple
-                    collapse-tags
                     v-model="ruleForm.father"
                     placeholder="请选择API">
                     <el-option
@@ -54,8 +58,10 @@
                     title: '',
                     path: '',
                     params: '',
-                    father: [],
-                    sort: [],
+                    father: '',
+                    sort: '',
+                    component: '',
+                    icon: '',
                 },
                 rules: {
                     title: [
@@ -63,6 +69,9 @@
                         { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
                     path: [
+                        { required: true, message: '请填写路径', trigger: 'blur' }
+                    ],
+                    component: [
                         { required: true, message: '请填写路径', trigger: 'blur' }
                     ],
                     sort: [
