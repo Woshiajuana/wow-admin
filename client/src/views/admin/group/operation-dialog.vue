@@ -27,6 +27,20 @@
                     ></el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="菜单" prop="menu_routes">
+                <el-select
+                    multiple
+                    collapse-tags
+                    v-model="ruleForm.menu_routes"
+                    placeholder="请选择API">
+                    <el-option
+                        v-for="(item, index) in operation_menu_data"
+                        :key="index"
+                        :label="item.title"
+                        :value="item._id"
+                    ></el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="备注" prop="remark">
                 <el-input type="textarea" placeholder="请输入备注" v-model="ruleForm.remark" maxlength="100"></el-input>
             </el-form-item>
@@ -48,6 +62,7 @@
                     name: '',
                     remark: '',
                     api_routes: [],
+                    menu_routes: [],
                 },
                 rules: {
                     name: [
@@ -55,9 +70,6 @@
                         { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
                     remark: [
-                        { required: true, message: '请填写备注', trigger: 'blur' }
-                    ],
-                    api_routes: [
                         { required: true, message: '请填写备注', trigger: 'blur' }
                     ],
                 }
@@ -73,6 +85,7 @@
             operation_width: { default: '' },
             operation_data: { default: '' },
             operation_api_data: { default: '' },
+            operation_menu_data: { default: '' },
         },
         methods: {
             handleClose () {

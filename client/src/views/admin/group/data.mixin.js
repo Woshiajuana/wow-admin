@@ -4,6 +4,7 @@ const data = () => {
     return {
         arrTable: [],
         arrApiRouteData: [],
+        arrMenuRouteData: [],
         objQuery: {
             numIndex: 1,
             numSize: 10,

@@ -54,6 +54,7 @@
             :operation_visible.sync="objDialog.is"
             :operation_data="objDialog"
             :operation_api_data="arrApiRouteData"
+            :operation_menu_data="arrMenuRouteData"
         ></operate-dialog>
     </div>
 </template>
@@ -72,8 +73,14 @@
         created () {
             this.reqTableDataList();
             this.reqApiRouteList();
+            this.reqMenuRouteList();
         },
         methods: {
+            reqMenuRouteList () {
+                this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST).then((res) => {
+                    this.arrMenuRouteData = res || [];
+                }).toast();
+            },
             reqApiRouteList () {
                 this.$curl(this.$appConst.REQ_API_ROUTE_LIST).then((res) => {
                     this.arrApiRouteData = res || [];
