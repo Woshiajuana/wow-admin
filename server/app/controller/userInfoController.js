@@ -4,7 +4,7 @@ const { Controller } = require('egg');
 
 module.exports = class HandleController extends Controller {
 
-    // 创建管理员
+    // 创建
     async create () {
         const { ctx, service, app } = this;
         try {
@@ -23,7 +23,7 @@ module.exports = class HandleController extends Controller {
         }
     }
 
-    // 删除管理员
+    // 删除
     async del () {
         const { ctx, service, app } = this;
         try {
@@ -39,7 +39,7 @@ module.exports = class HandleController extends Controller {
         }
     }
 
-    // 编辑管理员
+    // 编辑
     async update () {
         const { ctx, service, app } = this;
         try {

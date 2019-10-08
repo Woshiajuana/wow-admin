@@ -32,7 +32,7 @@ module.exports = class HandleController extends Controller {
         }
     }
 
-    // 删除管理员
+    // 删除
     async del () {
         const { ctx, service, app } = this;
         try {
@@ -48,7 +48,7 @@ module.exports = class HandleController extends Controller {
         }
     }
 
-    // 编辑管理员
+    // 编辑
     async update () {
         const { ctx, service, app } = this;
         try {

@@ -13,64 +13,112 @@ const apiRoutes =  [
     {
         name: '创建管理员用户组',
         path: '/api/v1/user-group/create',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.create ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.userGroupController.create,
+        ],
     },
     {
         name: '更新管理员用户组',
         path: '/api/v1/user-group/update',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.update ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.userGroupController.update,
+        ],
     },
     {
         name: '删除管理员用户组',
         path: '/api/v1/user-group/delete',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userGroupController.del ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.userGroupController.del,
+        ],
     },
 
     {
         name: '查询管理员用户列表',
         path: '/api/v1/user-info/list',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.list ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.userInfoController.list,
+        ],
     },
     {
         name: '创建管理员用户',
         path: '/api/v1/user-info/create',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.create ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.userInfoController.create,
+        ],
     },
     {
         name: '更新管理员用户',
         path: '/api/v1/user-info/update',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.update ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.userInfoController.update,
+        ],
     },
     {
         name: '删除管理员用户',
         path: '/api/v1/user-info/delete',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.userInfoController.del ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.userInfoController.del,
+        ],
     },
 
     {
         name: '查询API路由列表',
         path: '/api/v1/api-route/list',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.apiRouteController.list ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.apiRouteController.list,
+        ],
     },
     {
         name: '初始化路由列表',
         path: '/api/v1/api-route/init',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.apiRouteController.init ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.apiRouteController.init,
+        ],
     },
     {
         name: '创建API路由',
         path: '/api/v1/api-route/create',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.apiRouteController.create ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.apiRouteController.create,
+        ],
     },
     {
         name: '更新API路由',
         path: '/api/v1/api-route/update',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.apiRouteController.update ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.apiRouteController.update,
+        ],
     },
     {
         name: '删除API路由',
         path: '/api/v1/api-route/delete',
-        handler: ({ controller, middleware }) => [ middleware.jwtMiddleware(), controller.apiRouteController.del ],
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            controller.apiRouteController.del,
+        ],
     },
 ];
 

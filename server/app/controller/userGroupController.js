@@ -57,6 +57,7 @@ module.exports = class HandleController extends Controller {
                 id: [ 'nonempty' ],
                 name: [ 'nonempty' ],
                 remark: [ 'nonempty' ],
+                api_routes: [ 'nonempty' ],
             });
             await service.userGroupService.update(objParams);
             ctx.respSuccess();
