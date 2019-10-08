@@ -11,14 +11,31 @@ const data = () => {
 
 const methods = {
     handleDialogAdd () {
-        this.objDialog.is = true;
-        this.objDialog.type = 'add';
-        this.objDialog.data = '';
+        if (this.beforeDialogShow) {
+            this.beforeDialogShow().then(() => {
+                this.objDialog.is = true;
+                this.objDialog.type = 'add';
+                this.objDialog.data = '';
+            })
+        } else {
+            this.objDialog.is = true;
+            this.objDialog.type = 'add';
+            this.objDialog.data = '';
+        }
+
     },
     handleDialogEdit (item) {
-        this.objDialog.is = true;
-        this.objDialog.type = 'edit';
-        this.objDialog.data = item;
+        if (this.beforeDialogShow) {
+            this.beforeDialogShow().then(() => {
+                this.objDialog.is = true;
+                this.objDialog.type = 'edit';
+                this.objDialog.data = item;
+            })
+        } else {
+            this.objDialog.is = true;
+            this.objDialog.type = 'edit';
+            this.objDialog.data = item;
+        }
     },
 };
 

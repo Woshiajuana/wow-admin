@@ -51,6 +51,7 @@
             @refresh="reqTableDataList"
             :operation_visible.sync="objDialog.is"
             :operation_data="objDialog"
+            :operation_menu_data="arrOptions"
         ></operate-dialog>
     </div>
 </template>
@@ -70,6 +71,12 @@
             this.reqTableDataList();
         },
         methods: {
+            beforeDialogShow () {
+                return this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST).then((res) => {
+                    this.arrOptions = res || [];
+                    return Promise.resolve();
+                }).catch(() => Promise.reject());
+            },
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
                 this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST, {

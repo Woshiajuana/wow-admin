@@ -58,7 +58,7 @@
                     title: '',
                     path: '',
                     params: '',
-                    father: '',
+                    father: null,
                     sort: '',
                     component: '',
                     icon: '',

@@ -3,6 +3,7 @@ const data = () => {
 
     return {
         arrTable: [],
+        arrOptions: [],
         objQuery: {
             numIndex: 1,
             numSize: 10,
