@@ -22,18 +22,18 @@ module.exports = () => {
                 is_root_group,
                 api_routes,
             } = group || {};
-            if (is_root) {
-                
+            if (is_root || is_root_group || checkApiRoutes(path, method, api_routes)) {
+
+            } else {
+                throw '';
             }
-            console.log('is_root => ', is_root);
-            console.log('ctx.state.user => ', ctx.state.user);
-            console.log('method => ', method);
-            console.log('path => ', path);
-            console.log('is_root_group => ', is_root_group);
-            console.log('api_routes => ', api_routes);
             await next();
         } catch (err) {
             ctx.respError(err);
         }
     }
 };
+
+function checkApiRoutes (path, method, routes) {
+    return routes.filter((item) => item.path === path && item.method === method).length > 0;
+}
