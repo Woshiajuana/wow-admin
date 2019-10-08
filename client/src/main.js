@@ -85,6 +85,15 @@ const DEFAULT_OPTIONS = {
         DO_UPDATE_API_ROUTE: 'api/v1/api-route/update',
         // 删除API路由
         DO_DELETE_API_ROUTE: 'api/v1/api-route/delete',
+
+        // 查询菜单路由列表
+        REQ_MENU_ROUTE_LIST: 'api/v1/menu-route/list',
+        // 创建菜单路由
+        DO_CREATE_MENU_ROUTE: 'api/v1/menu-route/create',
+        // 更新菜单路由
+        DO_UPDATE_MENU_ROUTE: 'api/v1/menu-route/update',
+        // 删除菜单路由
+        DO_DELETE_MENU_ROUTE: 'api/v1/menu-route/delete',
     },
 };
 
