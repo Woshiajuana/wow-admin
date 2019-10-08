@@ -99,6 +99,7 @@ export function resetRouter() {
 
 router.beforeEach(async(to, from, next) => {
     NProgress.start();
+    console.log(1)
     let {
         objAppInfo,
         objUserInfo,
@@ -112,6 +113,7 @@ router.beforeEach(async(to, from, next) => {
     if (!objUserInfo)
         objUserInfo = await store.dispatch('user/getInfo');
     console.log('objUserInfo => ', objUserInfo);
+    console.log(2)
     let {
         $modal,
     } = Vue.prototype;
@@ -119,8 +121,10 @@ router.beforeEach(async(to, from, next) => {
         access_token,
     } = objUserInfo || {};
     if (!asyncRouter && objUserInfo) {
+        console.log(3)
         loadAsyncRouter(objUserInfo.group.menu_routes);
     }
+    console.log(4)
     if (toPath === '/404') {
         next();
     } else if (objAppInfo) {
@@ -181,46 +185,9 @@ function loadAsyncRouter (routes) {
                 : fRouter.children = [item];
         }
     });
-
     console.log('asyncRouter => ', asyncRouter);
-    // router.addRoutes([
-    //     {
-    //         path: '/admin',
-    //         component: Layout,
-    //         // redirect: '/admin/user',
-    //         // name: 'Admin',
-    //         meta: { title: '管理员用户管理', icon: 'user' },
-    //         children: [
-    //             {
-    //                 path: 'user',
-    //                 name: 'User',
-    //                 component: () => import('@views/admin/user'),
-    //                 meta: { title: '管理员列表', icon: 'table' },
-    //             },
-    //             {
-    //                 path: 'group',
-    //                 name: 'Group',
-    //                 component: () => import('@views/admin/group'),
-    //                 meta: { title: '用户组列表', icon: 'table' },
-    //             },
-    //             {
-    //                 path: 'menu',
-    //                 name: 'Menu',
-    //                 component: () => import('@views/admin/menu'),
-    //                 meta: { title: '菜单列表', icon: 'table' },
-    //             },
-    //             {
-    //                 path: 'api',
-    //                 name: 'Api',
-    //                 component: () => import('@views/admin/api'),
-    //                 meta: { title: 'API列表', icon: 'table' },
-    //             },
-    //         ],
-    //     },
-    // ]);
     router.addRoutes(asyncRouter);
     global.antRouter = asyncRouter;
-    return asyncRouter
 }
 
 export default router;
