@@ -30,6 +30,26 @@ module.exports = app => {
             default: '',
         },
 
+        // 父路由
+        father: {
+            type: Schema.Types.ObjectId,
+            ref: 'menu_route',
+        },
+
+        // 排序
+        sort: {
+            type: Number,
+            trim: true,
+            require: true,
+        },
+
+        // 组件
+        component: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+
         // icon
         icon: {
             type: String,
