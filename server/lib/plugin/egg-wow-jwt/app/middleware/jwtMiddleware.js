@@ -19,6 +19,8 @@ module.exports = (options = {}) => {
             const objUser = await redis.get(accessToken);
             if (!objUser)
                 throw 'F40003';
+            console.log('验证 token')
+            console.log('objUser => ', objUser);
             ctx.state.user = JSON.stringify(objUser);
             await next();
         } catch (err) {

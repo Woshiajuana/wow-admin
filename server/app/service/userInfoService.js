@@ -30,7 +30,7 @@ module.exports = class HandleServer extends Service {
         const { redis } = app;
         const numMaxAge = ms(config.jwt.maxAge || '10m');
         const strToken = ctx.jwt.sign(objUser);
-        await redis.set(strToken, objUser, 'EX', numMaxAge * 0.001);
+        await redis.set(strToken, JSON.stringify(objUser), 'EX', numMaxAge * 0.001);
         objUser.access_token = strToken;
         return objUser;
     }

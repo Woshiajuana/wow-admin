@@ -14,6 +14,8 @@ module.exports = () => {
                 method,
                 path,
             } = request;
+            console.log('ctx.state.user => ', ctx.state.user);
+
             const {
                 group,
                 is_root,
@@ -23,6 +25,7 @@ module.exports = () => {
                 api_routes,
             } = group || {};
             console.log('is_root => ', is_root);
+            console.log('ctx.state.user => ', ctx.state.user);
             console.log('method => ', method);
             console.log('path => ', path);
             console.log('is_root_group => ', is_root_group);
