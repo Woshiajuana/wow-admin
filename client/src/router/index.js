@@ -93,7 +93,6 @@ export function resetRouter() {
 
 router.beforeEach(async(to, from, next) => {
     NProgress.start();
-    console.log(1)
     let {
         objAppInfo,
         objUserInfo,
@@ -106,8 +105,6 @@ router.beforeEach(async(to, from, next) => {
     } = from;
     if (!objUserInfo)
         objUserInfo = await store.dispatch('user/getInfo');
-    console.log('objUserInfo => ', objUserInfo);
-    console.log(2)
     let {
         $modal,
     } = Vue.prototype;
@@ -116,6 +113,7 @@ router.beforeEach(async(to, from, next) => {
     } = objUserInfo || {};
     if (!asyncRouter && objUserInfo) {
         loadAsyncRouter(objUserInfo.group.menu_routes);
+        return next({ ...to, replace: true });
     }
     if (toPath === '/404') {
         next();
