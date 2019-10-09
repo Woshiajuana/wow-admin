@@ -1,6 +1,5 @@
 
 const data = () => {
-
     return {
         arrTable: [],
         objQuery: {
@@ -15,12 +14,9 @@ const data = () => {
                 placeholder: '请选择操作员',
                 style: 'width: 200px; margin-right: 5px;',
                 mode: 'select',
-                valueKey: 'value',
-                labelKey: 'label',
-                options: [
-                    { label: 'POST请求', value: 'POST' },
-                    { label: 'GET请求', value: 'GET' },
-                ],
+                valueKey: '_id',
+                labelKey: 'nickname',
+                options: [],
                 event: 'selectPlatform',
             },
             api: {
@@ -29,12 +25,9 @@ const data = () => {
                 placeholder: '请选择操作接口',
                 style: 'width: 200px; margin-right: 5px;',
                 mode: 'select',
-                valueKey: 'value',
-                labelKey: 'label',
-                options: [
-                    { label: 'POST请求', value: 'POST' },
-                    { label: 'GET请求', value: 'GET' },
-                ],
+                valueKey: '_id',
+                labelKey: 'name',
+                options: [],
                 event: 'selectPlatform',
             },
         },

@@ -58,38 +58,45 @@ module.exports = class HandleServer extends Service {
     // 用户列表
     async list ({ numIndex, numSize, email, group, nickname, phone }) {
         const { ctx, app } = this;
-        let filter = {
-            $or: [], // 多字段同时匹配
-        };
-        if (email) {
-            filter.$or.push({ email: { $regex: email, $options: '$i', } });
+        if (numIndex && numSize) {
+            let filter = {
+                $or: [], // 多字段同时匹配
+            };
+            if (email) {
+                filter.$or.push({ email: { $regex: email, $options: '$i', } });
+            }
+            if (group) {
+                group = app.mongoose.Types.ObjectId(group);
+                filter.$or.push({ group: group });
+            }
+            if (nickname) {
+                filter.$or.push({ nickname: { $regex: nickname, $options: '$i', } });
+            }
+            if (phone) {
+                filter.$or.push({ phone: { $regex: phone, $options: '$i' } });
+            }
+            if (!filter.$or.length) delete filter.$or;
+            const numTotal = await ctx.model.UserInfoModel.count(filter);
+            const arrData = await ctx.model.UserInfoModel
+                .find(filter)
+                .sort('-created_at')
+                .skip((numIndex - 1) * numSize)
+                .limit(numSize)
+                .select(select)
+                .populate(populate)
+                .lean();
+            return {
+                numTotal,
+                numIndex,
+                numSize,
+                arrData,
+            }
+        } else {
+            const arrData = await ctx.model.UserInfoModel
+                .find().sort('-created_at').select(select).lean();
+            return arrData;
         }
-        if (group) {
-            group = app.mongoose.Types.ObjectId(group);
-            filter.$or.push({ group: group });
-        }
-        if (nickname) {
-            filter.$or.push({ nickname: { $regex: nickname, $options: '$i', } });
-        }
-        if (phone) {
-            filter.$or.push({ phone: { $regex: phone, $options: '$i' } });
-        }
-        if (!filter.$or.length) delete filter.$or;
-        const numTotal = await ctx.model.UserInfoModel.count(filter);
-        const arrData = await ctx.model.UserInfoModel
-            .find(filter)
-            .sort('-created_at')
-            .skip((numIndex - 1) * numSize)
-            .limit(numSize)
-            .select(select)
-            .populate(populate)
-            .lean();
-        return {
-            numTotal,
-            numIndex,
-            numSize,
-            arrData,
-        }
+
     }
 
     // 删除
