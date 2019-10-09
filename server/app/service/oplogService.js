@@ -24,16 +24,13 @@ module.exports = class HandleServer extends Service {
     async list ({ numIndex, numSize, user, api }) {
         const { ctx, app } = this;
         if (numIndex && numSize) {
-            let filter = { $or: [] }; // 多字段同事匹配
+            let filter = { }; // 多字段同事匹配
             if (user) {
-                user = app.mongoose.Types.ObjectId(user);
-                filter.$or.push({ user });
+                filter.user = app.mongoose.Types.ObjectId(user);
             }
             if (api) {
-                api = app.mongoose.Types.ObjectId(api);
-                filter.$or.push({ api });
+                filter.api = app.mongoose.Types.ObjectId(api);
             }
-            if (!filter.$or.length) delete filter.$or;
             const numTotal = await ctx.model.OplogModel.count(filter);
             const arrData = await ctx.model.OplogModel
                 .find(filter)
