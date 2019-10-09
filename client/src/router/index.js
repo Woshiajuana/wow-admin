@@ -47,14 +47,12 @@ export const constantRoutes = [
         }],
     },
 
-    route404,
-
 ];
 
 const createRouter = () => {
     console.log('constantRoutes => ', constantRoutes)
     return new Router({
-        mode: 'history', // require service support
+        // mode: 'history', // require service support
         scrollBehavior: () => ({ y: 0 }),
         routes: constantRoutes,
     })
@@ -65,6 +63,7 @@ let asyncRouter = null;
 
 export function resetRouter() {
     const newRouter = createRouter();
+    router.options.routes = [...constantRoutes];
     router.matcher = newRouter.matcher; // reset router
 }
 
@@ -151,11 +150,9 @@ function loadAsyncRouter (routes) {
                 : fRouter.children = [item];
         }
     });
-    const oldRoutes = [ ...router.options.routes ];
-    oldRoutes.pop();
     asyncRouter.push(route404);
     router.addRoutes(asyncRouter);
-    router.options.routes = [ ...oldRoutes, ...asyncRouter, route404 ];
+    router.options.routes = [ ...router.options.routes, ...asyncRouter ];
 }
 
 export default router;
