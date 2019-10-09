@@ -148,6 +148,7 @@ function loadAsyncRouter (routes) {
                 : fRouter.children = [item];
         }
     });
+    console.log('asyncRouter => ', asyncRouter)
     asyncRouter.push(route404);
     router.addRoutes(asyncRouter);
     router.options.routes = [ ...router.options.routes, ...asyncRouter ];
