@@ -1,6 +1,6 @@
 <template>
     <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" v-on="$listeners" />
-    <i v-else-if="isElement" :class="iconClass"></i>
+    <i v-else-if="isElement" :class="[iconClass, 'svg-icon', 'el-svg-icon']"></i>
     <svg v-else :class="svgClass" aria-hidden="true" v-on="$listeners">
         <use :xlink:href="iconName" />
     </svg>
@@ -58,7 +58,9 @@
         fill: currentColor;
         overflow: hidden;
     }
-
+    .el-svg-icon{
+        margin-right: 11px !important;
+    }
     .svg-external-icon {
         background-color: currentColor;
         mask-size: cover!important;

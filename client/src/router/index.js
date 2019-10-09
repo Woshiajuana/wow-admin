@@ -52,7 +52,7 @@ export const constantRoutes = [
         component: Layout,
         redirect: '/admin/user',
         name: 'Admin',
-        meta: { title: '管理员用户管理', icon: 'el-icon-place' },
+        meta: { title: '管理员用户管理', icon: 'el-icon-eleme' },
         children: [
             {
                 path: 'user',
