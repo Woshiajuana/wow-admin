@@ -18,8 +18,12 @@
                 label="手机号">
             </el-table-column>
             <el-table-column
+                prop="api.name"
+                label="接口">
+            </el-table-column>
+            <el-table-column
                 prop="api.path"
-                label="路径">
+                label="接口路径">
             </el-table-column>
             <el-table-column
                 prop="api.method"
