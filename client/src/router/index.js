@@ -47,40 +47,6 @@ export const constantRoutes = [
         }],
     },
 
-    {
-        path: '/admin',
-        component: Layout,
-        redirect: '/admin/user',
-        name: 'Admin',
-        meta: { title: '管理员用户管理', icon: 'el-icon-eleme' },
-        children: [
-            {
-                path: 'user',
-                name: 'User',
-                component: () => import('@views/admin/user'),
-                meta: { title: '管理员列表', icon: 'table' },
-            },
-            {
-                path: 'group',
-                name: 'Group',
-                component: () => import('@views/admin/group'),
-                meta: { title: '用户组列表', icon: 'table' },
-            },
-            {
-                path: 'menu',
-                name: 'Menu',
-                component: () => import('@views/admin/menu'),
-                meta: { title: '菜单列表', icon: 'table' },
-            },
-            {
-                path: 'api',
-                name: 'Api',
-                component: () => import('@views/admin/api'),
-                meta: { title: 'API列表', icon: 'table' },
-            },
-        ],
-    },
-
 ];
 
 const createRouter = () => new Router({
@@ -119,10 +85,10 @@ router.beforeEach(async(to, from, next) => {
     let {
         access_token,
     } = objUserInfo || {};
-    // if (!asyncRouter && objUserInfo.group) {
-    //     loadAsyncRouter(objUserInfo.group.menu_routes);
-    //     return next({ ...to, replace: true });
-    // }
+    if (!asyncRouter && objUserInfo.group) {
+        loadAsyncRouter(objUserInfo.group.menu_routes);
+        return next({ ...to, replace: true });
+    }
     if (toPath === '/404') {
         next();
     } else if (objAppInfo) {
