@@ -29,10 +29,12 @@
                 prop="api.method"
                 label="结果">
                 <template slot-scope="scope">
-                    <el-tag
-                        :type="scope.row.result ? 'success' : 'danger'">
-                        {{scope.row.result ? '' : '否'}}
-                    </el-tag>
+                    <el-tooltip class="item" effect="dark" :content="JSON.stringify(scope.row.result)" placement="top">
+                        <el-tag
+                            :type="scope.row.result.code === 'S00000' ? 'success' : 'danger'">
+                            {{scope.row.result.code === 'S00000' ? '成功' : '失败'}}
+                        </el-tag>
+                    </el-tooltip>
                 </template>
             </el-table-column>
             <el-table-column
