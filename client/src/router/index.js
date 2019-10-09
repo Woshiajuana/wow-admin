@@ -87,6 +87,7 @@ const router = createRouter();
 let asyncRouter = null;
 
 export function resetRouter() {
+    console.log('重置路由')
     const newRouter = createRouter();
     router.matcher = newRouter.matcher; // reset router
 }
