@@ -102,8 +102,7 @@
                     type: 'warning'
                 }).then(() => {
                     this.$curl(this.$appConst.DO_INIT_API_ROUTE).then(() => {
-                        this.reqTableDataList();
-                    }).toast();
+                    }).null().finally(() => this.reqTableDataList());
                 }).null();
 
             },

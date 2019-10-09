@@ -55,7 +55,7 @@ const data = () => {
             {
                 text: '初始化',
                 type: 'danger',
-                icon: 'el-icon-plus',
+                icon: 'el-icon-connection',
                 event: 'init',
             }
         ],
