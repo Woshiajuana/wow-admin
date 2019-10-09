@@ -9,13 +9,13 @@ module.exports = class HandleServer extends Service {
     // 创建
     async create (data) {
         const { ctx } = this;
-        await ctx.model.oplogModel.create(data);
+        await ctx.model.OplogModel.create(data);
     }
 
     // 根据 id 查询
     async findById (id) {
         const { ctx } = this;
-        return await ctx.model.oplogModel
+        return await ctx.model.OplogModel
             .findById(id)
             .lean();
     }
@@ -35,8 +35,8 @@ module.exports = class HandleServer extends Service {
                 filter.$or.push({ method: { $regex: method, $options: '$i' } });
             }
             if (!filter.$or.length) delete filter.$or;
-            const numTotal = await ctx.model.oplogModel.count(filter);
-            const arrData = await ctx.model.oplogModel
+            const numTotal = await ctx.model.OplogModel.count(filter);
+            const arrData = await ctx.model.OplogModel
                 .find(filter)
                 .sort('-created_at')
                 .skip((numIndex - 1) * numSize)
@@ -49,7 +49,7 @@ module.exports = class HandleServer extends Service {
                 numSize,
             }
         } else {
-            const arrData = await ctx.model.oplogModel
+            const arrData = await ctx.model.OplogModel
                 .find().sort('-created_at').lean();
             return arrData;
         }
@@ -58,7 +58,7 @@ module.exports = class HandleServer extends Service {
     // 删除
     async del (id) {
         const { ctx, app } = this;
-        await ctx.model.oplogModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
+        await ctx.model.OplogModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
     }
 
 };
