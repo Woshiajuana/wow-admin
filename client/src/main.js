@@ -94,6 +94,11 @@ const DEFAULT_OPTIONS = {
         DO_UPDATE_MENU_ROUTE: 'api/v1/menu-route/update',
         // 删除菜单路由
         DO_DELETE_MENU_ROUTE: 'api/v1/menu-route/delete',
+
+        // 查询操作日志列表
+        REQ_OPLOG_LIST: 'api/v1/oplog/list',
+        // 删除操作日志
+        DO_DELETE_OPLOG: 'api/v1/oplog/delete',
     },
 };
 

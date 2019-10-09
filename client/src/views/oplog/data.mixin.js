@@ -46,18 +46,6 @@ const data = () => {
                 icon: 'el-icon-search',
                 event: 'filter',
             },
-            {
-                text: '新增',
-                type: 'primary',
-                icon: 'el-icon-plus',
-                event: 'add',
-            },
-            {
-                text: '初始化',
-                type: 'danger',
-                icon: 'el-icon-connection',
-                event: 'init',
-            }
         ],
     };
 };

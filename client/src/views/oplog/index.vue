@@ -4,8 +4,6 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
-            @add="handleDialogAdd"
-            @init="handleInit"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -32,10 +30,6 @@
                 width="150" >
                 <el-button-group slot-scope="scope">
                     <el-button
-                        size="mini"
-                        @click="handleDialogEdit(scope.row)"
-                    >编辑</el-button>
-                    <el-button
                         type="danger"
                         size="mini"
                         @click="handleDelete(scope.row)"
@@ -43,18 +37,11 @@
                 </el-button-group>
             </el-table-column>
         </table-view>
-        <!--    新增    -->
-        <operate-dialog
-            @refresh="reqTableDataList"
-            :operation_visible.sync="objDialog.is"
-            :operation_data="objDialog"
-        ></operate-dialog>
     </div>
 </template>
 
 <script>
     import DialogMixin from '@/mixins/dialog'
-    import OperateDialog from './operation-dialog'
     import DataMixin from './data.mixin'
 
     export default {
@@ -69,7 +56,7 @@
         methods: {
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
-                this.$curl(this.$appConst.REQ_API_ROUTE_LIST, {
+                this.$curl(this.$appConst.REQ_OPLOG_LIST, {
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
@@ -85,30 +72,16 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.doDeleteUserGroup(_id);
+                    this.doDeleteDataItem(_id);
                 }).null();
             },
-            doDeleteUserGroup (id) {
-                this.$curl(this.$appConst.DO_DELETE_API_ROUTE, {
+            doDeleteDataItem(id) {
+                this.$curl(this.$appConst.DO_DELETE_OPLOG, {
                     id,
                 }).then(() => {
                     this.reqTableDataList();
                 }).toast();
             },
-            handleInit () {
-                this.$confirm(`确定刷新初始化获取最新API ?`, '温馨提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$curl(this.$appConst.DO_INIT_API_ROUTE).then(() => {
-                    }).null().finally(() => this.reqTableDataList());
-                }).null();
-
-            },
-        },
-        components: {
-            OperateDialog,
         },
     }
 </script>
