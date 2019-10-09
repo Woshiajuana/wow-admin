@@ -49,7 +49,6 @@ export const constantRoutes = [
 
     route404,
 
-   
 ];
 
 const createRouter = () => {
@@ -152,13 +151,11 @@ function loadAsyncRouter (routes) {
                 : fRouter.children = [item];
         }
     });
-    asyncRouter.push({
-        path: '*',
-        redirect: '/404',
-        hidden: true,
-    });
+    const oldRoutes = [ ...router.options.routes ];
+    oldRoutes.pop();
+    asyncRouter.push(route404);
     router.addRoutes(asyncRouter);
-    router.options.routes = [ ...router.options.routes, ...asyncRouter ];
+    router.options.routes = [ ...oldRoutes, ...asyncRouter, route404 ];
 }
 
 export default router;
