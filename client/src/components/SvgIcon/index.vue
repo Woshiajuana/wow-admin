@@ -1,5 +1,6 @@
 <template>
     <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" v-on="$listeners" />
+    <i v-else-if="isElement" :class="iconClass"></i>
     <svg v-else :class="svgClass" aria-hidden="true" v-on="$listeners">
         <use :xlink:href="iconName" />
     </svg>
@@ -22,6 +23,10 @@
             }
         },
         computed: {
+            isElement () {
+                console.log('this.iconClass => ', this.iconClass, this.iconClass.indexOf('el-') > -1)
+                return this.iconClass.indexOf('el-') > -1;
+            },
             isExternal() {
                 return isExternal(this.iconClass)
             },
