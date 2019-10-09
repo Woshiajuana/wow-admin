@@ -18,4 +18,7 @@
     .el-select.el-select--mini{
         width: 100%;
     }
+    .el-popup-parent--hidden .fixed-header {
+         padding-right: 0 !important;
+    }
 </style>
