@@ -180,6 +180,28 @@ const apiRoutes =  [
         ],
     },
 
+    // 操作日志
+    {
+        name: '查询操作日志列表',
+        path: '/api/v1/oplog/list',
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            middleware.oplogMiddleware(),
+            controller.oplogController.list,
+        ],
+    },
+    {
+        name: '删除操作日志',
+        path: '/api/v1/oplog/delete',
+        handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
+            middleware.oplogMiddleware(),
+            controller.oplogController.del,
+        ],
+    },
+
 ];
 
 module.exports = app => {

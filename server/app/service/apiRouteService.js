@@ -27,6 +27,12 @@ module.exports = class HandleServer extends Service {
             .lean();
     }
 
+    // 查询
+    async findOne (data) {
+        const { ctx } = this;
+        return await ctx.model.ApiRouteModel.findOne(data).lean();
+    }
+
     // 列表
     async list ({ numIndex, numSize, name, path, method }) {
         const { ctx } = this;
