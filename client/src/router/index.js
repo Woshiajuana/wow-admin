@@ -79,7 +79,6 @@ router.beforeEach(async(to, from, next) => {
     } = from;
     if (!objUserInfo)
         objUserInfo = await store.dispatch('user/getInfo');
-    console.log('objUserInfo => ', objUserInfo);
     let {
         $modal,
     } = Vue.prototype;
@@ -148,7 +147,6 @@ function loadAsyncRouter (routes) {
                 : fRouter.children = [item];
         }
     });
-    console.log('asyncRouter => ', asyncRouter)
     asyncRouter.push(route404);
     router.addRoutes(asyncRouter);
     router.options.routes = [ ...router.options.routes, ...asyncRouter ];
