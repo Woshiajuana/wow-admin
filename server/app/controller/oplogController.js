@@ -28,9 +28,8 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 numIndex: [ ],
                 numSize: [ ],
-                name: [ ],
-                path: [ ],
-                method: [ ],
+                user: [ ],
+                api: [ ],
             });
             const data = await service.oplogService.list(objParams);
             ctx.respSuccess(data);

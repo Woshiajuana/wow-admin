@@ -21,18 +21,17 @@ module.exports = class HandleServer extends Service {
     }
 
     // 列表
-    async list ({ numIndex, numSize, name, path, method }) {
-        const { ctx } = this;
+    async list ({ numIndex, numSize, user, api }) {
+        const { ctx, app } = this;
         if (numIndex && numSize) {
             let filter = { $or: [] }; // 多字段同事匹配
-            if (name) {
-                filter.$or.push({ name: { $regex: name, $options: '$i' } });
+            if (user) {
+                user = app.mongoose.Types.ObjectId(user);
+                filter.$or.push({ user });
             }
-            if (path) {
-                filter.$or.push({ path: { $regex: path, $options: '$i' } });
-            }
-            if (method) {
-                filter.$or.push({ method: { $regex: method, $options: '$i' } });
+            if (api) {
+                api = app.mongoose.Types.ObjectId(api);
+                filter.$or.push({ api });
             }
             if (!filter.$or.length) delete filter.$or;
             const numTotal = await ctx.model.OplogModel.count(filter);

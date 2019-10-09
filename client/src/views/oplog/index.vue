@@ -78,12 +78,12 @@
         methods: {
             reqApiRouteList () {
                 this.$curl(this.$appConst.REQ_API_ROUTE_LIST).then((res) => {
-                    this.objFilterForm.user.options = res || [];
+                    this.objFilterForm.api.options = res || [];
                 }).toast();
             },
             reqUserInfoList () {
                 this.$curl(this.$appConst.REQ_USER_LIST).then((res) => {
-                    this.objFilterForm.api.options = res || [];
+                    this.objFilterForm.user.options = res || [];
                 }).toast();
             },
             reqTableDataList (callback) {
