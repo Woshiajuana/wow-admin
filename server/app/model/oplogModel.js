@@ -41,3 +41,12 @@ module.exports = app => {
     });
     return mongoose.model('oplog', postSchema);
 };
+
+module.exports.populate = [
+    {
+        path: 'user',
+    },
+    {
+        path: 'api',
+    },
+];

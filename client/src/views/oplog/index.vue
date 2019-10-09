@@ -10,16 +10,30 @@
             :table-query="objQuery"
             :table-data="arrTable">
             <el-table-column
-                prop="name"
-                label="名称">
+                prop="user.nickname"
+                label="操作员">
             </el-table-column>
             <el-table-column
-                prop="path"
+                prop="user.phone"
+                label="手机号">
+            </el-table-column>
+            <el-table-column
+                prop="api.path"
                 label="路径">
             </el-table-column>
             <el-table-column
-                prop="method"
+                prop="api.method"
                 label="请求方式">
+            </el-table-column>
+            <el-table-column
+                prop="api.method"
+                label="结果">
+                <template slot-scope="scope">
+                    <el-tag
+                        :type="scope.row.result ? 'success' : 'danger'">
+                        {{scope.row.result ? '' : '否'}}
+                    </el-tag>
+                </template>
             </el-table-column>
             <el-table-column
                 prop="created_at"

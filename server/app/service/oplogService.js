@@ -2,7 +2,7 @@
 'use strict';
 
 const { Service } = require('egg');
-
+const { populate } = require('./../model/oplogModel');
 
 module.exports = class HandleServer extends Service {
 
@@ -41,6 +41,7 @@ module.exports = class HandleServer extends Service {
                 .sort('-created_at')
                 .skip((numIndex - 1) * numSize)
                 .limit(numSize)
+                .populate(populate)
                 .lean();
             return {
                 arrData,
