@@ -9,6 +9,12 @@ NProgress.configure({ showSpinner: false });
 
 Vue.use(Router);
 
+const route404 = {
+    path: '*',
+    redirect: '/404',
+    hidden: true,
+};
+
 export const constantRoutes = [
 
     {
@@ -41,53 +47,24 @@ export const constantRoutes = [
         }],
     },
 
-    // {
-    //     path: '/admin',
-    //     component: Layout,
-    //     redirect: '/admin/user',
-    //     name: 'Admin',
-    //     meta: { title: '管理员用户管理', icon: 'user' },
-    //     children: [
-    //         {
-    //             path: 'user',
-    //             name: 'User',
-    //             component: () => import('@views/admin/user'),
-    //             meta: { title: '管理员列表', icon: 'table' },
-    //         },
-    //         {
-    //             path: 'group',
-    //             name: 'Group',
-    //             component: () => import('@views/admin/group'),
-    //             meta: { title: '用户组列表', icon: 'table' },
-    //         },
-    //         {
-    //             path: 'menu',
-    //             name: 'Menu',
-    //             component: () => import('@views/admin/menu'),
-    //             meta: { title: '菜单列表', icon: 'table' },
-    //         },
-    //         {
-    //             path: 'api',
-    //             name: 'Api',
-    //             component: () => import('@views/admin/api'),
-    //             meta: { title: 'API列表', icon: 'table' },
-    //         },
-    //     ],
-    // },
+    route404,
 
+   
 ];
 
-const createRouter = () => new Router({
-    // mode: 'history', // require service support
-    scrollBehavior: () => ({ y: 0 }),
-    routes: constantRoutes,
-});
+const createRouter = () => {
+    console.log('constantRoutes => ', constantRoutes)
+    return new Router({
+        mode: 'history', // require service support
+        scrollBehavior: () => ({ y: 0 }),
+        routes: constantRoutes,
+    })
+};
 
 const router = createRouter();
 let asyncRouter = null;
 
 export function resetRouter() {
-    console.log('重置路由')
     const newRouter = createRouter();
     router.matcher = newRouter.matcher; // reset router
 }
@@ -181,7 +158,7 @@ function loadAsyncRouter (routes) {
         hidden: true,
     });
     router.addRoutes(asyncRouter);
-    router.options.routes.push(...asyncRouter);
+    router.options.routes = [ ...router.options.routes, ...asyncRouter ];
 }
 
 export default router;
