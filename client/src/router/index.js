@@ -49,20 +49,18 @@ export const constantRoutes = [
 
 ];
 
-const createRouter = () => {
-    console.log('constantRoutes => ', constantRoutes)
-    return new Router({
-        // mode: 'history', // require service support
-        scrollBehavior: () => ({ y: 0 }),
-        routes: constantRoutes,
-    })
-};
+const createRouter = () => new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes,
+});
 
 const router = createRouter();
 let asyncRouter = null;
 
 export function resetRouter() {
     const newRouter = createRouter();
+    asyncRouter = null;
     router.options.routes = [...constantRoutes];
     router.matcher = newRouter.matcher; // reset router
 }
@@ -88,7 +86,7 @@ router.beforeEach(async(to, from, next) => {
     let {
         access_token,
     } = objUserInfo || {};
-    if (!asyncRouter && objUserInfo) {
+    if (!asyncRouter && objUserInfo.group) {
         loadAsyncRouter(objUserInfo.group.menu_routes);
         return next({ ...to, replace: true });
     }
