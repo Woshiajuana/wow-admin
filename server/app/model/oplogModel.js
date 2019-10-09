@@ -20,6 +20,12 @@ module.exports = app => {
             require: true,
         },
 
+        // 结果
+        result: {
+            type: Object,
+            require: true,
+        },
+
         // 创建时间
         created_at: {
             type: Date,
