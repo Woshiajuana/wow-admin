@@ -2,6 +2,16 @@
 
 const apiRoutes =  [
 
+    // 登录
+    {
+        name: '用户登录',
+        path: '/api/v1/user-info/login',
+        handler: ({ controller, middleware }) => [
+            middleware.oplogMiddleware(),
+            controller.userInfoController.login,
+        ],
+    },
+
     // 用户组
     {
         name: '查询管理员用户组列表',
@@ -211,7 +221,7 @@ module.exports = app => {
     // 初始化应用信息
     router.post('/api/v1/app/init', controller.appInfoController.init);
     // 管理员用户授权登录
-    router.post('/api/v1/user-info/login', middleware.oplogMiddleware(), controller.userInfoController.login);
+    // router.post('/api/v1/user-info/login', middleware.oplogMiddleware(), controller.userInfoController.login);
     // 初始化路由
     apiRoutes.forEach((item) => {
         let { path, handler, method } = Object.assign({ method: 'POST' }, item);

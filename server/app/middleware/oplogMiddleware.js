@@ -23,7 +23,7 @@ module.exports = () => {
                 _id: userId,
             } = state.user || {};
             if (path === '/api/v1/user-info/login') {
-                userId = body._id;
+                userId = body.data._id;
             }
             let {
                 _id: apiId,
