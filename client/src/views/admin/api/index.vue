@@ -26,6 +26,9 @@
             <el-table-column
                 prop="created_at"
                 label="创建日期">
+                <template slot-scope="scope">
+                    <span>{{scope.row.created_at | filterDate}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                 label="操作"
@@ -55,12 +58,14 @@
 <script>
     import DialogMixin from '@/mixins/dialog'
     import OperateDialog from './operation-dialog'
+    import FilterMixin from '@/mixins/filter'
     import DataMixin from './data.mixin'
 
     export default {
         name: 'AdminUser',
         mixins: [
             DataMixin,
+            FilterMixin,
             DialogMixin,
         ],
         created () {
