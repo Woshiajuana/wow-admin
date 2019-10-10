@@ -23,6 +23,13 @@ module.exports = app => {
             required: true,
         },
 
+        // 重定向
+        redirect: {
+            type: String,
+            trim: true,
+            default: '',
+        },
+
         // 参数
         params: {
             type: String,
@@ -70,14 +77,6 @@ module.exports = app => {
             default: Date.now,
         },
 
-    });
-    postSchema.add({
-        // 重定向
-        redirect: {
-            type: String,
-            trim: true,
-            default: '',
-        },
     });
     return mongoose.model('menu_route', postSchema);
 };

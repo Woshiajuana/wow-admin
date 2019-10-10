@@ -136,7 +136,7 @@ function loadAsyncRouter (routes) {
         item.path = father ? path : `/${path}`;
         item.meta = { title, icon };
         if (!redirect) delete item.redirect;
-        item.component = component.toLocaleLowerCase() === 'layout' ? Layout : () => import(`@/views${component}`);
+        item.component = component.toLocaleLowerCase() === 'layout' ? Layout : () => import(`@/views/${component}`);
         return !item.father;
     });
     routes.forEach((item, index) => {
