@@ -132,9 +132,10 @@ router.afterEach(() => {
 function loadAsyncRouter (routes) {
     routes = JSON.parse(JSON.stringify(routes));
     asyncRouter = routes.filter((item) => {
-        let { path, component, icon, title, father } = item;
+        let { path, component, icon, title, father, redirect } = item;
         item.path = father ? path : `/${path}`;
         item.meta = { title, icon };
+        if (!redirect) delete item.redirect;
         item.component = component.toLocaleLowerCase() === 'layout' ? Layout : () => import(`@/views${component}`);
         return !item.father;
     });

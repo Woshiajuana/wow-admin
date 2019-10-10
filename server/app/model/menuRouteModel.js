@@ -30,6 +30,13 @@ module.exports = app => {
             default: '',
         },
 
+        // 参数
+        redirect: {
+            type: String,
+            trim: true,
+            default: '',
+        },
+
         // 父路由
         father: {
             type: Schema.Types.ObjectId,

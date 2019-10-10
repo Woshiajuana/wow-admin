@@ -25,6 +25,9 @@
             <el-form-item label="图标" prop="icon">
                 <el-input v-model="ruleForm.icon"></el-input>
             </el-form-item>
+            <el-form-item label="重定向" prop="redirect">
+                <el-input v-model="ruleForm.redirect"></el-input>
+            </el-form-item>
             <el-form-item label="参数" prop="params">
                 <el-input v-model="ruleForm.params"></el-input>
             </el-form-item>
@@ -61,6 +64,7 @@
                     father: null,
                     sort: '',
                     component: '',
+                    redirect: '',
                     icon: '',
                 },
                 rules: {
@@ -72,7 +76,7 @@
                         { required: true, message: '请填写路径', trigger: 'blur' }
                     ],
                     component: [
-                        { required: true, message: '请填写路径', trigger: 'blur' }
+                        { required: true, message: '请填写组件', trigger: 'blur' }
                     ],
                     sort: [
                         { required: true, message: '请填写排序', trigger: 'blur' }
