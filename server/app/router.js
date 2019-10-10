@@ -17,6 +17,7 @@ const apiRoutes =  [
         name: '用户安全退出',
         path: '/api/v1/user-info/logout',
         handler: ({ controller, middleware }) => [
+            middleware.jwtMiddleware(),
             middleware.oplogMiddleware(),
             controller.userInfoController.logout,
         ],

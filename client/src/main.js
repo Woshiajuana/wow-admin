@@ -56,6 +56,8 @@ const DEFAULT_OPTIONS = {
         DO_APP_INIT: 'api/v1/app/init',
         // 管理员用户登录
         DO_USER_LOGIN: 'api/v1/user-info/login',
+        // 管理员用户安全退出
+        DO_USER_LOGOUT: 'api/v1/user-info/logout',
 
         // 查询管理员用户列表
         REQ_USER_LIST: 'api/v1/user-info/list',

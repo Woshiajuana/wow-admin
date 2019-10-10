@@ -19,7 +19,6 @@ module.exports = (options = {}) => {
             const objUser = await redis.get(accessToken);
             if (!objUser)
                 throw 'F40002';
-            console.log('objUser => ', objUser);
             ctx.state.user = JSON.parse(objUser);
             await next();
         } catch (err) {
