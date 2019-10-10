@@ -52,6 +52,7 @@ module.exports = class HandleController extends Controller {
                 path: [ 'nonempty' ],
                 sort: [ 'nonempty' ],
                 component: [ 'nonempty' ],
+                redirect: [ ],
                 icon: [ ],
                 params: [ ],
                 father: [ ],
