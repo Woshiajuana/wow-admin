@@ -45,17 +45,14 @@ const actions = {
         return new Promise((resolve, reject) => {
             let { $curl, $appConst } = Vue.prototype;
             $curl($appConst.DO_USER_LOGOUT).then(() => {
-
-
             }).toast().finally(() => {
-
+                commit('SET_USER_INFO', '');
+                resetRouter();
+                dispatch('tagsView/delAllCachedViews', {}, {root: true});
+                dispatch('tagsView/delAllVisitedViews', {}, {root: true});
+                router.push(`/login`);
+                resolve();
             });
-            // commit('SET_USER_INFO', '');
-            // resetRouter();
-            // dispatch('tagsView/delAllCachedViews', {}, {root: true});
-            // dispatch('tagsView/delAllVisitedViews', {}, {root: true});
-            // router.push(`/login`);
-            resolve();
         })
     },
 
