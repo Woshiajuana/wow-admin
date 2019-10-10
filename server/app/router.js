@@ -12,6 +12,16 @@ const apiRoutes =  [
         ],
     },
 
+    // 退出
+    {
+        name: '用户退出',
+        path: '/api/v1/user-info/logout',
+        handler: ({ controller, middleware }) => [
+            middleware.oplogMiddleware(),
+            controller.userInfoController.logout,
+        ],
+    },
+
     // 用户组
     {
         name: '查询管理员用户组列表',
