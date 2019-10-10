@@ -37,8 +37,10 @@ module.exports = class HandleServer extends Service {
 
     // 安全退出
     async logout () {
-        const { ctx } = this;
-        console.log('ctx.state.user => ', ctx.state.user);
+        const { ctx, app } = this;
+        const { redis } = app;
+        const { accessToken } = ctx.state.user;
+        await redis.set(accessToken, '', 'EX', 0);
     }
 
     // 查询用户信息
