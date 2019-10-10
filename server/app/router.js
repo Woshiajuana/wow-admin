@@ -12,9 +12,9 @@ const apiRoutes =  [
         ],
     },
 
-    // 退出
+    // 用户安全退出
     {
-        name: '用户退出',
+        name: '用户安全退出',
         path: '/api/v1/user-info/logout',
         handler: ({ controller, middleware }) => [
             middleware.oplogMiddleware(),

@@ -81,6 +81,17 @@ module.exports = class HandleController extends Controller {
         }
     }
 
+    // 用户安全退出
+    async logout () {
+        const { ctx, service, app } = this;
+        try {
+            await service.userInfoService.logout();
+            ctx.respSuccess();
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
     // 用户列表
     async list () {
         const { ctx, service, app } = this;

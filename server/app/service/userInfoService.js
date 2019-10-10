@@ -35,6 +35,12 @@ module.exports = class HandleServer extends Service {
         return objUser;
     }
 
+    // 安全退出
+    async logout () {
+        const { ctx } = this;
+        console.log('ctx.state.user => ', ctx.state.user);
+    }
+
     // 查询用户信息
     async findOne (data) {
         const { ctx } = this;
