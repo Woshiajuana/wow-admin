@@ -44,6 +44,9 @@
             <el-table-column
                 prop="created_at"
                 label="创建日期">
+                <template slot-scope="scope">
+                    <span>{{scope.row.created_at | filterDate}}</span>
+                </template>
             </el-table-column>
             <el-table-column
                 label="操作"
@@ -62,6 +65,7 @@
 
 <script>
     import DialogMixin from '@/mixins/dialog'
+    import FilterMixin from '@/mixins/filter'
     import DataMixin from './data.mixin'
 
     export default {
@@ -69,6 +73,7 @@
         mixins: [
             DataMixin,
             DialogMixin,
+            FilterMixin,
         ],
         created () {
             this.reqTableDataList();
