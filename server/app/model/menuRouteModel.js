@@ -30,13 +30,6 @@ module.exports = app => {
             default: '',
         },
 
-        // 参数
-        redirect: {
-            type: String,
-            trim: true,
-            default: '',
-        },
-
         // 父路由
         father: {
             type: Schema.Types.ObjectId,
@@ -77,6 +70,14 @@ module.exports = app => {
             default: Date.now,
         },
 
+    });
+    postSchema.add({
+        // 重定向
+        redirect: {
+            type: String,
+            trim: true,
+            default: '',
+        },
     });
     return mongoose.model('menu_route', postSchema);
 };
