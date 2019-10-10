@@ -40,7 +40,7 @@ module.exports = class HandleServer extends Service {
         const { ctx, app } = this;
         const { redis } = app;
         const { accessToken } = ctx.state.user;
-        await redis.set(accessToken, '', 'EX', 0);
+        await redis.del(accessToken);
     }
 
     // 查询用户信息
