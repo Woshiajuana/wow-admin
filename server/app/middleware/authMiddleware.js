@@ -34,8 +34,5 @@ module.exports = () => {
 };
 
 function checkApiRoutes (path, method, routes) {
-    console.log('path => ', path);
-    console.log('method => ', method);
-    console.log('routes => ', routes);
     return routes.filter((item) => item.path === path && item.method === method).length > 0;
 }
