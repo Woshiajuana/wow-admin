@@ -11,7 +11,7 @@ import _ from 'lodash'
 
 import App from '@/App.vue'
 import store from '@store'
-import router from '@router'
+import generateRouter from '@router'
 
 import '@assets/scss/index.scss'
 import '@assets/icons' // icon
@@ -26,6 +26,7 @@ Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
 
 const componentFiles = require.context('./components', true, /index\.vue$/); // 不支持变量传路径
+let router = null;
 
 const DEFAULT_OPTIONS = {
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
@@ -100,6 +101,10 @@ const DEFAULT_OPTIONS = {
     component: {
         importComponents: [ componentFiles ],
     },
+    // 路由配置
+    routerConfig: {
+        importViews: [],
+    },
 };
 
 window.wowRuntime = {
@@ -114,6 +119,7 @@ window.wowRuntime = {
         this._handleInitHttp();
         this._handleInitConst();
         this._handleInitComponent();
+        this._handleInitRouter();
         this._handleMountVue();
         this._handleInitApp();
         window.wow = this.wow;
@@ -124,6 +130,19 @@ window.wowRuntime = {
     },
     getDefaultOptions () {
         return DEFAULT_OPTIONS;
+    },
+    _handleInitRouter () {
+        let { routerConfig } = this.options;
+        let { importViews } = routerConfig;
+        let objViews = {};
+        importViews.forEach((viewsFiles) => {
+            viewsFiles.keys().forEach((key) => {
+                let strName = key.substring(2, key.indexOf('/index.vue'));
+                objViews[strName] = viewsFiles(key).default || viewsFiles(key);
+            });
+        });
+        console.log(objViews);
+        router = generateRouter(objViews);
     },
     _handleInitComponent () {
         let { component } = this.options;

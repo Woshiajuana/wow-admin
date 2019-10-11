@@ -57,6 +57,7 @@ const createRouter = () => new Router({
 
 const router = createRouter();
 let asyncRouter = null;
+let objRouter = null;
 
 export function resetRouter() {
     const newRouter = createRouter();
@@ -137,7 +138,8 @@ function loadAsyncRouter (routes) {
         item.meta = { title, icon };
         if (!redirect) delete item.redirect;
         else item.redirect = `/${redirect}`;
-        item.component = component.toLocaleLowerCase() === 'layout' ? Layout : () => import(`@/views/${component}`);
+        console.log('获得到的component.replace(\'/index\') => ', component.replace('/index', ''));
+        item.component = component.toLocaleLowerCase() === 'layout' ? Layout : objRouter[component.replace('/index', '')] ? objRouter[component.replace('/index', '')] : () => import(`@/views/${component}`);
         return !item.father;
     });
     routes.forEach((item, index) => {
@@ -154,4 +156,7 @@ function loadAsyncRouter (routes) {
     router.options.routes = [ ...router.options.routes, ...asyncRouter ];
 }
 
-export default router;
+export default (views) => {
+    objRouter = views || {};
+    return router;
+};
