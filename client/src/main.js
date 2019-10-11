@@ -141,7 +141,6 @@ window.wowRuntime = {
                 objViews[strName] = viewsFiles(key).default || viewsFiles(key);
             });
         });
-        console.log(objViews);
         router = generateRouter(objViews);
     },
     _handleInitComponent () {

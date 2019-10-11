@@ -24,7 +24,6 @@
         },
         computed: {
             isElement () {
-                console.log('this.iconClass => ', this.iconClass, this.iconClass.indexOf('el-') > -1)
                 return this.iconClass.indexOf('el-') > -1;
             },
             isExternal() {

@@ -138,7 +138,6 @@ function loadAsyncRouter (routes) {
         item.meta = { title, icon };
         if (!redirect) delete item.redirect;
         else item.redirect = `/${redirect}`;
-        console.log('获得到的component.replace(\'/index\') => ', component.replace('/index', ''));
         item.component = component.toLocaleLowerCase() === 'layout' ? Layout : objRouter[component.replace('/index', '')] ? objRouter[component.replace('/index', '')] : () => import(`@/views/${component}`);
         return !item.father;
     });
