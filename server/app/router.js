@@ -30,7 +30,7 @@ const apiRoutes =  [
         handler: ({ controller, middleware }) => [
             middleware.jwtMiddleware(),
             middleware.authMiddleware(),
-            middleware.oplogMiddleware(),
+            // middleware.oplogMiddleware(),
             controller.userGroupController.list,
         ],
     },
@@ -72,7 +72,7 @@ const apiRoutes =  [
         handler: ({ controller, middleware }) => [
             middleware.jwtMiddleware(),
             middleware.authMiddleware(),
-            middleware.oplogMiddleware(),
+            // middleware.oplogMiddleware(),
             controller.userInfoController.list,
         ],
     },
@@ -114,7 +114,7 @@ const apiRoutes =  [
         handler: ({ controller, middleware }) => [
             middleware.jwtMiddleware(),
             middleware.authMiddleware(),
-            middleware.oplogMiddleware(),
+            // middleware.oplogMiddleware(),
             controller.apiRouteController.list,
         ],
     },
@@ -166,7 +166,7 @@ const apiRoutes =  [
         handler: ({ controller, middleware }) => [
             middleware.jwtMiddleware(),
             middleware.authMiddleware(),
-            middleware.oplogMiddleware(),
+            // middleware.oplogMiddleware(),
             controller.menuRouteController.list,
         ],
     },
@@ -208,7 +208,7 @@ const apiRoutes =  [
         handler: ({ controller, middleware }) => [
             middleware.jwtMiddleware(),
             middleware.authMiddleware(),
-            middleware.oplogMiddleware(),
+            // middleware.oplogMiddleware(),
             controller.oplogController.list,
         ],
     },
