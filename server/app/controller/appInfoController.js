@@ -65,6 +65,10 @@ module.exports = class HandleController extends Controller {
                 is_root: true,
                 group: objAdminGroup._id,
             });
+            // 初始化菜单
+            await service.menuRouteService.init();
+            // 初始化 API
+            await service.apiRouteService.init();
             ctx.respSuccess();
         } catch (e) {
             ctx.respError(e);
