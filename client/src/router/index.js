@@ -85,7 +85,7 @@ router.beforeEach(async(to, from, next) => {
     let {
         access_token,
     } = objUserInfo || {};
-    if (!asyncRouter && objUserInfo.group) {
+    if (!asyncRouter && objUserInfo && objUserInfo.group) {
         loadAsyncRouter(objUserInfo.group.menu_routes);
         return next({ ...to, replace: true });
     }

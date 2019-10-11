@@ -179,6 +179,7 @@ let { wow, app } = window.wowRuntime.init({
     },
     // 组件配置
     component: {
+        importComponents: [],
 
     },
 });
