@@ -27,12 +27,6 @@ Vue.config.productionTip = false;
 
 const componentFiles = require.context('./components', true, /index\.vue$/); // 不支持变量传路径
 
-componentFiles.keys().forEach((key) => {
-    let strName = key.substring(2, key.indexOf('/index.vue'));
-    Vue.component(strName, componentFiles(key).default || componentFiles(key));
-});
-
-
 const DEFAULT_OPTIONS = {
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
     extendUtils: {
@@ -102,6 +96,10 @@ const DEFAULT_OPTIONS = {
         // 删除操作日志
         DO_DELETE_OPLOG: 'api/v1/oplog/delete',
     },
+    // 组件配置
+    component: {
+        importComponents: [ componentFiles ],
+    },
 };
 
 window.wowRuntime = {
@@ -109,10 +107,13 @@ window.wowRuntime = {
     wow: {}, // 总体工具类
     options: {},
     init (options = {}) {
-        this.options = _.merge({}, DEFAULT_OPTIONS, options);
+        this.options = _.mergeWith({}, DEFAULT_OPTIONS, options, (objValue, srcValue) =>  {
+            if (_.isArray(objValue)) { return objValue.concat(srcValue); }
+        });
         this._handleInitExtend();
         this._handleInitHttp();
         this._handleInitConst();
+        this._handleInitComponent();
         this._handleMountVue();
         this._handleInitApp();
         window.wow = this.wow;
@@ -123,6 +124,20 @@ window.wowRuntime = {
     },
     getDefaultOptions () {
         return DEFAULT_OPTIONS;
+    },
+    _handleInitComponent () {
+        let { component } = this.options;
+        let { importComponents } = component;
+        delete component.importComponents;
+        importComponents.forEach((componentFiles) => {
+            componentFiles.keys().forEach((key) => {
+                let strName = key.substring(2, key.indexOf('/index.vue'));
+                Vue.component(strName, componentFiles(key).default || componentFiles(key));
+            });
+        });
+        _.forEach(component, (item, key) => {
+            Vue.component(key, item(key).default || item(key));
+        })
     },
     _handleMountVue () {
         Object.assign(Vue.prototype, this.wow);
@@ -179,8 +194,7 @@ let { wow, app } = window.wowRuntime.init({
     },
     // 组件配置
     component: {
-        importComponents: [],
-
+        importComponents: [ ],
     },
 });
 
