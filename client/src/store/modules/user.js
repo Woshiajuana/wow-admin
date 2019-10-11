@@ -1,7 +1,9 @@
 
 import Vue from 'vue'
 import storage from '@utils/storage'
-import router, { resetRouter } from '@router'
+import generateRouter, { resetRouter } from '@router'
+
+const router = generateRouter();
 
 const state = {
     objUserInfo: '',

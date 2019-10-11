@@ -57,7 +57,7 @@ const createRouter = () => new Router({
 
 const router = createRouter();
 let asyncRouter = null;
-let objRouter = null;
+let objRouter = {};
 
 export function resetRouter() {
     const newRouter = createRouter();
@@ -156,6 +156,6 @@ function loadAsyncRouter (routes) {
 }
 
 export default (views) => {
-    objRouter = views || {};
+    views && (objRouter = views);
     return router;
 };

@@ -1,10 +1,8 @@
 
 import axios from 'axios'
 import _ from 'lodash'
-import Vue from 'vue'
 import store from '@store'
 import storage from '@utils/storage'
-import router from '@router'
 
 class Http {
 
