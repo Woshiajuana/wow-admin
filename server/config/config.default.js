@@ -44,10 +44,13 @@ module.exports = appInfo => {
 
     // add mongoose
     config.mongoose = {
-        url: 'mongodb://47.95.202.71:27017/wow_admin_test',
+        // url: 'mongodb://47.95.202.71:27017/wow_admin_test',
+        url: 'mongodb://47.95.202.71:27017/wow_admin',
         options: {
-            user: 'wow_admin_test',
-            pass: '123456',
+            // user: 'wow_admin_test',
+            user: 'wow_admin',
+            // pass: '123456',
+            pass: 'wow_admin123',
         },
     };
 
