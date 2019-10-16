@@ -81,6 +81,8 @@ module.exports = class HandleServer extends Service {
     async update (data) {
         const { ctx, app } = this;
         const { id } = data;
+        const { source } = await this.findById(id);
+        if (source === 'INIT') throw '不能编辑该项';
         delete data.id;
         await ctx.model.ApiRouteModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
     }
