@@ -30,6 +30,12 @@ module.exports = app => {
             default: 'POST',
         },
 
+        // 来源
+        source: {
+            type: String,
+            default: 'CREATE',
+        },
+
         // 创建时间
         created_at: {
             type: Date,

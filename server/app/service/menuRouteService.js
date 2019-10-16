@@ -9,14 +9,84 @@ module.exports = class HandleServer extends Service {
     // 初始化菜单
     async init () {
         const { ctx, app } = this;
-        const { _id: userId } = await this.create({ "redirect" : "admin/user", "params" : "", "father" : null, "icon" : "manage-user", "title" : "管理员用户管理", "path" : "admin", "sort" : 1, "component" : "layout", });
-        const { _id: logId } = await this.create({ "redirect" : "oplog/index", "params" : "", "father" : null, "icon" : "bug", "title" : "操作日志管理", "path" : "oplog", "sort" : 1, "component" : "layout", });
+        const { _id: userId } = await this.create({
+            "redirect" : "admin/user",
+            "params" : "",
+            "father" : null,
+            "icon" : "manage-user",
+            "title" : "管理员用户管理",
+            "path" : "admin",
+            "sort" : 1,
+            "component" : "layout",
+            "source": "INIT",
+        });
+        const { _id: logId } = await this.create({
+            "redirect" : "oplog/index",
+            "params" : "",
+            "father" : null,
+            "icon" : "bug",
+            "title" : "操作日志管理",
+            "path" : "oplog",
+            "sort" : 1,
+            "component" : "layout",
+            "source": "INIT",
+        });
         const menuRoutes = [
-            { "redirect" : "", "params" : "", "father" : userId, "icon" : "", "title" : "API列表", "path" : "api", "sort" : 1, "component" : "admin/api", },
-            { "redirect" : "", "params" : "", "father" : userId, "icon" : "", "title" : "菜单列表", "path" : "menu", "sort" : 2, "component" : "admin/menu", },
-            { "redirect" : "", "params" : "", "father" : userId, "icon" : "", "title" : "用户组列表", "path" : "group", "sort" : 1, "component" : "admin/group", },
-            { "redirect" : "", "params" : "", "father" : userId, "icon" : "", "title" : "管理员列表", "path" : "user", "sort" : 1, "component" : "admin/user", },
-            { "redirect" : "", "params" : "", "father" : logId, "icon" : "", "title" : "操作日志列表", "path" : "index", "sort" : 1, "component" : "oplog/index", },
+            {
+                "redirect" : "",
+                "params" : "",
+                "father" : userId,
+                "icon" : "",
+                "title" : "API列表",
+                "path" : "api",
+                "sort" : 1,
+                "component" : "admin/api",
+                "source": "INIT",
+            },
+            {
+                "redirect" : "",
+                "params" : "",
+                "father" : userId,
+                "icon" : "",
+                "title" : "菜单列表",
+                "path" : "menu",
+                "sort" : 2,
+                "component" : "admin/menu",
+                "source": "INIT",
+            },
+            {
+                "redirect" : "",
+                "params" : "",
+                "father" : userId,
+                "icon" : "",
+                "title" : "用户组列表",
+                "path" : "group",
+                "sort" : 1,
+                "component" : "admin/group",
+                "source": "INIT",
+            },
+            {
+                "redirect" : "",
+                "params" : "",
+                "father" : userId,
+                "icon" : "",
+                "title" : "管理员列表",
+                "path" : "user",
+                "sort" : 1,
+                "component" : "admin/user",
+                "source": "INIT",
+            },
+            {
+                "redirect" : "",
+                "params" : "",
+                "father" : logId,
+                "icon" : "",
+                "title" : "操作日志列表",
+                "path" : "index",
+                "sort" : 1,
+                "component" : "oplog/index",
+                "source": "INIT",
+            },
         ];
         await ctx.model.MenuRouteModel.insertMany(menuRoutes, { ordered: false });
     }
@@ -73,6 +143,8 @@ module.exports = class HandleServer extends Service {
     // 删除
     async del (id) {
         const { ctx, app } = this;
+        const { source } = await this.findById(id);
+        if (source === 'INIT') throw '不能删除该项';
         await ctx.model.MenuRouteModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
     }
 

@@ -10,6 +10,7 @@ module.exports = class HandleServer extends Service {
     async init () {
         const { ctx } = this;
         const { apiRoutes } = require('./../router');
+        apiRoutes.forEach((item) => { item.source = 'INIT' });
         await ctx.model.ApiRouteModel.insertMany(apiRoutes, { ordered: false });
     }
 
@@ -71,6 +72,8 @@ module.exports = class HandleServer extends Service {
     // 删除
     async del (id) {
         const { ctx, app } = this;
+        const { source } = await this.findById(id);
+        if (source === 'INIT') throw '不能删除该项';
         await ctx.model.ApiRouteModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
     }
 

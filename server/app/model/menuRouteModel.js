@@ -65,6 +65,12 @@ module.exports = app => {
             default: '',
         },
 
+        // 来源
+        source: {
+            type: String,
+            default: 'CREATE',
+        },
+
         // 创建时间
         created_at: {
             type: Date,
