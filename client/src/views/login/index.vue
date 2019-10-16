@@ -37,6 +37,7 @@
 <script>
     import { mapGetters } from 'vuex'
     import DataMixin from './data.mixin'
+    import Md5 from 'md5'
 
     export default {
         name: 'Login',
@@ -54,7 +55,10 @@
                     return null;
                 let data = this.$verify.input(this.objForm);
                 this.loading = true;
-                this.$store.dispatch('user/login', data).then(() => {
+                this.$store.dispatch('user/login', {
+                    ...data,
+                    password: Md5(data.password.trim()),
+                }).then(() => {
                     let redirect = this.$route.query && this.$route.query.redirect;
                     this.$router.push({ path: redirect || '/' });
                 }).toast().finally(() => {

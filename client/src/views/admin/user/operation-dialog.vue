@@ -44,6 +44,7 @@
 </template>
 
 <script>
+    import Md5 from 'md5';
 
     export default {
         data () {
@@ -100,9 +101,10 @@
                 this.$refs.ruleForm.validate((valid) => {
                     if (!valid) return false;
                     let { type, data } = this.operation_data;
-                    this.$curl(type === 'add'
-                        ? this.$appConst.DO_CREATE_USER_INFO
-                        : this.$appConst.DO_UPDATE_USER_INFO, this.ruleForm).then((res) => {
+                    this.$curl(type === 'add' ? this.$appConst.DO_CREATE_USER_INFO : this.$appConst.DO_UPDATE_USER_INFO, {
+                        ...this.ruleForm,
+                        password: Md5(this.ruleForm.password.trim())
+                    }).then((res) => {
                         this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();

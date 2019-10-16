@@ -32,6 +32,7 @@
 </template>
 
 <script>
+    import Md5 from 'md5'
     import Mixin from './index.mixin'
     export default {
         name: 'SetUp',
@@ -44,7 +45,10 @@
                     return null;
                 let data = this.$verify.input(this.objForm);
                 this.loading = true;
-                this.$curl(this.$appConst.DO_APP_INIT, data).then(() => {
+                this.$curl(this.$appConst.DO_APP_INIT, {
+                    ...data,
+                    password: Md5(data.password.trim()),
+                }).then(() => {
                     this.$router.push('/');
                 }).toast().finally(() => {
                     this.loading = false;
