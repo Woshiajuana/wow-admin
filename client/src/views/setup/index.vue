@@ -5,13 +5,13 @@
             auto-complete="on"
             label-position="left">
             <div class="title-container">
-                <h3 class="title">设置 APP</h3>
+                <h3 class="title">请先设置 APP</h3>
             </div>
             <el-form-item
                 v-for="(item, key) in objForm"
                 :key="key">
                 <span class="svg-container">
-                    <svg-icon icon-class="user" />
+                    <svg-icon :icon-class="item.icon" />
                 </span>
                 <el-input
                     v-model="item.value"
@@ -118,7 +118,7 @@
             position: relative;
             width: 520px;
             max-width: 100%;
-            padding: 160px 35px 0;
+            padding: 60px 35px 0;
             margin: 0 auto;
             overflow: hidden;
         }
