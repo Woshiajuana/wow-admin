@@ -8,7 +8,8 @@ const businessApiRoutes = [
         path: '/api/demo/*',
         method: 'ALL',
         handler: ({ controller, middleware }) => [
-            controller.demo.demoController.transform,
+            // middleware.oplogMiddleware(),
+            controller.demo.transformController.transform,
         ],
     },
 ];

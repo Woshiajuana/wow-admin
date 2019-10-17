@@ -30,7 +30,7 @@ module.exports = () => {
             let target = params[0] || '';
             if (target) {
                 method = 'ALL';
-                path = path.replace(target, '');
+                path = `${path.replace(target, '')}*`;
             }
             let {
                 _id: apiId,
