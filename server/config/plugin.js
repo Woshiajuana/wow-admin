@@ -50,3 +50,9 @@ exports.response = {
     enable: true,
     path: path.join(__dirname, '../lib/plugin/egg-wow-response'),
 };
+
+// Curl
+exports.curl = {
+    enable: true,
+    path: path.join(__dirname, '../lib/plugin/egg-wow-curl'),
+};

@@ -84,6 +84,14 @@ module.exports = appInfo => {
         },
     };
 
+    // add curl
+    config.curl = {
+        transformService: {
+            name: '转发 DEMO 服务器示例',
+            baseUrl: 'http://127.0.0.1:7001/',
+        }
+    };
+
     // add your user config here
     const userConfig = {
         // myAppName: 'egg',
