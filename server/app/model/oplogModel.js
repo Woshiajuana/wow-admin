@@ -20,6 +20,12 @@ module.exports = app => {
             require: true,
         },
 
+        // 请求参数
+        params: {
+            type: Object,
+            require: true,
+        },
+
         // 结果
         result: {
             type: Object,

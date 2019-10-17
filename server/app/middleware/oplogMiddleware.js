@@ -32,6 +32,7 @@ module.exports = () => {
                 user: userId,
                 api: apiId,
                 result: { code: body.code, msg: body.msg },
+                params: data,
             });
         } catch (e) {
             console.log(e);
