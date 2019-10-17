@@ -123,7 +123,7 @@ module.exports = class HandleServer extends Service {
             const numTotal = await ctx.model.MenuRouteModel.count(filter);
             const arrData = await ctx.model.MenuRouteModel
                 .find(filter)
-                .sort('-created_at')
+                .sort('-sort')
                 .skip((numIndex - 1) * numSize)
                 .limit(numSize)
                 .lean();
@@ -135,7 +135,7 @@ module.exports = class HandleServer extends Service {
             }
         } else {
             const arrData = await ctx.model.MenuRouteModel
-                .find().sort('-created_at').lean();
+                .find().sort('-sort').lean();
             return arrData;
         }
     }
