@@ -103,8 +103,8 @@
                 }).toast().finally(() => typeof callback === 'function' && callback());
             },
             handleDelete (item) {
-                let { _id, name } = item;
-                this.$confirm(`确定删除 ${name} ?`, '温馨提示', {
+                let { _id } = item;
+                this.$confirm(`确定删除该项 ?`, '温馨提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'

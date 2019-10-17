@@ -40,10 +40,12 @@
                 width="150" >
                 <el-button-group slot-scope="scope">
                     <el-button
+                        :disabled="scope.row.is_root_group"
                         size="mini"
                         @click="handleDialogEdit(scope.row)"
                     >编辑</el-button>
                     <el-button
+                        :disabled="scope.row.is_root_group"
                         type="danger"
                         size="mini"
                         @click="handleDelete(scope.row)"
