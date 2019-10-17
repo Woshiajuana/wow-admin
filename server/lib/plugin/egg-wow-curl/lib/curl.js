@@ -1,7 +1,6 @@
 
 'use strict';
 
-const path = require('path');
 const egg = require('egg');
 
 class Service extends egg.Service {
@@ -18,7 +17,6 @@ class CurlService extends Service {
 
     constructor(ctx, name) {
         super(ctx, name);
-
         this.opts = Object.assign({
             apiName: '',
             apiUrl: '',
@@ -27,7 +25,7 @@ class CurlService extends Service {
         }, this.opts);
     }
 
-    afterRequest(response, opts) {
+    async afterRequest(response, opts) {
         let respError;
         const data = response.data || {};
 
@@ -44,7 +42,8 @@ class CurlService extends Service {
         return data.data;
     }
 
-    beforeRequest(opts) {
+    async beforeRequest (opts) {
+
     }
 
     async curl(url, opts) {
@@ -120,6 +119,17 @@ class CurlService extends Service {
     }
 }
 
-module.exports = Object.assign(egg, {
+console.log('执行了执行了执行了')
+
+Object.assign(egg, {
+    CurlService,
     Service,
 });
+
+function createClient(config, app) {
+    return {};
+}
+
+module.exports = app => {
+    app.addSingleton('curl', createClient);
+};

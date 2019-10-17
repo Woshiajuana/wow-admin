@@ -2,7 +2,6 @@
 
 const fn = require('./lib/curl');
 
-module.exports = app => {
-    if (app.config.validate.app) fn(app);
+module.exports = agent => {
+    if (agent.config.validate.agent) fn(agent);
 };
-
