@@ -32,6 +32,12 @@ module.exports = app => {
             require: true,
         },
 
+        // 请求 ip
+        ip: {
+            type: String,
+            default: '',
+        },
+
         // 创建时间
         created_at: {
             type: Date,

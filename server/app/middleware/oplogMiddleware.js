@@ -13,6 +13,7 @@ module.exports = () => {
                 body,
                 state,
                 service,
+                ip = '',
             } = ctx;
             const {
                 method,
@@ -33,6 +34,7 @@ module.exports = () => {
                 api: apiId,
                 result: { code: body.code, msg: body.msg },
                 params: data || {},
+                ip,
             });
         } catch (e) {
             console.log(e);
