@@ -1,7 +1,20 @@
 'use strict';
 
-const apiRoutes =  [
+// 业务 API 路由
+const businessApiRoutes = [
+    // DEMO
+    {
+        name: 'DEMO示例',
+        path: '/api/demo/*',
+        method: 'ALL',
+        handler: ({ controller, middleware }) => [
+            controller.demo.demoController.transform,
+        ],
+    },
+];
 
+// 基础 API 路由
+const baseApiRoutes = [
     // 登录
     {
         name: '用户登录',
@@ -222,7 +235,11 @@ const apiRoutes =  [
             controller.oplogController.del,
         ],
     },
+];
 
+const apiRoutes =  [
+    ...businessApiRoutes,
+    ...baseApiRoutes,
 ];
 
 module.exports = app => {
