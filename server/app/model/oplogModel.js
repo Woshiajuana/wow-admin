@@ -26,6 +26,12 @@ module.exports = app => {
             require: true,
         },
 
+        // 转发的目标地址
+        target: {
+            type: String,
+            default: '',
+        },
+
         // 结果
         result: {
             type: Object,

@@ -14,8 +14,9 @@ module.exports = () => {
                 state,
                 service,
                 ip = '',
+                params = '',
             } = ctx;
-            const {
+            let {
                 method,
                 path,
                 body: data,
@@ -23,8 +24,13 @@ module.exports = () => {
             let {
                 _id: userId,
             } = state.user || {};
-            if (path === '/api/v1/user-info/login') {
+            if (path === '/api/v1/user-info/login' && body && body.data) {
                 userId = body.data._id;
+            }
+            let target = params[0] || '';
+            if (target) {
+                method = 'ALL';
+                path = path.replace(target, '');
             }
             let {
                 _id: apiId,
@@ -35,6 +41,7 @@ module.exports = () => {
                 result: { code: body.code, msg: body.msg },
                 params: data || {},
                 ip,
+                target,
             });
         } catch (e) {
             console.log(e);
