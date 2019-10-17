@@ -4,12 +4,11 @@
 const egg = require('egg');
 
 class Service extends egg.Service {
-
     constructor(ctx, name) {
         super(ctx);
-
+        console.log('到这里Service => ', this.constructor.name);
         const serviceName = name || this.constructor.name;
-        this.opts = Object.assign({}, ctx.app.config[serviceName]);
+        this.options = Object.assign({}, ctx.app.config.curl[serviceName]);
     }
 }
 
@@ -17,29 +16,12 @@ class CurlService extends Service {
 
     constructor(ctx, name) {
         super(ctx, name);
-        this.opts = Object.assign({
-            apiName: '',
-            apiUrl: '',
-            fromRealIp: false,
-            curlOptions: {},
-        }, this.opts);
+        console.log('到这里CurlService => ', this.constructor.name);
+        this.options = Object.assign({}, this.options);
     }
 
-    async afterRequest(response, opts) {
-        let respError;
-        const data = response.data || {};
-
-        if (response.status >= 300 || response.status < 200 ||
-            data.respCode !== 'S0001') {
-
-            respError = new Error(data.respMessage || data.message || '服务异常');
-            respError.normalResponse = true;
-            respError.errCode = data.respCode || 'F500';
-            respError.status = response.status;
-            throw respError;
-        }
-
-        return data.data;
+    async afterRequest (response) {
+        return response.data || response;
     }
 
     async beforeRequest (options) {
@@ -71,5 +53,5 @@ function createClient(config, app) {
 }
 
 module.exports = app => {
-    app.addSingleton('curl', createClient);
+    app.addSingleton('curlSuper', createClient);
 };

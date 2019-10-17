@@ -1,11 +1,13 @@
 
 'use strict';
 
-const { Service } = require('egg');
+const { CurlService } = require('egg');
 
 
-module.exports = class HandleServer extends Service {
+module.exports = class HandleServer extends CurlService {
 
-
+    constructor (ctx) {
+        super(ctx, 'transformService');
+    }
 
 };
