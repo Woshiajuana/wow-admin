@@ -86,7 +86,7 @@ module.exports = appInfo => {
 
     // add curl
     config.curl = {
-        transformService: {
+        TransFormService: {
             name: '转发 DEMO 服务器示例',
             baseUrl: 'http://127.0.0.1:7001/',
         }

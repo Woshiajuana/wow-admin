@@ -3,25 +3,25 @@
 
 const egg = require('egg');
 
-class Service extends egg.Service {
-    constructor(ctx, name) {
-        super(ctx);
-        console.log('到这里Service => ', this.constructor.name);
-        const serviceName = name || this.constructor.name;
-        this.options = Object.assign({}, ctx.app.config.curl[serviceName]);
-    }
-}
 
-class CurlService extends Service {
+class CurlService extends egg.Service {
 
     constructor(ctx, name) {
         super(ctx, name);
-        console.log('到这里CurlService => ', this.constructor.name);
-        this.options = Object.assign({}, this.options);
+        const strName = name || this.constructor.name;
+        this.options = Object.assign({}, ctx.app.config.curl[strName] || {});
     }
 
     async afterRequest (response) {
-        return response.data || response;
+        let {
+            status,
+            statusMessage,
+            data,
+        } = response;
+        const strErrMsg = data.msg || data.message || statusMessage;
+        if (status >= 300 || status < 200 || data.code !== 'S00000')
+            throw `[${status}]：${strErrMsg}`;
+        return response.data ? response.data.data : response;
     }
 
     async beforeRequest (options) {
@@ -45,7 +45,6 @@ class CurlService extends Service {
 
 Object.assign(egg, {
     CurlService,
-    Service,
 });
 
 function createClient(config, app) {
