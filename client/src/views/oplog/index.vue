@@ -26,16 +26,22 @@
                 label="接口路径">
             </el-table-column>
             <el-table-column
-                prop="api.method"
-                label="请求方式">
+                prop="params"
+                label="请求参数">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" :content="JSON.stringify(scope.row.params)" placement="top">
+                        <el-tag :type="scope.row.result.code === 'S00000' ? 'success' : 'danger'">
+                            {...}
+                        </el-tag>
+                    </el-tooltip>
+                </template>
             </el-table-column>
             <el-table-column
-                prop="api.method"
+                prop="result"
                 label="结果">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" :content="JSON.stringify(scope.row.result)" placement="top">
-                        <el-tag
-                            :type="scope.row.result.code === 'S00000' ? 'success' : 'danger'">
+                        <el-tag :type="scope.row.result.code === 'S00000' ? 'success' : 'danger'">
                             {{scope.row.result.code === 'S00000' ? '成功' : '失败'}}
                         </el-tag>
                     </el-tooltip>
