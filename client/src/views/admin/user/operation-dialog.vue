@@ -23,7 +23,7 @@
                 <el-input v-model="ruleForm.avatar" placeholder="请输入头像链接"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="password">
-                <el-input v-model="ruleForm.password" placeholder="请输入密码" maxlength="20"></el-input>
+                <el-input v-model="ruleForm.password" type="password" placeholder="请输入密码" maxlength="20"></el-input>
             </el-form-item>
             <el-form-item label="用户组" prop="group">
                 <el-select v-model="ruleForm.group" placeholder="请选择用户组">
@@ -118,7 +118,8 @@
                 this.$nextTick(() => {
                     this.$refs.ruleForm.resetFields();
                     let { type, data } = this.operation_data;
-                    data && (this.ruleForm = { ...data, id: data._id });
+                    data && (this.ruleForm = { ...data, id: data._id, group: data.group._id });
+                    console.log('this.ruleForm => ', this.ruleForm)
                 })
             },
         },

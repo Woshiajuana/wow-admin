@@ -52,7 +52,7 @@ module.exports = class HandleController extends Controller {
             });
             // 初始化超级管理员用户组
             const objAdminGroup = await service.userGroupService.create({
-                name: '超级管理员',
+                name: '超级管理组',
                 is_root_group: true,
             });
             // 初始化超级管理员用户
