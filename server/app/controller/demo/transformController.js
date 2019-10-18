@@ -8,6 +8,8 @@ module.exports = class HandleController extends Controller {
     // 转发
     async transform () {
         const { ctx, service, app } = this;
+        const { router } = app;
+        console.log('router => ', router);
         try {
             const {
                 params,
