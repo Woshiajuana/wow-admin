@@ -186,7 +186,7 @@ window.wowRuntime = {
     },
     _use (key, value) {
         (key.indexOf('$') === -1) && (key = `${key}`);
-        value && (this.wow[key] = value);
+        value && (this.wow[key] = value);w
         return this;
     },
 };
