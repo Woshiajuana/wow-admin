@@ -8,7 +8,7 @@ const businessApiRoutes = [
         path: '/api/demo/*',
         method: 'ALL',
         handler: ({ controller, middleware }) => [
-            // middleware.jwtMiddleware(),
+            middleware.jwtMiddleware(),
             middleware.oplogMiddleware(),
             controller.demo.transformController.transform,
         ],
