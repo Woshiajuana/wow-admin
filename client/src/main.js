@@ -31,9 +31,9 @@ let router = null;
 const DEFAULT_OPTIONS = {
     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
     extendUtils: {
-        modal,
-        storage,
-        verify,
+        $modal: modal,
+        $storage: storage,
+        $verify: verify,
     },
     // API配置
     httpRequest: {
@@ -185,7 +185,8 @@ window.wowRuntime = {
         return this;
     },
     _use (key, value) {
-        value && (this.wow[`$${key}`] = value);
+        (key.indexOf('$') === -1) && (key = `${key}`);
+        value && (this.wow[key] = value);
         return this;
     },
 };
