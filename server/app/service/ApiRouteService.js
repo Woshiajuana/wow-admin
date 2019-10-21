@@ -8,10 +8,10 @@ module.exports = class HandleServer extends Service {
 
     // 初始化
     async init () {
-        const { ctx } = this;
-        const { apiRoutes } = require('./../router');
-        apiRoutes.forEach((item) => { item.source = 'INIT' });
-        await ctx.model.ApiRouteModel.insertMany(apiRoutes, { ordered: false });
+        const { ctx, app } = this;
+        const arrApiRoutes = app.router.arrRoutes;
+        arrApiRoutes.forEach((item) => { item.source = 'INIT' });
+        await ctx.model.ApiRouteModel.insertMany(arrApiRoutes, { ordered: false });
     }
 
     // 创建
@@ -63,9 +63,7 @@ module.exports = class HandleServer extends Service {
                 numSize,
             }
         } else {
-            const arrData = await ctx.model.ApiRouteModel
-                .find().sort('-created_at').lean();
-            return arrData;
+            return await ctx.model.ApiRouteModel.find().sort('-created_at').lean();
         }
     }
 
