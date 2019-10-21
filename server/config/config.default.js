@@ -92,6 +92,11 @@ module.exports = appInfo => {
         }
     };
 
+    // add log
+    config.logger = {
+        level: 'INFO',
+        dir: path.join(__dirname, '../logs/') // 保存路径为工程路径下`logs/prod/app`
+    };
 
     return config;
 };
