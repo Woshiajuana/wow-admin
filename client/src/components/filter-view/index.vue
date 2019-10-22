@@ -46,18 +46,25 @@
 
         <el-button-group
             class="button-wrap">
-            <el-button
+            <el-tooltip
                 v-for="(item, key) in filterButton"
                 :key="key"
-                class="filter-item"
-                :type="item.type"
-                :loading="item.loading"
-                :icon="item.icon"
-                :style="item.style"
-                :size="item.size || 'small'"
-                @click="handleTap(item)">
-                {{item.loading ? item.loadingText || item.text : item.text}}
-            </el-button>
+                class="item"
+                effect="dark"
+                :disabled="!item.tooltip || item.tooltip.disabled"
+                :content="item.tooltip ? item.tooltip.content : ''"
+                :placement="item.tooltip && item.tooltip.placement || 'top'">
+                <el-button
+                    class="filter-item"
+                    :type="item.type"
+                    :loading="item.loading"
+                    :icon="item.icon"
+                    :style="item.style"
+                    :size="item.size || 'small'"
+                    @click="handleTap(item)">
+                    {{item.loading ? item.loadingText || item.text : item.text}}
+                </el-button>
+            </el-tooltip>
         </el-button-group>
     </div>
 </template>

@@ -57,6 +57,9 @@ const data = () => {
                 type: 'danger',
                 icon: 'el-icon-connection',
                 event: 'init',
+                tooltip: {
+                    content: '服务新增接口，可点击此按钮一键录入哦',
+                }
             }
         ],
     };
