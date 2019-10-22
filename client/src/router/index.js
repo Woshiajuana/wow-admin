@@ -69,8 +69,8 @@ export function resetRouter() {
 router.beforeEach(async(to, from, next) => {
     NProgress.start();
     let {
-        objAppInfo,
-        objUserInfo,
+        objAppInfo = '',
+        objUserInfo = '',
     } = store.getters;
     let {
         path: toPath,
@@ -90,6 +90,7 @@ router.beforeEach(async(to, from, next) => {
         loadAsyncRouter(objUserInfo.group.menu_routes);
         return next({ ...to, replace: true });
     }
+    window.document.title = `${objAppInfo.name ? objAppInfo.name + '-' : ''}${to.meta.title || ''}`;
     if (toPath === '/404') {
         next();
     } else if (objAppInfo) {
@@ -125,6 +126,8 @@ router.beforeEach(async(to, from, next) => {
     }
     NProgress.done();
 });
+
+
 
 router.afterEach(() => {
     NProgress.done();
