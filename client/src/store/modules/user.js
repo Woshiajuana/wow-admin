@@ -47,17 +47,14 @@ const actions = {
         return new Promise((resolve, reject) => {
             let { $curl, $appConst, $storage } = Vue.prototype;
             const { access_token = '' } = $storage.local.get('USER_INFO') || {};
-            (() => {
-                return access_token ? $curl($appConst.DO_USER_LOGOUT) : Promise.resolve();
-            })().then(() => {}).toast().finally(() => {
-                commit('SET_USER_INFO', '');
-                resetRouter();
-                dispatch('tagsView/delAllCachedViews', {}, { root: true });
-                dispatch('tagsView/delAllVisitedViews', {}, { root: true });
-                router.push(`/login`);
-                resolve();
-            });
-        })
+            access_token && $curl($appConst.DO_USER_LOGOUT).null();
+            commit('SET_USER_INFO', '');
+            resetRouter();
+            dispatch('tagsView/delAllCachedViews', {}, { root: true });
+            dispatch('tagsView/delAllVisitedViews', {}, { root: true });
+            router.push(`/login`);
+            resolve();
+        });
     },
 
 };
