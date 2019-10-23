@@ -59,7 +59,7 @@ module.exports = appInfo => {
     // add jwt
     exports.jwt = {
         secret: 'wowadminajuan',
-        maxAge: ''
+        maxAge: '0.1m'
     };
 
     // add security
