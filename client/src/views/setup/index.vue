@@ -3,7 +3,7 @@
     <div class="wrap">
 
         <div class="logo">
-            <img src="../../assets/images/logo.png" alt="logo"/>
+            <img :src="arrForm[0].logo.value || '../../assets/images/logo.png'" alt="logo"/>
             <h1>{{arrForm[0].name.value || 'Wow-Admin'}}</h1>
         </div>
 
@@ -39,12 +39,17 @@
                 >{{ numCurrent === arrForm.length - 1 ? '提交' : '下一步' }}</el-button>
             </el-form>
         </div>
+
+        <div class="flex"></div>
+
+        <p class="ownership">{{arrForm[0].ownership.value || 'Copyright ©2019 Ajuan. All Rights Reserved.'}}</p>
     </div>
 
 </template>
 
 <script>
     import Md5                              from 'md5'
+    import { mapGetters }                   from 'vuex'
     import Mixin                            from './index.mixin'
 
     export default {
@@ -52,6 +57,9 @@
         mixins: [
             Mixin,
         ],
+        computed: {
+            ...mapGetters([ 'objAppInfo' ]),
+        },
         methods: {
             handleSure () {
                 if (this.$verify.check(this.arrForm[this.numCurrent]))
@@ -102,7 +110,7 @@
     .inner {
         background-color: #fff;
         border-radius: 6px;
-        margin: 50px 0;
+        margin-top: 40px;
         padding: 30px 50px;
         .el-input {
             @extend %dib;
@@ -117,10 +125,17 @@
         margin: 0 auto;
         overflow: hidden;
     }
+    .flex{
+        @extend %df1;
+    }
     .svg {
         color: #889aa4;
         vertical-align: middle;
         width: 30px;
         display: inline-block;
+    }
+    .ownership{
+        font-size: 12px;
+        color: #ddd;
     }
 </style>

@@ -3,6 +3,9 @@ const data = () => {
     return {
         loading: false,
         numCurrent: 0,
+        default: {
+            logo: '',
+        },
         arrForm: [
             {
                 name: {
@@ -19,7 +22,7 @@ const data = () => {
                 logo: {
                     value: '',
                     icon: 'logo-icon',
-                    placeholder: '请设置管理台LOGO(url链接)',
+                    placeholder: '请设置管理台LOGO (url链接)',
                     use: [
                         {
                             nonempty: true,
@@ -30,7 +33,7 @@ const data = () => {
                 bg: {
                     value: '',
                     icon: 'bg',
-                    placeholder: '请设置管理台背景图(url链接)',
+                    placeholder: '请设置管理台背景图 (url链接)',
                     use: [
                         {
                             nonempty: true,
