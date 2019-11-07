@@ -1,4 +1,6 @@
 
+import regular                              from '@utils/regular'
+
 const data = () => {
     return {
         loading: false,
@@ -93,6 +95,10 @@ const data = () => {
                             nonempty: true,
                             prompt: '请设置超级管理员手机号',
                         },
+                        {
+                            rule: regular.isPhone,
+                            prompt: '超级管理员手机号设置有误',
+                        },
                     ],
                 },
                 email: {
@@ -103,6 +109,10 @@ const data = () => {
                         {
                             nonempty: true,
                             prompt: '请设置超级管理员邮箱',
+                        },
+                        {
+                            rule: regular.isEmail,
+                            prompt: '超级管理员邮箱设置有误',
                         },
                     ],
                 },
