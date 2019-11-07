@@ -26,17 +26,6 @@ const data = () => {
                     },
                 ],
             },
-            theme: {
-                value: '',
-                icon: 'theme',
-                placeholder: '请设置主题',
-                use: [
-                    {
-                        nonempty: true,
-                        prompt: '请设置主题',
-                    },
-                ],
-            },
             ownership: {
                 value: '',
                 icon: 'ownership',

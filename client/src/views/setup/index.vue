@@ -15,16 +15,16 @@
                 <el-form-item
                     v-for="(item, key) in objForm"
                     :key="key">
-                    <span class="svg">
-                        <svg-icon :icon-class="item.icon" />
-                    </span>
                     <el-input
                         v-model="item.value"
                         :placeholder="item.placeholder"
                         :type="item.type"
                         tabindex="1"
-                        auto-complete="on"
-                    ></el-input>
+                        auto-complete="on">
+                        <span slot="prefix" class="svg">
+                            <svg-icon :icon-class="item.icon" />
+                        </span>
+                    </el-input>
                 </el-form-item>
                 <el-button
                     :loading="loading"
@@ -85,19 +85,8 @@
     }
     .title{
         font-size: 18px;
+        margin-bottom: 30px;
     }
-    $bg:#283443;
-    $light_gray:#fff;
-    $cursor: #fff;
-    $bg:#2d3a4b;
-    $dark_gray:#889aa4;
-    $light_gray:#eee;
-    @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-        .login-container .el-input input {
-            color: #fff;
-        }
-    }
-
     .inner {
         background-color: #fff;
         border-radius: 6px;
@@ -105,15 +94,10 @@
         padding: 30px 50px;
         .el-input {
             @extend %dib;
-            width: 85%;
-
         }
-        /*.el-form-item {*/
-        /*    border: 1px solid rgba(255, 255, 255, 0.9);*/
-        /*    background: rgba(0, 0, 0, 0.1);*/
-        /*    border-radius: 5px;*/
-        /*    color: #454545;*/
-        /*}*/
+        .el-input--prefix .el-input__inner {
+            padding-left: 39px;
+        }
     }
 
     .form-section {
@@ -124,32 +108,10 @@
     }
 
     .svg {
-        padding: 6px 5px 6px 15px;
         color: #889aa4;
         vertical-align: middle;
         width: 30px;
         display: inline-block;
     }
 
-    .title-container {
-        position: relative;
-
-        .title {
-            font-size: 26px;
-            color: $light_gray;
-            margin: 0px auto 40px auto;
-            text-align: center;
-            font-weight: bold;
-        }
-    }
-
-    .show-pwd {
-        position: absolute;
-        right: 10px;
-        top: 7px;
-        font-size: 16px;
-        color: $dark_gray;
-        cursor: pointer;
-        user-select: none;
-    }
 </style>
