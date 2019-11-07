@@ -24,6 +24,7 @@
                     :key="key">
                     <el-input
                         v-model.trim="item.value"
+                        :maxlength="item.max"
                         :placeholder="item.placeholder"
                         :type="item.type">
                         <span slot="prefix" class="svg">

@@ -11,6 +11,7 @@ const data = () => {
                     value: '',
                     icon: 'manage',
                     placeholder: '管理台名称',
+                    max: 20,
                     use: [
                         {
                             nonempty: true,
@@ -21,6 +22,7 @@ const data = () => {
                 logo: {
                     value: '',
                     icon: 'logo-icon',
+                    max: 100,
                     placeholder: '管理台LOGO (url链接)',
                     use: [
                         {
@@ -32,16 +34,19 @@ const data = () => {
                 bg: {
                     value: '',
                     icon: 'bg',
+                    max: 100,
                     placeholder: '管理台背景图 (url链接) (非必填)',
                 },
                 color: {
                     value: '',
                     icon: 'bg-color',
+                    max: 10,
                     placeholder: '管理台覆盖色 (非必填)',
                 },
                 ownership: {
                     value: '',
                     icon: 'ownership',
+                    max: 30,
                     placeholder: '请设置所有权归属',
                     use: [
                         {
@@ -55,6 +60,7 @@ const data = () => {
                 nickname: {
                     value: '',
                     icon: 'user',
+                    max: 20,
                     placeholder: '超级管理员昵称',
                     use: [
                         {
@@ -67,6 +73,7 @@ const data = () => {
                     value: '',
                     icon: 'password',
                     type: 'password',
+                    max: 20,
                     placeholder: '超级管理员密码',
                     use: [
                         {
@@ -78,17 +85,19 @@ const data = () => {
                 avatar: {
                     value: '',
                     icon: 'avatar',
+                    max: 100,
                     placeholder: '超级管理员头像',
                     use: [
                         {
                             nonempty: true,
-                            prompt: '请设置超级管理员头像',
+                            prompt: '请设置超级管理员头像 (url链接)',
                         },
                     ],
                 },
                 phone: {
                     value: '',
                     icon: 'phone',
+                    max: 11,
                     placeholder: '超级管理员手机号',
                     use: [
                         {
@@ -104,6 +113,7 @@ const data = () => {
                 email: {
                     value: '',
                     icon: 'email',
+                    max: 50,
                     placeholder: '超级管理员邮箱',
                     use: [
                         {
