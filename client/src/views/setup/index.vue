@@ -3,7 +3,8 @@
     <div class="wrap">
 
         <div class="logo">
-            <h1>Wow-Admin</h1>
+            <img src="../../assets/images/logo.png" alt="logo"/>
+            <h1>{{arrForm[0].name.value || 'Wow-Admin'}}</h1>
         </div>
 
         <div class="inner">
@@ -82,10 +83,17 @@
     }
     .logo{
         @extend %w100;
+        @extend %df;
+        @extend %aic;
         @extend %bsb;
-        padding: 20px 30px;
+        padding: 10px 20px;
         h1 {
             font-size: 18px;
+        }
+        img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
         }
     }
     .step-section{

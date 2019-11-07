@@ -19,7 +19,29 @@ const data = () => {
                 logo: {
                     value: '',
                     icon: 'logo-icon',
-                    placeholder: '请设置管理台LOGO',
+                    placeholder: '请设置管理台LOGO(url链接)',
+                    use: [
+                        {
+                            nonempty: true,
+                            prompt: '请设置管理台LOGO',
+                        },
+                    ],
+                },
+                bg: {
+                    value: '',
+                    icon: 'bg',
+                    placeholder: '请设置管理台背景图(url链接)',
+                    use: [
+                        {
+                            nonempty: true,
+                            prompt: '请设置管理台LOGO',
+                        },
+                    ],
+                },
+                color: {
+                    value: '',
+                    icon: 'bg-color',
+                    placeholder: '请设置管理台覆盖色',
                     use: [
                         {
                             nonempty: true,
