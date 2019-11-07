@@ -12,9 +12,6 @@
         computed: {
             ...mapGetters([ 'objAppInfo', 'objDefAppInfo' ]),
         },
-        created() {
-            console.log(this.objDefAppInfo)
-        }
     }
 </script>
 
@@ -27,7 +24,6 @@
     }
     .view-wrap {
         min-height: 100%;
-        /*background-color: rgba(0, 0, 0, .5);*/
     }
     .el-select.el-select--mini{
         width: 100%;

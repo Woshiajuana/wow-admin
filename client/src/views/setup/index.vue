@@ -3,8 +3,8 @@
     <div class="wrap">
 
         <div class="logo">
-            <img :src="arrForm[0].logo.value || '../../assets/images/logo.png'" alt="logo"/>
-            <h1>{{arrForm[0].name.value || 'Wow-Admin'}}</h1>
+            <img :src="arrForm[0].logo.value || objDefAppInfo.logo" alt="logo"/>
+            <h1>{{arrForm[0].name.value || objDefAppInfo.name}}</h1>
         </div>
 
         <div class="inner">
@@ -40,9 +40,9 @@
             </el-form>
         </div>
 
-        <div class="flex"></div>
+        <div class="flex">{{objDefAppInfo}}</div>
 
-        <p class="ownership">{{arrForm[0].ownership.value || 'Copyright ©2019 Ajuan. All Rights Reserved.'}}</p>
+        <p class="ownership">{{arrForm[0].ownership.value || objDefAppInfo.ownership}}</p>
     </div>
 
 </template>
@@ -57,15 +57,16 @@
         mixins: [
             Mixin,
         ],
-        computed: {
-            ...mapGetters([ 'objAppInfo', 'objDefAppInfo', 'device' ]),
+        watch: {
+            'arrForm.0.color.value' (value) {
+                this.$store.commit('app/SET_DEF_APP_INFO', { color: value });
+            },
+            'arrForm.0.bg.value' (value) {
+                this.$store.commit('app/SET_DEF_APP_INFO', { bg: value });
+            }
         },
-        created() {
-          setTimeout(() => {
-              console.log('到这里了',this.objDefAppInfo)
-              console.log('到这里了',this.objAppInfo)
-              console.log('到这里了',this.device)
-          },2000)
+        computed: {
+            ...mapGetters([ 'objAppInfo', 'objDefAppInfo' ]),
         },
         methods: {
             handleSure () {
@@ -95,6 +96,7 @@
         @extend %fdc;
         @extend %oh;
         @extend %aic;
+        color: #409EFF;
     }
     .logo{
         @extend %w100;

@@ -44,9 +44,11 @@ const mutations = {
         state.objAppInfo = objAppInfo;
         storage.cache.set('APP_INFO', objAppInfo);
     },
+    SET_DEF_APP_INFO: (state, objDefAppInfo) => state.objDefAppInfo = { ...state.objDefAppInfo, ...objDefAppInfo},
 };
 
 const actions = {
+
     toggleSideBar({ commit }) {
         commit('TOGGLE_SIDEBAR')
     },
