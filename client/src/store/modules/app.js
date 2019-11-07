@@ -2,6 +2,9 @@ import Cookies from 'js-cookie'
 import Vue from 'vue'
 import storage from '@utils/storage'
 
+const defBg = require('@assets/images/bg.jpg');
+const defLogo = require('@assets/images/logo.png');
+
 const state = {
     sidebar: {
         opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
@@ -9,6 +12,16 @@ const state = {
     },
     device: 'desktop',
     objAppInfo: '',
+    objDefAppInfo: {
+        name: 'Wow-Admin',
+        logo: defLogo,
+        bg: defBg,
+        defLogo: defLogo,
+        defBg: defBg,
+        deColor: 'rgba(0, 0, 0, .5)',
+        color: 'rgba(0, 0, 0, .5)',
+        ownership: 'Copyright ©2019 Ajuan. All Rights Reserved.',
+    },
 };
 
 const mutations = {

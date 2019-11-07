@@ -1,27 +1,33 @@
 <template>
-    <div id="app">
-        <router-view class="view-wrap"/>
+    <div id="app" :style="{ background: 'url(' + (objAppInfo.bg || objDefAppInfo.bg || objDefAppInfo.defBg) + ') center center no-repeat' }">
+        <router-view class="view-wrap" :style="{ backgroundColor: (objAppInfo.color || objDefAppInfo.color || objDefAppInfo.deColor) }"/>
     </div>
 </template>
 
 <script>
+    import { mapGetters }                   from 'vuex'
+
     export default {
-        name: 'App'
+        name: 'App',
+        computed: {
+            ...mapGetters([ 'objAppInfo', 'objDefAppInfo' ]),
+        },
+        created() {
+            console.log(this.objDefAppInfo)
+        }
     }
 </script>
 
 <style lang="scss">
     #app{
-        background: url("./assets/images/bg.jpg") center center no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
+        background-size: cover !important;
+        background-attachment: fixed !important;
         height: 100%;
         overflow-y: auto;
     }
     .view-wrap {
         min-height: 100%;
-        color: #409EFF;
-        background-color: rgba(0, 0, 0, .5);
+        /*background-color: rgba(0, 0, 0, .5);*/
     }
     .el-select.el-select--mini{
         width: 100%;

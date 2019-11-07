@@ -58,7 +58,14 @@
             Mixin,
         ],
         computed: {
-            ...mapGetters([ 'objAppInfo' ]),
+            ...mapGetters([ 'objAppInfo', 'objDefAppInfo', 'device' ]),
+        },
+        created() {
+          setTimeout(() => {
+              console.log('到这里了',this.objDefAppInfo)
+              console.log('到这里了',this.objAppInfo)
+              console.log('到这里了',this.device)
+          },2000)
         },
         methods: {
             handleSure () {

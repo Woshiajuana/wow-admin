@@ -6,5 +6,6 @@ const getters = {
     permission_routes: state => state.permission.routes,
     objAppInfo: state => state.app.objAppInfo,
     objUserInfo: state => state.user.objUserInfo,
+    objDefAppInfo: state => state.app.objDefAppInfo,
 };
 export default getters
