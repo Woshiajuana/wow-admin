@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <router-view />
+        <router-view class="view-wrap"/>
     </div>
 </template>
 
@@ -12,14 +12,17 @@
 
 <style lang="scss">
     #app{
-        background: url("./assets/images/bg.jpg") center top no-repeat;
-        background-size: auto 100%;
-
+        background: url("./assets/images/bg.jpg") center center no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        height: 100%;
+        overflow-y: auto;
     }
-    .app-main{
-        /*background-color: #f2f2f2;*/
+    .view-wrap {
+        min-height: 100%;
+        color: #409EFF;
+        background-color: rgba(0, 0, 0, .5);
     }
-
     .el-select.el-select--mini{
         width: 100%;
     }
