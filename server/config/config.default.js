@@ -23,11 +23,11 @@ module.exports = appInfo => {
     // add redis
     config.redis = {
         client: {
-            host: '47.95.202.71',
-            port: '6379',
-            db: '0',
+            host: '154.8.209.13',
+            port: '36379',
+            db: '4',
             family: 'IPv4',
-            password: 'zbDHVaWOgMdV4rPQ3wETRYfRFjlEos83',
+            password: '123456',
         },
     };
 
@@ -46,20 +46,17 @@ module.exports = appInfo => {
 
     // add mongoose
     config.mongoose = {
-        // url: 'mongodb://47.95.202.71:27017/wow_admin_test',
-        url: 'mongodb://47.95.202.71:27017/wow_admin',
+        url: 'mongodb://154.8.209.13:37017/fqa_gateway',
         options: {
-            // user: 'wow_admin_test',
-            user: 'wow_admin',
-            // pass: '123456',
-            pass: 'wow_admin123',
+            user: '',
+            pass: '',
         },
     };
 
     // add jwt
     exports.jwt = {
         secret: 'wowadminajuan',
-        maxAge: '0.1m',
+        maxAge: '10m',
     };
 
     // add security
