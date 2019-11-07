@@ -3,24 +3,25 @@ import Vue from 'vue'
 
 import 'normalize.css/normalize.css'; // A modern alternative to CSS resets
 
-import ElementUI from 'element-ui'
+import ElementUI                            from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
+import locale                               from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 
-import _ from 'lodash'
+import _                                    from 'lodash'
 
-import App from '@/App.vue'
-import store from '@store'
-import generateRouter from '@router'
+import App                                  from '@/App.vue'
+import store                                from '@store'
+import generateRouter                       from '@router'
 
 import '@assets/scss/index.scss'
 import '@assets/icons' // icon
 import '@utils/promise'
 
-import http from '@utils/http'
-import modal from '@utils/modal'
-import storage from '@utils/storage'
-import verify from '@utils/verify'
+import http                                 from '@utils/http'
+import modal                                from '@utils/modal'
+import storage                              from '@utils/storage'
+import verify                               from '@utils/verify'
+
 
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;

@@ -3,9 +3,6 @@ const data = () => {
     return {
         loading: false,
         numCurrent: 0,
-        default: {
-            logo: '',
-        },
         arrForm: [
             {
                 name: {
