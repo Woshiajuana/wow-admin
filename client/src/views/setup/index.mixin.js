@@ -11,7 +11,7 @@ const data = () => {
                 name: {
                     value: '',
                     icon: 'manage',
-                    placeholder: '请设置管理台名称',
+                    placeholder: '管理台名称',
                     use: [
                         {
                             nonempty: true,
@@ -22,7 +22,7 @@ const data = () => {
                 logo: {
                     value: '',
                     icon: 'logo-icon',
-                    placeholder: '请设置管理台LOGO (url链接)',
+                    placeholder: '管理台LOGO (url链接)',
                     use: [
                         {
                             nonempty: true,
@@ -33,24 +33,12 @@ const data = () => {
                 bg: {
                     value: '',
                     icon: 'bg',
-                    placeholder: '请设置管理台背景图 (url链接)',
-                    use: [
-                        {
-                            nonempty: true,
-                            prompt: '请设置管理台LOGO',
-                        },
-                    ],
+                    placeholder: '管理台背景图 (url链接) (非必填)',
                 },
                 color: {
                     value: '',
                     icon: 'bg-color',
-                    placeholder: '请设置管理台覆盖色',
-                    use: [
-                        {
-                            nonempty: true,
-                            prompt: '请设置管理台LOGO',
-                        },
-                    ],
+                    placeholder: '管理台覆盖色 (非必填)',
                 },
                 ownership: {
                     value: '',
@@ -68,7 +56,7 @@ const data = () => {
                 nickname: {
                     value: '',
                     icon: 'user',
-                    placeholder: '请设置超级管理员昵称',
+                    placeholder: '超级管理员昵称',
                     use: [
                         {
                             nonempty: true,
@@ -80,7 +68,7 @@ const data = () => {
                     value: '',
                     icon: 'password',
                     type: 'password',
-                    placeholder: '请设置超级管理员密码',
+                    placeholder: '超级管理员密码',
                     use: [
                         {
                             nonempty: true,
@@ -91,7 +79,7 @@ const data = () => {
                 avatar: {
                     value: '',
                     icon: 'avatar',
-                    placeholder: '请设置超级管理员头像',
+                    placeholder: '超级管理员头像',
                     use: [
                         {
                             nonempty: true,
@@ -102,7 +90,7 @@ const data = () => {
                 phone: {
                     value: '',
                     icon: 'phone',
-                    placeholder: '请设置超级管理员手机号',
+                    placeholder: '超级管理员手机号',
                     use: [
                         {
                             nonempty: true,
@@ -113,7 +101,7 @@ const data = () => {
                 email: {
                     value: '',
                     icon: 'email',
-                    placeholder: '请设置超级管理员邮箱',
+                    placeholder: '超级管理员邮箱',
                     use: [
                         {
                             nonempty: true,
