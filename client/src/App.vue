@@ -10,7 +10,12 @@
     }
 </script>
 
-<style>
+<style lang="scss">
+    #app{
+        background: url("./assets/images/bg.jpg") center top no-repeat;
+        background-size: auto 100%;
+
+    }
     .app-main{
         /*background-color: #f2f2f2;*/
     }

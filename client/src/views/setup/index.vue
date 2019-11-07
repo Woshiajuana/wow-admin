@@ -111,7 +111,7 @@
     .login-container {
         min-height: 100%;
         width: 100%;
-        background-color: #fff;
+        /*background-color: #fff;*/
         overflow: hidden;
 
         .login-form {
