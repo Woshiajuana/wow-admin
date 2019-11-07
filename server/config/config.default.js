@@ -25,7 +25,7 @@ module.exports = appInfo => {
         client: {
             host: '154.8.209.13',
             port: '36379',
-            db: '4',
+            db: '5',
             family: 'IPv4',
             password: '123456',
         },
@@ -46,7 +46,7 @@ module.exports = appInfo => {
 
     // add mongoose
     config.mongoose = {
-        url: 'mongodb://154.8.209.13:37017/fqa_gateway',
+        url: 'mongodb://154.8.209.13:37017/wow_admin',
         options: {
             user: '',
             pass: '',

@@ -23,17 +23,20 @@ exports.mongoose = {
 // token
 exports.jwt = {
     enable: true,
-    package: 'egg-wow-jwt',
+    // package: 'egg-wow-jwt',
+    path: path.join(__dirname, '../lib/egg-wow-jwt')
 };
 
 // 验证参数
 exports.validate = {
     enable: true,
-    package: 'egg-wow-validate',
+    // package: 'egg-wow-validate',
+    path: path.join(__dirname, '../lib/egg-wow-validate')
 };
 
 // 响应
 exports.response = {
     enable: true,
-    package: 'egg-wow-response',
+    // package: 'egg-wow-response',
+    path: path.join(__dirname, '../lib/egg-wow-response')
 };
