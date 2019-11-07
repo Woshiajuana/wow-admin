@@ -40,7 +40,7 @@
             </el-form>
         </div>
 
-        <div class="flex">{{objDefAppInfo}}</div>
+        <div class="flex"></div>
 
         <p class="ownership">{{arrForm[0].ownership.value || objDefAppInfo.ownership}}</p>
     </div>
