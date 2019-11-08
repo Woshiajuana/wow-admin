@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="view-wrap">
         <filter-view
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
