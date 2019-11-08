@@ -10,23 +10,32 @@ module.exports = app => {
         name: {
             type: String,
             trim: true,
-            minlength: 2,
-            maxlength: 20,
-            default: '管理台',
+            maxlength: 100,
+            required: true,
+            default: '',
         },
 
         // logo
         logo: {
             type: String,
             trim: true,
+            maxlength: 100,
             required: true,
         },
 
-        // 主题
-        theme: {
+        // 背景图
+        bg: {
+            type: String,
+            maxlength: 200,
+            trim: true,
+            default: '',
+        },
+
+        // 覆盖色
+        color: {
             type: String,
             trim: true,
-            default: 'DEFAULT',
+            default: '',
         },
 
         // 所有权

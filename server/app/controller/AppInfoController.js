@@ -40,7 +40,8 @@ module.exports = class HandleController extends Controller {
      * @apiGroup APP基础
      * @apiParam  {String} [name] 管理台名称
      * @apiParam  {String} [logo] 管理台LOGO
-     * @apiParam  {String} [theme] 主题
+     * @apiParam  {String} [bg] 背景图
+     * @apiParam  {String} [color] 覆盖色
      * @apiParam  {String} [ownership] 所有权
      * @apiParam  {String} [nickname] 超级管理员名称
      * @apiParam  {String} [password] 超级管理员密码
@@ -56,7 +57,8 @@ module.exports = class HandleController extends Controller {
             let {
                 name,
                 logo,
-                theme,
+                bg,
+                color,
                 ownership,
                 nickname,
                 password,
@@ -66,7 +68,8 @@ module.exports = class HandleController extends Controller {
             } = await ctx.validateBody({
                 name: [ 'nonempty' ],
                 logo: [ 'nonempty' ],
-                theme: [ 'nonempty' ],
+                bg: [ ],
+                color: [ ],
                 ownership: [ 'nonempty' ],
                 nickname: [ 'nonempty' ],
                 password: [ 'nonempty' ],
@@ -80,12 +83,14 @@ module.exports = class HandleController extends Controller {
             await service.appInfoService.init({
                 name,
                 logo,
-                theme,
+                bg,
+                color,
                 ownership,
             });
             // 初始化超级管理员用户组
             const objAdminGroup = await service.userGroupService.create({
                 name: '超级管理组',
+                remark: '初始化的超级管理组',
                 is_root_group: true,
             });
             // 初始化超级管理员用户

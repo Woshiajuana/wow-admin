@@ -46,8 +46,8 @@ module.exports = appInfo => {
 
     // add mongoose
     config.mongoose = {
-        // url: 'mongodb://154.8.209.13:37017/wow_admin',
-        url: 'mongodb://154.8.209.13:37017/fqa_gateway',
+        url: 'mongodb://154.8.209.13:37017/wow_admin',
+        // url: 'mongodb://154.8.209.13:37017/fqa_gateway',
         options: {
             user: '',
             pass: '',
