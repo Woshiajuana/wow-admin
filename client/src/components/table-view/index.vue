@@ -1,17 +1,19 @@
 <template>
-    <div class="table-view"
-         element-loading-text="拼命加载中"
-         element-loading-spinner="el-icon-loading"
-         v-loading="tableUseLoading && loading">
-        <el-table
-            class="table"
-            size="mini"
-            :data="tableData"
-            height="100"
-            stripe
-            style="width: 100%">
-            <slot></slot>
-        </el-table>
+    <div class="table-view">
+        <div class="table-section"
+             element-loading-text="拼命加载中"
+             element-loading-spinner="el-icon-loading"
+             v-loading="tableUseLoading && loading">
+            <el-table
+                class="table"
+                size="mini"
+                :data="tableData"
+                height="100"
+                stripe
+                style="width: 100%">
+                <slot></slot>
+            </el-table>
+        </div>
         <el-pagination
             size="mini"
             class="pagination"
@@ -64,13 +66,21 @@
         @extend %df1;
         margin-top: 10px;
         text-align: center;
+        .table-section{
+            @extend %df1;
+            @extend %df;
+            @extend %fdc;
+            background-color: #fff;
+            padding: 10px 10px 0;
+            border-radius: 4px;
+        }
         .table{
             @extend %df1;
-            padding: 10px;
-            border-radius: 4px;
+            @extend %h100;
         }
         .pagination{
             margin-top: 10px;
+            padding: 10px 0;
             border-radius: 4px;
             background-color: #fff;
         }

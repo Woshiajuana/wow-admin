@@ -23,7 +23,7 @@
         width: 100%;
         position: relative;
         overflow: hidden;
-        background-color: rgba(255,255,255,.9);
+        background-color: rgba(255,255,255,.8);
         height: 100%;
     }
     .fixed-header+.app-main {
