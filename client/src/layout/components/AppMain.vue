@@ -23,7 +23,7 @@
         width: 100%;
         position: relative;
         overflow: hidden;
-        background-color: rgba(255,255,255,.8);
+        background-color: rgba(255, 255, 255, .7);
         height: 100%;
     }
     .fixed-header+.app-main {
@@ -32,7 +32,6 @@
 
     .hasTagsView {
         .app-main {
-            /* 84 = navbar + tags-view = 50 + 34 */
             min-height: calc(100vh - 84px);
             height: 100%;
         }
@@ -45,7 +44,6 @@
 
 <style lang="scss">
     @import "~@assets/scss/define.scss";
-    // fix css style bug in open el-dialog
     .el-popup-parent--hidden {
         .fixed-header {
             padding-right: 15px;

@@ -93,3 +93,9 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .el-menu{
+        background-color: transparent;
+    }
+</style>

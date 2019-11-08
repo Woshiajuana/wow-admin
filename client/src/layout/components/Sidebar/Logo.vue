@@ -33,6 +33,7 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "~@assets/scss/variables.scss";
     .sidebarLogoFade-enter-active {
         transition: opacity 1.5s;
     }
@@ -47,7 +48,7 @@
         width: 100%;
         height: 50px;
         line-height: 50px;
-        background: #2b2f3a;
+        /*background: #fff;*/
         text-align: center;
         overflow: hidden;
 
@@ -65,7 +66,7 @@
             & .sidebar-title {
                 display: inline-block;
                 margin: 0;
-                color: #fff;
+                color: #409EFF;
                 font-weight: 600;
                 line-height: 50px;
                 font-size: 14px;
