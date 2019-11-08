@@ -36,9 +36,13 @@
     .drawer-view{
 
         .el-drawer__body{
+            @extend %df;
+            @extend %fdc;
             padding: 20px;
         }
+
         .demo-drawer__content{
+            @extend %df1;
             @extend %df;
             @extend %h100;
             @extend %fdc;
@@ -49,6 +53,7 @@
         }
         .demo-drawer__footer {
             @extend %df;
+            margin-top: 10px;
             button {
                 @extend %df1;
             }

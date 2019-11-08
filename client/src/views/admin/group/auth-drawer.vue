@@ -6,7 +6,7 @@
         :before-close="handleClose"
         :visible.sync="display"
         direction="rtl"
-        size="50%"
+        size="80%"
         custom-class="demo-drawer"
         ref="drawer">
         <div class="demo-drawer__content">
@@ -26,11 +26,18 @@
                         :data="data.arrApi">
                     </el-transfer>
                 </el-form-item>
+                <el-form-item label="API" prop="api_routes">
+                    <el-transfer
+                        v-model="ruleForm.api_routes"
+                        :props="{ key: 'value', label: 'desc' }"
+                        :data="data.arrApi">
+                    </el-transfer>
+                </el-form-item>
             </el-form>
-            <div class="demo-drawer__footer">
-                <el-button type="primary" :loading="loading" @click="handleSubmit">{{ loading ? '提交中...' : '确认' }}</el-button>
-                <el-button @click="handleClose">关闭</el-button>
-            </div>
+        </div>
+        <div class="demo-drawer__footer">
+            <el-button type="primary" :loading="loading" @click="handleSubmit">{{ loading ? '提交中...' : '确认' }}</el-button>
+            <el-button @click="handleClose">关闭</el-button>
         </div>
     </el-drawer>
 </template>
