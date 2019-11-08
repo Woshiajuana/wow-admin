@@ -62,7 +62,7 @@
             </el-table-column>
             <el-table-column
                 label="操作"
-                width="180" >
+                width="200" >
                 <template slot-scope="scope">
                     <el-button
                         :disabled="scope.row.is_root"
@@ -71,22 +71,25 @@
                         @click="handleDialogDisplay({ type: 'edit', data: scope.row })"
                     >编辑</el-button>
                     <el-button
+                        :loading="scope.row.isDisLoading"
                         :disabled="scope.row.is_root"
                         type="text"
                         size="mini"
-                        @click="handleDisabled(scope.row)"
+                        @click="handleDisabled(scope.row, 'isDisLoading')"
                     >{{scope.row.disabled ? '启用' : '禁用' }}</el-button>
                     <el-button
+                        :loading="scope.row.isLockLoading"
                         :disabled="scope.row.is_root"
                         type="text"
                         size="mini"
-                        @click="handleUnlock(scope.row)"
+                        @click="handleUnlock(scope.row, 'isLockLoading')"
                     >{{scope.row.lock ? '解锁' : '锁定' }}</el-button>
                     <el-button
                         :disabled="scope.row.is_root"
+                        :loading="scope.row.isDelLoading"
                         type="text"
                         size="mini"
-                        @click="handleDelete(scope.row)"
+                        @click="handleDelete(scope.row, 'isDelLoading')"
                     >删除</el-button>
                 </template>
             </el-table-column>
@@ -134,53 +137,54 @@
                     this.objQuery.numTotal = numTotal;
                 }).toast().finally(() => typeof callback === 'function' && callback());
             },
-            handleDelete (item) {
+            handleDelete (item, lKey) {
                 let { _id, nickname } = item;
                 this.$confirm(`确定删除昵称为：${nickname} 的账号?`, '温馨提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.doDeleteDataItem(_id);
+                    this.$set(item, lKey, true);
+                    this.$curl(this.$appConst.DO_DELETE_USER_INFO, {
+                        id: _id,
+                    }).then(() => {
+                        this.$modal.toast('删除账号成功', 'success');
+                        this.reqTableDataList();
+                    }).toast().finally(() => item[lKey] = false);
                 }).null();
             },
-            doDeleteDataItem (id) {
-                this.$curl(this.$appConst.DO_DELETE_USER_INFO, {
-                    id,
-                }).then(() => {
-                    this.reqTableDataList();
-                }).toast();
-            },
-            handleUnlock (item) {
+            handleUnlock (item, lKey) {
                 let { _id, nickname, lock } = item;
                 this.$confirm(`确定${lock ? '解锁' : '锁定'} 昵称为：${nickname} 的账号?`, '温馨提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
+                    this.$set(item, lKey, true);
                     this.$curl(this.$appConst.DO_UNLOCK_USER_INFO, {
                         id: _id,
                         lock: !lock,
                     }).then(() => {
                         this.$modal.toast(lock ? '解锁账号成功' : '锁定账号成功', 'success');
                         item.lock = !lock;
-                    }).toast();
+                    }).toast().finally(() => item[lKey] = false);
                 }).null();
             },
-            handleDisabled (item) {
+            handleDisabled (item, lKey) {
                 let { _id, nickname, disabled } = item;
                 this.$confirm(`确定${disabled ? '启用' : '禁用'} 昵称为：${nickname} 的账号?`, '温馨提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
+                    this.$set(item, lKey, true);
                     this.$curl(this.$appConst.DO_DISABLED_USER_INFO, {
                         id: _id,
                         disabled: !disabled,
                     }).then(() => {
                         this.$modal.toast(disabled ? '启用账号成功' : '禁用账号成功', 'success');
                         item.disabled = !disabled;
-                    }).toast();
+                    }).toast().finally(() => item[lKey] = false);
                 }).null();
             },
         },
