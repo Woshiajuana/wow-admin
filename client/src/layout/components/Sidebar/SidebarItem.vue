@@ -96,6 +96,6 @@
 
 <style lang="scss">
     .el-menu{
-        background-color: transparent;
+        /*background-color: transparent;*/
     }
 </style>
