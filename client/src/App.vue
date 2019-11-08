@@ -42,6 +42,7 @@
             @extend %df;
             @extend %h100;
             @extend %fdc;
+            @extend %oya;
             form {
                 @extend %df1;
             }

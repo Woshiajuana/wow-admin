@@ -19,6 +19,13 @@
                 <el-form-item label="名称" prop="name">
                     <el-input v-model.trim="ruleForm.name" disabled placeholder="请输入名称" maxlength="20"></el-input>
                 </el-form-item>
+                <el-form-item label="API" prop="api_routes">
+                    <el-transfer
+                        v-model="ruleForm.api_routes"
+                        :props="{ key: 'value', label: 'desc' }"
+                        :data="data.arrApi">
+                    </el-transfer>
+                </el-form-item>
             </el-form>
             <div class="demo-drawer__footer">
                 <el-button type="primary" :loading="loading" @click="handleSubmit">{{ loading ? '提交中...' : '确认' }}</el-button>
@@ -35,8 +42,10 @@
                 loading: false,
                 ruleForm: {
                     name: '',
+                    api_routes: [],
                 },
                 rules: {
+
                 }
             }
         },
