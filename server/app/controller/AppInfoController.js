@@ -67,7 +67,7 @@ module.exports = class HandleController extends Controller {
                 email,
             } = await ctx.validateBody({
                 name: [ 'nonempty' ],
-                logo: [ 'nonempty' ],
+                logo: [ ],
                 bg: [ ],
                 color: [ ],
                 ownership: [ 'nonempty' ],

@@ -23,13 +23,7 @@ const data = () => {
                     value: '',
                     icon: 'logo-icon',
                     max: 100,
-                    placeholder: '管理台LOGO (url链接)',
-                    use: [
-                        {
-                            nonempty: true,
-                            prompt: '请设置管理台LOGO',
-                        },
-                    ],
+                    placeholder: '管理台LOGO (url链接) (非必填)',
                 },
                 bg: {
                     value: '',
@@ -46,7 +40,7 @@ const data = () => {
                 ownership: {
                     value: '',
                     icon: 'ownership',
-                    max: 30,
+                    max: 50,
                     placeholder: '请设置所有权归属',
                     use: [
                         {

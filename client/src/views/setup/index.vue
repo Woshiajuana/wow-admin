@@ -73,7 +73,7 @@
             handleSure () {
                 if (this.$verify.check(this.arrForm[this.numCurrent]))
                     return null;
-                if (this.numCurrent !== this.arrForm.length)
+                if (this.numCurrent !== this.arrForm.length - 1)
                     return this.numCurrent++;
                 let data = this.$verify.input(...this.arrForm);
                 this.loading = true;

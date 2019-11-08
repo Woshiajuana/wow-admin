@@ -20,7 +20,6 @@ module.exports = app => {
             type: String,
             trim: true,
             maxlength: 100,
-            required: true,
         },
 
         // 背景图
@@ -35,6 +34,7 @@ module.exports = app => {
         color: {
             type: String,
             trim: true,
+            max: 100,
             default: '',
         },
 
@@ -42,7 +42,7 @@ module.exports = app => {
         ownership: {
             type: String,
             trim: true,
-            maxlength: 100,
+            maxlength: 200,
             required: true,
         },
 
