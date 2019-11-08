@@ -1,29 +1,127 @@
 
 <template>
     <el-drawer
-        title="我嵌套了 Form !"
-        :before-close="handleClose"
+        :title="operation_data.type === 'add' ? '新增用户组' : '编辑用户组'"
+        :before-close="operation_visible"
         :visible.sync="dialog"
-        direction="ltr"
+        direction="rtl"
         custom-class="demo-drawer"
         ref="drawer">
         <div class="demo-drawer__content">
-            <el-form :model="form">
-                <el-form-item label="活动名称" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off"></el-input>
+            <el-form
+                size="mini"
+                :model="ruleForm"
+                :rules="rules"
+                ref="ruleForm"
+                label-width="100px"
+                class="demo-ruleForm">
+                <el-form-item label="名称" prop="name">
+                    <el-input v-model="ruleForm.name" placeholder="请输入名称" maxlength="20"></el-input>
                 </el-form-item>
-                <el-form-item label="活动区域" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
+                <el-form-item label="API" prop="api_routes">
+                    <el-select
+                        multiple
+                        collapse-tags
+                        v-model="ruleForm.api_routes"
+                        placeholder="请选择API">
+                        <el-option
+                            v-for="(item, index) in operation_api_data"
+                            :key="index"
+                            :label="item.name"
+                            :value="item._id"
+                        ></el-option>
                     </el-select>
                 </el-form-item>
+                <el-form-item label="菜单" prop="menu_routes">
+                    <el-select
+                        multiple
+                        collapse-tags
+                        v-model="ruleForm.menu_routes"
+                        placeholder="请选择API">
+                        <el-option
+                            v-for="(item, index) in operation_menu_data"
+                            :key="index"
+                            :label="item.title"
+                            :value="item._id"
+                        ></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="备注" prop="remark">
+                    <el-input type="textarea" placeholder="请输入备注" v-model="ruleForm.remark" maxlength="100"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="handleSubmit">确认</el-button>
+                    <el-button @click="handleClose">关闭</el-button>
+                </el-form-item>
             </el-form>
-            <div class="demo-drawer__footer">
-                <el-button @click="dialog = false">取 消</el-button>
-                <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
-            </div>
         </div>
     </el-drawer>
 
 </template>
+
+<script>
+
+    export default {
+        data () {
+            return {
+                loading: false,
+                ruleForm: {
+                    name: '',
+                    remark: '',
+                    api_routes: [],
+                    menu_routes: [],
+                },
+                rules: {
+                    name: [
+                        { required: true, message: '请输入用户组名称', trigger: 'blur' },
+                        { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
+                    ],
+                    remark: [
+                        { required: true, message: '请填写备注', trigger: 'blur' }
+                    ],
+                }
+            }
+        },
+        watch: {
+            operation_visible (val) {
+                if (val) this.assignmentData();
+            },
+        },
+        props: {
+            operation_visible: { default: false },
+            operation_width: { default: '' },
+            operation_data: { default: '' },
+            operation_api_data: { default: '' },
+            operation_menu_data: { default: '' },
+        },
+        methods: {
+            handleClose () {
+                this.$emit('update:operation_visible', false);
+                this.resetForm();
+            },
+            handleSubmit () {
+                this.$refs.ruleForm.validate((valid) => {
+                    if (!valid) return false;
+                    let { type, data } = this.operation_data;
+                    this.$curl(type === 'add'
+                        ? this.$appConst.DO_CREATE_USER_GROUP
+                        : this.$appConst.DO_UPDATE_USER_GROUP, this.ruleForm).then((res) => {
+                        this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
+                        this.$emit('refresh');
+                        this.handleClose();
+                    }).toast();
+                });
+            },
+            resetForm () {
+                this.$refs.ruleForm.resetFields();
+            },
+            assignmentData () {
+                this.$nextTick(() => {
+                    this.$refs.ruleForm.resetFields();
+                    let { type, data } = this.operation_data;
+                    data && (this.ruleForm = { ...data, id: data._id });
+                })
+            },
+        },
+    };
+</script>
