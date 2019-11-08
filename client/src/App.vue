@@ -67,5 +67,8 @@
         .el-transfer-panel__item{
             @extend %db;
         }
+        .el-transfer-panel__filter{
+            margin: 5px 15px 0;
+        }
     }
 </style>
