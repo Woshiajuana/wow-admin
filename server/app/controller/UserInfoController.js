@@ -8,12 +8,22 @@ module.exports = class HandleController extends Controller {
         app.router.mount(
             { name: '用户安全登录', path: '/api/v1/user-info/login' },
             middleware.oplogMiddleware(),
-            controller.login
+            controller.login,
         ).mount(
             { name: '用户安全退出', path: '/api/v1/user-info/logout' },
             middleware.jwtMiddleware(),
             middleware.oplogMiddleware(),
             controller.logout
+        ).mount(
+            { name: '解锁管理员账号', path: '/api/v1/user-info/unlock' },
+            middleware.jwtMiddleware(),
+            middleware.oplogMiddleware(),
+            controller.unlock,
+        ).mount(
+            { name: '禁用启用管理员账号', path: '/api/v1/user-info/disable-enable' },
+            middleware.jwtMiddleware(),
+            middleware.oplogMiddleware(),
+            controller.disableEnable,
         ).mount(
             { name: '查询管理员用户列表', path: '/api/v1/user-info/list' },
             middleware.jwtMiddleware(),
@@ -206,6 +216,54 @@ module.exports = class HandleController extends Controller {
             });
             const data = await service.userInfoService.list(objParams);
             ctx.respSuccess(data);
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
+    /**
+     * @apiVersion 1.0.0
+     * @api {get} /api/v1/user-info/unlock 解锁管理员账号
+     * @apiDescription 解锁管理员账号
+     * @apiGroup APP基础
+     * @apiParam  {String} [id] id
+     * @apiParam  {Boolean} [lock] lock
+     * @apiSuccess (成功) {Object} data
+     * @apiSampleRequest /api/v1/user-info/unlock
+     */
+    async unlock () {
+        const { ctx, service, app } = this;
+        try {
+            const objParams = await ctx.validateBody({
+                lock: [ 'nonempty' ],
+                id: [ 'nonempty' ],
+            });
+            await service.userInfoService.update(objParams);
+            ctx.respSuccess();
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
+    /**
+     * @apiVersion 1.0.0
+     * @api {get} /api/v1/user-info/disable-enable 禁用启用管理员账号
+     * @apiDescription 禁用启用管理员账号
+     * @apiGroup APP基础
+     * @apiParam  {String} [id] id
+     * @apiParam  {Boolean} [disabled] 是否禁用
+     * @apiSuccess (成功) {Object} data
+     * @apiSampleRequest /api/v1/user-info/disable-enable
+     */
+    async disableEnable () {
+        const { ctx, service, app } = this;
+        try {
+            const objParams = await ctx.validateBody({
+                disabled: [ 'nonempty' ],
+                id: [ 'nonempty' ],
+            });
+            await service.userInfoService.update(objParams);
+            ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
         }

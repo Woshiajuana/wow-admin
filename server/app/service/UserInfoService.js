@@ -125,4 +125,5 @@ module.exports = class HandleServer extends Service {
         delete data.id;
         await ctx.model.UserInfoModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
     }
+
 };
