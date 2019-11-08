@@ -1,6 +1,7 @@
 
 <template>
     <el-drawer
+        class="drawer-view"
         :title="data.type === 'add' ? '新增用户组' : '编辑用户组'"
         :before-close="handleClose"
         :visible.sync="display"
@@ -18,49 +19,19 @@
                 <el-form-item label="名称" prop="name">
                     <el-input v-model.trim="ruleForm.name" placeholder="请输入名称" maxlength="20"></el-input>
                 </el-form-item>
-<!--                <el-form-item label="API" prop="api_routes">-->
-<!--                    <el-select-->
-<!--                        multiple-->
-<!--                        collapse-tags-->
-<!--                        v-model="ruleForm.api_routes"-->
-<!--                        placeholder="请选择API">-->
-<!--                        <el-option-->
-<!--                            v-for="(item, index) in operation_api_data"-->
-<!--                            :key="index"-->
-<!--                            :label="item.name"-->
-<!--                            :value="item._id"-->
-<!--                        ></el-option>-->
-<!--                    </el-select>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="菜单" prop="menu_routes">-->
-<!--                    <el-select-->
-<!--                        multiple-->
-<!--                        collapse-tags-->
-<!--                        v-model="ruleForm.menu_routes"-->
-<!--                        placeholder="请选择API">-->
-<!--                        <el-option-->
-<!--                            v-for="(item, index) in operation_menu_data"-->
-<!--                            :key="index"-->
-<!--                            :label="item.title"-->
-<!--                            :value="item._id"-->
-<!--                        ></el-option>-->
-<!--                    </el-select>-->
-<!--                </el-form-item>-->
                 <el-form-item label="备注" prop="remark">
                     <el-input type="textarea" placeholder="请输入备注" v-model.trim="ruleForm.remark" maxlength="100"></el-input>
                 </el-form-item>
             </el-form>
             <div class="demo-drawer__footer">
-                <el-button type="primary" @click="handleSubmit">确认</el-button>
+                <el-button type="primary" :loading="loading" @click="handleSubmit">{{ loading ? '提交中...' : '确认' }}</el-button>
                 <el-button @click="handleClose">关闭</el-button>
             </div>
         </div>
     </el-drawer>
-
 </template>
 
 <script>
-
     export default {
         data () {
             return {
@@ -68,13 +39,10 @@
                 ruleForm: {
                     name: '',
                     remark: '',
-                    api_routes: [],
-                    menu_routes: [],
                 },
                 rules: {
                     name: [
                         { required: true, message: '请输入用户组名称', trigger: 'blur' },
-                        { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
                     remark: [
                         { required: true, message: '请填写备注', trigger: 'blur' }
@@ -94,11 +62,12 @@
         methods: {
             handleClose () {
                 this.$emit('update:display', false);
-                this.resetForm();
+                this.$refs.ruleForm.resetFields();
             },
             handleSubmit () {
                 this.$refs.ruleForm.validate((valid) => {
                     if (!valid) return false;
+                    this.loading = true;
                     let { type, data } = this.data;
                     this.$curl(type === 'add'
                         ? this.$appConst.DO_CREATE_USER_GROUP
@@ -106,11 +75,8 @@
                         this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();
-                    }).toast();
+                    }).toast().finally(() => this.loading = false);
                 });
-            },
-            resetForm () {
-                this.$refs.ruleForm.resetFields();
             },
             assignmentData () {
                 this.$nextTick(() => {
@@ -122,31 +88,3 @@
         },
     };
 </script>
-
-<style lang="scss">
-    @import "~@assets/scss/define.scss";
-
-    .el-drawer__body{
-        padding: 20px;
-    }
-    .demo-drawer__content{
-        @extend %df;
-        @extend %h100;
-        @extend %fdc;
-        form {
-            @extend %df1;
-        }
-    }
-    .demo-drawer__footer {
-        @extend %df;
-        button {
-            @extend %df1;
-        }
-    }
-    .el-select{
-        @extend %w100;
-    }
-    .el-form-item__label{
-        @extend %fwn;
-    }
-</style>

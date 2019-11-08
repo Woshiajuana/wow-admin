@@ -16,6 +16,8 @@
 </script>
 
 <style lang="scss">
+    @import "~@assets/scss/define.scss";
+
     #app{
         background-size: cover !important;
         background-attachment: fixed !important;
@@ -30,5 +32,31 @@
     }
     .el-popup-parent--hidden .fixed-header {
          padding-right: 0 !important;
+    }
+    .drawer-view{
+
+        .el-drawer__body{
+            padding: 20px;
+        }
+        .demo-drawer__content{
+            @extend %df;
+            @extend %h100;
+            @extend %fdc;
+            form {
+                @extend %df1;
+            }
+        }
+        .demo-drawer__footer {
+            @extend %df;
+            button {
+                @extend %df1;
+            }
+        }
+        .el-select{
+            @extend %w100;
+        }
+        .el-form-item__label{
+            @extend %fwn;
+        }
     }
 </style>
