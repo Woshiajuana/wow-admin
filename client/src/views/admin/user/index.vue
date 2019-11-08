@@ -4,7 +4,7 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
-            @add="handleDialogAdd"
+            @add="handleDialogDisplay()"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -62,14 +62,26 @@
             </el-table-column>
             <el-table-column
                 label="操作"
-                width="120" >
+                width="180" >
                 <template slot-scope="scope">
                     <el-button
                         :disabled="scope.row.is_root"
                         type="text"
                         size="mini"
-                        @click="handleDialogEdit(scope.row)"
+                        @click="handleDialogDisplay({ type: 'edit', data: scope.row })"
                     >编辑</el-button>
+                    <el-button
+                        :disabled="scope.row.is_root"
+                        type="text"
+                        size="mini"
+                        @click="handleDialogEdit(scope.row)"
+                    >禁用</el-button>
+                    <el-button
+                        :disabled="scope.row.is_root"
+                        type="text"
+                        size="mini"
+                        @click="handleDialogEdit(scope.row)"
+                    >解锁</el-button>
                     <el-button
                         :disabled="scope.row.is_root"
                         type="text"
