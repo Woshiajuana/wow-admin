@@ -48,6 +48,18 @@ module.exports = app => {
             require: true,
         },
 
+        // 是否禁用
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
+
+        // 锁定
+        lock: {
+            type: Boolean,
+            default: false,
+        },
+
         // 用户组
         group: {
             type: Schema.Types.ObjectId,

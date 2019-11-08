@@ -2,11 +2,11 @@
     <div class="sidebar-logo-container" :class="{'collapse':collapse}">
         <transition name="sidebarLogoFade">
             <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-                <img v-if="objAppInfo.logo" :src="objAppInfo.logo" class="sidebar-logo">
-                <h1 v-else class="sidebar-title">{{ objAppInfo.name }} </h1>
+                <img :src="objAppInfo.logo || objDefAppInfo.logo" class="sidebar-logo">
+                <h1 class="sidebar-title">{{ objAppInfo.name }} </h1>
             </router-link>
             <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-                <img v-if="objAppInfo.logo" :src="objAppInfo.logo" class="sidebar-logo">
+                <img :src="objAppInfo.logo || objDefAppInfo.logo" class="sidebar-logo">
                 <h1 class="sidebar-title">{{ objAppInfo.name }} </h1>
             </router-link>
         </transition>
@@ -25,9 +25,7 @@
             }
         },
         computed: {
-            ...mapGetters([
-                'objAppInfo',
-            ]),
+            ...mapGetters([ 'objAppInfo', 'objDefAppInfo' ]),
         },
     }
 </script>
