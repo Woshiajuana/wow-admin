@@ -4,7 +4,7 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
-            @add="handleDialogAdd"
+            @add="handleDialogDisplay()"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
@@ -48,6 +48,7 @@
                 </template>
             </el-table-column>
             <el-table-column
+                width="160"
                 label="操作">
                 <template slot-scope="scope">
                     <el-button

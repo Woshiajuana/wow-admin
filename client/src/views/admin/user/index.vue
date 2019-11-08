@@ -10,6 +10,34 @@
             @refresh="reqTableDataList"
             :table-query="objQuery"
             :table-data="arrTable">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form
+                        size="mini"
+                        label-position="left"
+                        inline
+                        class="demo-table-expand">
+                        <el-form-item label="昵称">
+                            <span>{{ props.row.nickname }}</span>
+                        </el-form-item>
+                        <el-form-item label="邮箱">
+                            <span>{{ props.row.email }}</span>
+                        </el-form-item>
+                        <el-form-item label="手机">
+                            <span>{{ props.row.phone }}</span>
+                        </el-form-item>
+                        <el-form-item label="用户组">
+                            <span>{{ props.row.group.name }}</span>
+                        </el-form-item>
+                        <el-form-item label="日期">
+                            <span>{{ props.row.created_at | filterDate}}</span>
+                        </el-form-item>
+                        <el-form-item label="根账号">
+                            <span>{{ props.row.is_root ? '是' : '否'}}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="nickname"
                 label="昵称">
@@ -22,27 +50,8 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="email"
-                label="邮箱">
-            </el-table-column>
-            <el-table-column
-                prop="phone"
-                label="手机">
-            </el-table-column>
-            <el-table-column
                 prop="group.name"
                 label="用户组">
-            </el-table-column>
-            <el-table-column
-                prop="is_root_group"
-                label="是否是根账号">
-                <template slot-scope="scope">
-                    <span>{{scope.row.is_root ? '是' : '否'}}</span>
-<!--                    <el-tag-->
-<!--                        :type="scope.row.is_root ? 'danger' : 'info'">-->
-<!--                        -->
-<!--                    </el-tag>-->
-                </template>
             </el-table-column>
             <el-table-column
                 prop="created_at"
@@ -53,20 +62,21 @@
             </el-table-column>
             <el-table-column
                 label="操作"
-                width="150" >
-                <el-button-group slot-scope="scope">
+                width="120" >
+                <template slot-scope="scope">
                     <el-button
                         :disabled="scope.row.is_root"
+                        type="text"
                         size="mini"
                         @click="handleDialogEdit(scope.row)"
                     >编辑</el-button>
                     <el-button
                         :disabled="scope.row.is_root"
-                        type="danger"
+                        type="text"
                         size="mini"
                         @click="handleDelete(scope.row)"
                     >删除</el-button>
-                </el-button-group>
+                </template>
             </el-table-column>
         </table-view>
         <!--    新增    -->
