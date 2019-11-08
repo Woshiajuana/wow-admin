@@ -68,16 +68,6 @@
                 </template>
             </el-table-column>
         </table-view>
-        <!--    新增    -->
-<!--        <operate-dialog-->
-<!--            @refresh="reqTableDataList"-->
-<!--            :operation_visible.sync="objDialog.is"-->
-<!--            :operation_data="objDialog"-->
-<!--            :operation_api_data="arrApiRouteData"-->
-<!--            :operation_menu_data="arrMenuRouteData"-->
-<!--        ></operate-dialog>-->
-
-
         <details-drawer
             @refresh="reqTableDataList"
             :operation_visible.sync="objDialog.is"
@@ -85,14 +75,12 @@
             :operation_api_data="arrApiRouteData"
             :operation_menu_data="arrMenuRouteData"
         ></details-drawer>
-
     </div>
 </template>
 
 <script>
     import DialogMixin                          from '@/mixins/dialog'
     import FilterMixin                          from '@/mixins/filter'
-    import OperateDialog                        from './operation-dialog'
     import DetailsDrawer                        from './details-drawer'
     import DataMixin                            from './data.mixin'
 
@@ -149,7 +137,6 @@
             }
         },
         components: {
-            OperateDialog,
             DetailsDrawer,
         },
     }

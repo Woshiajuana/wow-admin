@@ -1,7 +1,7 @@
 
 <template>
     <el-drawer
-        :title="operation_data.type === 'add' ? '新增用户组' : '编辑用户组'"
+        title="设置权限"
         :before-close="handleClose"
         :visible.sync="operation_visible"
         direction="rtl"
