@@ -117,7 +117,7 @@
                     this.$refs.ruleForm.resetFields();
                     let { type, data } = this.data;
                     data && (this.ruleForm = { ...data, id: data._id });
-                })
+                });
             },
         },
     };
