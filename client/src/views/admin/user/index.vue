@@ -37,10 +37,11 @@
                 prop="is_root_group"
                 label="是否是根账号">
                 <template slot-scope="scope">
-                    <el-tag
-                        :type="scope.row.is_root ? 'danger' : 'info'">
-                        {{scope.row.is_root ? '是' : '否'}}
-                    </el-tag>
+                    <span>{{scope.row.is_root ? '是' : '否'}}</span>
+<!--                    <el-tag-->
+<!--                        :type="scope.row.is_root ? 'danger' : 'info'">-->
+<!--                        -->
+<!--                    </el-tag>-->
                 </template>
             </el-table-column>
             <el-table-column

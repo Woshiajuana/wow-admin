@@ -10,19 +10,32 @@
             @refresh="reqTableDataList"
             :table-query="objQuery"
             :table-data="arrTable">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form
+                        size="mini"
+                        label-position="left"
+                        inline
+                        class="demo-table-expand">
+                        <el-form-item label="商品名称">
+                            <span>{{ props.row.name }}</span>
+                        </el-form-item>
+                        <el-form-item label="所属店铺">
+                            <span>{{ props.row.shop }}</span>
+                        </el-form-item>
+                        <el-form-item label="商品 ID">
+                            <span>{{ props.row.id }}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="name"
                 label="名称">
             </el-table-column>
             <el-table-column
-                prop="is_root_group"
-                label="是否是超级管理用户组">
-                <template slot-scope="scope">
-                    <el-tag
-                        :type="scope.row.is_root_group ? 'danger' : 'info'">
-                        {{scope.row.is_root_group ? '是' : '否'}}
-                    </el-tag>
-                </template>
+                prop="remark"
+                label="备注">
             </el-table-column>
             <el-table-column
                 prop="created_at"
@@ -32,25 +45,27 @@
                 </template>
             </el-table-column>
             <el-table-column
-                prop="remark"
-                label="备注">
-            </el-table-column>
-            <el-table-column
-                label="操作"
-                width="150" >
-                <el-button-group slot-scope="scope">
+                label="操作">
+                <template slot-scope="scope">
                     <el-button
                         :disabled="scope.row.is_root_group"
                         size="mini"
+                        type="text"
                         @click="handleDialogEdit(scope.row)"
                     >编辑</el-button>
                     <el-button
                         :disabled="scope.row.is_root_group"
-                        type="danger"
+                        type="text"
+                        size="mini"
+                        @click="handleDelete(scope.row)"
+                    >设置权限</el-button>
+                    <el-button
+                        :disabled="scope.row.is_root_group"
+                        type="text"
                         size="mini"
                         @click="handleDelete(scope.row)"
                     >删除</el-button>
-                </el-button-group>
+                </template>
             </el-table-column>
         </table-view>
         <!--    新增    -->
@@ -128,10 +143,31 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     @import "~@assets/scss/define.scss";
     .inner{
         @extend %bsb;
         padding: 10px;
+    }
+    .el-form-item__label{
+        font-size: 12px !important;
+    }
+    .demo-table-expand {
+        font-size: 0;
+    }
+    .demo-table-expand label {
+        @extend %fwn;
+        width: 90px;
+        color: #99a9bf;
+        font-size: 12px;
+    }
+    .el-form-item__content span {
+        font-size: 12px;
+    }
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 50%;
+        font-size: 12px;
     }
 </style>
