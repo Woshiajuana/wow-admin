@@ -7,6 +7,7 @@ const data = () => {
             account: {
                 value: '',
                 icon: 'user',
+                max: 50,
                 placeholder: '请输入账号',
                 use: [
                     {
@@ -19,6 +20,7 @@ const data = () => {
                 value: '',
                 type: 'password',
                 icon: 'password',
+                max: 20,
                 placeholder: '请输入密码',
                 use: [
                     {

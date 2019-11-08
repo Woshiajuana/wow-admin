@@ -1,43 +1,51 @@
 <template>
-    <div class="login-container">
-        <el-form
-            class="login-form"
-            auto-complete="on"
-            label-position="left">
 
-            <div class="title-container">
-                <h3 class="title">{{objAppInfo.name}}</h3>
-            </div>
+    <div class="wrap">
 
-            <el-form-item
-                v-for="(item, key) in objForm"
-                :key="key">
-                <span class="svg-container">
-                    <svg-icon :icon-class="item.icon" />
-                </span>
-                <el-input
-                    v-model="item.value"
-                    :placeholder="item.placeholder"
-                    :type="item.type"
-                    tabindex="1"
-                    auto-complete="on"
-                ></el-input>
-            </el-form-item>
+        <div class="logo">
+            <img :src="objAppInfo.logo || objDefAppInfo.logo" alt="logo"/>
+            <h1>{{objAppInfo.name || objDefAppInfo.name}}</h1>
+        </div>
 
-            <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+        <div class="inner">
+            <h2>账号登录</h2>
+            <el-form
+                class="form-section"
+                auto-complete="on"
+                label-position="left">
+                <el-form-item
+                    v-for="(item, key) in objForm"
+                    :key="key">
+                    <el-input
+                        v-model.trim="item.value"
+                        :maxlength="item.max"
+                        :placeholder="item.placeholder"
+                        :type="item.type">
+                        <span slot="prefix" class="svg">
+                            <svg-icon :icon-class="item.icon" />
+                        </span>
+                    </el-input>
+                </el-form-item>
+                <el-button
+                    :loading="loading"
+                    type="primary"
+                    style="width:100%;margin-bottom:30px;"
+                    @click.native.prevent="handleSure"
+                >登录</el-button>
+            </el-form>
+        </div>
 
-            <div class="tips">
-                <span style="margin-right:20px;">忘记密码请联系超级管理员</span>
-            </div>
+        <div class="flex"></div>
 
-        </el-form>
+        <p class="ownership">{{objAppInfo.ownership || objDefAppInfo.ownership}}</p>
     </div>
+
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
-    import DataMixin from './data.mixin'
-    import Md5 from 'md5'
+    import Md5                              from 'md5'
+    import { mapGetters }                   from 'vuex'
+    import DataMixin                        from './index.mixin'
 
     export default {
         name: 'Login',
@@ -45,12 +53,10 @@
             DataMixin,
         ],
         computed: {
-            ...mapGetters([
-                'objAppInfo',
-            ]),
+            ...mapGetters([ 'objAppInfo', 'objDefAppInfo' ]),
         },
         methods: {
-            handleLogin() {
+            handleSure () {
                 if (this.$verify.check(this.objForm))
                     return null;
                 let data = this.$verify.input(this.objForm);
@@ -70,112 +76,64 @@
 </script>
 
 <style lang="scss">
-    /* 修复input 背景不协调 和光标变色 */
-    /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
-
-    $bg:#283443;
-    $light_gray:#fff;
-    $cursor: #fff;
-
-    @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-        .login-container .el-input input {
-            color: $cursor;
+    @import "~@assets/scss/define.scss";
+    .wrap{
+        @extend %df;
+        @extend %fdc;
+        @extend %oh;
+        @extend %aic;
+        color: #409EFF;
+    }
+    .logo{
+        @extend %w100;
+        @extend %df;
+        @extend %aic;
+        @extend %bsb;
+        padding: 10px 20px;
+        h1 {
+            font-size: 18px;
+        }
+        img {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
         }
     }
-
-    /* reset element-ui css */
-    .login-container {
+    .inner {
+        background-color: #fff;
+        border-radius: 6px;
+        margin-top: 80px;
+        padding: 30px 50px;
         .el-input {
-            display: inline-block;
-            height: 47px;
-            width: 85%;
-
-            input {
-                background: transparent;
-                border: 0px;
-                -webkit-appearance: none;
-                border-radius: 0px;
-                padding: 12px 5px 12px 15px;
-                color: $light_gray;
-                height: 47px;
-                caret-color: $cursor;
-
-                &:-webkit-autofill {
-                    box-shadow: 0 0 0px 1000px $bg inset !important;
-                    -webkit-text-fill-color: $cursor !important;
-                }
-            }
+            @extend %dib;
         }
-
-        .el-form-item {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            color: #454545;
+        .el-input--prefix .el-input__inner {
+            padding-left: 39px;
+        }
+        h2{
+            @extend %fwn;
+            @extend %tac;
+            margin: 10px 0 40px;
+            font-size: 18px;
         }
     }
-</style>
-
-<style lang="scss" scoped>
-    $bg:#2d3a4b;
-    $dark_gray:#889aa4;
-    $light_gray:#eee;
-
-    .login-container {
-        min-height: 100%;
-        width: 100%;
-        background-color: $bg;
+    .form-section {
+        width: 320px;
+        max-width: 100%;
+        margin: 0 auto;
         overflow: hidden;
-
-        .login-form {
-            position: relative;
-            width: 520px;
-            max-width: 100%;
-            padding: 160px 35px 0;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
-        .tips {
-            font-size: 14px;
-            color: #fff;
-            margin-bottom: 10px;
-
-            span {
-                &:first-of-type {
-                    margin-right: 16px;
-                }
-            }
-        }
-
-        .svg-container {
-            padding: 6px 5px 6px 15px;
-            color: $dark_gray;
-            vertical-align: middle;
-            width: 30px;
-            display: inline-block;
-        }
-
-        .title-container {
-            position: relative;
-
-            .title {
-                font-size: 26px;
-                color: $light_gray;
-                margin: 0px auto 40px auto;
-                text-align: center;
-                font-weight: bold;
-            }
-        }
-
-        .show-pwd {
-            position: absolute;
-            right: 10px;
-            top: 7px;
-            font-size: 16px;
-            color: $dark_gray;
-            cursor: pointer;
-            user-select: none;
-        }
+    }
+    .flex{
+        @extend %df1;
+    }
+    .svg {
+        color: #889aa4;
+        vertical-align: middle;
+        width: 30px;
+        display: inline-block;
+    }
+    .ownership{
+        font-size: 12px;
+        color: #ddd;
     }
 </style>

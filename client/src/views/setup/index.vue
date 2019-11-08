@@ -51,12 +51,12 @@
 <script>
     import Md5                              from 'md5'
     import { mapGetters }                   from 'vuex'
-    import Mixin                            from './index.mixin'
+    import DataMixin                        from './index.mixin'
 
     export default {
         name: 'SetUp',
         mixins: [
-            Mixin,
+            DataMixin,
         ],
         watch: {
             'arrForm.0.color.value' (value) {
