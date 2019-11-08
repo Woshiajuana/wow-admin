@@ -3,8 +3,26 @@ const data = () => {
 
     return {
         arrTable: [],
-        arrApiRouteData: [],
-        arrMenuRouteData: [],
+
+        objDialog: {
+            is: false, // 是否显示
+            current: 'add',
+            add: {
+                form: {
+                    name: '',
+                    remark: '',
+                },
+                rules: {
+                    name: [
+                        { required: true, message: '请输入用户组名称', trigger: 'blur' },
+                    ],
+                    remark: [
+                        { required: true, message: '请填写备注', trigger: 'blur' }
+                    ],
+                },
+            },
+        },
+
         objQuery: {
             numIndex: 1,
             numSize: 10,
