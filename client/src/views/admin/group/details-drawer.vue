@@ -2,14 +2,14 @@
 <template>
     <el-drawer
         :title="operation_data.type === 'add' ? '新增用户组' : '编辑用户组'"
-        :before-close="operation_visible"
-        :visible.sync="dialog"
+        :before-close="handleClose"
+        :visible.sync="operation_visible"
         direction="rtl"
+        size="100%"
         custom-class="demo-drawer"
         ref="drawer">
         <div class="demo-drawer__content">
             <el-form
-                size="mini"
                 :model="ruleForm"
                 :rules="rules"
                 ref="ruleForm"
@@ -49,11 +49,11 @@
                 <el-form-item label="备注" prop="remark">
                     <el-input type="textarea" placeholder="请输入备注" v-model="ruleForm.remark" maxlength="100"></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="handleSubmit">确认</el-button>
-                    <el-button @click="handleClose">关闭</el-button>
-                </el-form-item>
             </el-form>
+            <div class="demo-drawer__footer">
+                <el-button type="primary" @click="handleSubmit">确认</el-button>
+                <el-button @click="handleClose">关闭</el-button>
+            </div>
         </div>
     </el-drawer>
 
@@ -125,3 +125,25 @@
         },
     };
 </script>
+
+<style lang="scss">
+    @import "~@assets/scss/define.scss";
+
+    .el-drawer__body{
+        padding: 20px;
+    }
+    .demo-drawer__content{
+        @extend %df;
+        @extend %h100;
+        @extend %fdc;
+        form {
+            @extend %df1;
+        }
+    }
+    .demo-drawer__footer {
+        @extend %df;
+        button {
+            @extend %df1;
+        }
+    }
+</style>
