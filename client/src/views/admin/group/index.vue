@@ -153,29 +153,4 @@
 
 <style lang="scss">
     @import "~@assets/scss/define.scss";
-    .inner{
-        @extend %bsb;
-        padding: 10px;
-    }
-    .el-table__expanded-cell{
-        padding: 10px 58px !important;
-    }
-    .demo-table-expand {
-        font-size: 0;
-        label {
-            @extend %fwn;
-            width: 90px;
-            color: #99a9bf;
-            font-size: 12px;
-        }
-        span {
-            font-size: 12px;
-        }
-        .el-form-item {
-            margin-right: 0;
-            margin-bottom: 0;
-            width: 50%;
-            font-size: 12px;
-        }
-    }
 </style>

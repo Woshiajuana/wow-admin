@@ -8,7 +8,7 @@
             :model="ruleForm"
             :rules="rules"
             ref="ruleForm"
-            label-width="100px"
+            label-width="120px"
             class="demo-ruleForm">
             <el-form-item label="昵称" prop="nickname">
                 <el-input v-model="ruleForm.nickname" placeholder="请输入昵称" maxlength="20"></el-input>

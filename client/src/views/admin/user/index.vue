@@ -79,21 +79,19 @@
                 </template>
             </el-table-column>
         </table-view>
-        <!--    新增    -->
-        <operate-dialog
+        <details-drawer
             @refresh="reqTableDataList"
-            :operation_visible.sync="objDialog.is"
-            :operation_data="objDialog"
-            :operation_group_data="arrUserGroup"
-        ></operate-dialog>
+            :display.sync="objDialog.is"
+            :data="objDialog"
+        ></details-drawer>
     </div>
 </template>
 
 <script>
-    import DialogMixin from '@/mixins/dialog'
-    import FilterMixin from '@/mixins/filter'
-    import OperateDialog from './operation-dialog'
-    import DataMixin from './data.mixin'
+    import DialogMixin                          from '@/mixins/dialog'
+    import FilterMixin                          from '@/mixins/filter'
+    import DetailsDrawer                        from './details-drawer'
+    import DataMixin                            from './data.mixin'
 
     export default {
         name: 'AdminUser',
@@ -109,8 +107,7 @@
         methods: {
             reqUserGroupList () {
                 this.$curl(this.$appConst.REQ_USER_GROUP_LIST).then((res) => {
-                    this.arrUserGroup = res || [];
-                    this.objFilterForm.group.options = this.arrUserGroup;
+                    this.$set(this.objDialog, 'arrGroup', res || [])
                 }).toast();
             },
             reqTableDataList (callback) {
@@ -131,10 +128,10 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.doDeleteUserInfo(_id);
+                    this.doDeleteDataItem(_id);
                 }).null();
             },
-            doDeleteUserInfo (id) {
+            doDeleteDataItem (id) {
                 this.$curl(this.$appConst.DO_DELETE_USER_INFO, {
                     id,
                 }).then(() => {
@@ -143,17 +140,13 @@
             }
         },
         components: {
-            OperateDialog,
+            DetailsDrawer,
         },
     }
 </script>
 
 <style lang="scss" scoped>
     @import "~@assets/scss/define.scss";
-    .inner{
-        @extend %bsb;
-        padding: 10px;
-    }
     .avatar{
         width: 20px;
         height: 20px;
