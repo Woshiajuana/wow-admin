@@ -39,7 +39,7 @@ const methods = {
     },
 
     handleDialogDisplay (options, key = 'objDialog') {
-        this[key] = { is: true, ...this[key], ...options };
+        this[key] = { ...this[key], is: true, ...(options || {}) };
     },
 
 };

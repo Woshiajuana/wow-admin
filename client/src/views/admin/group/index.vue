@@ -57,7 +57,7 @@
                         :disabled="scope.row.is_root_group"
                         type="text"
                         size="mini"
-                        @click="handleDelete(scope.row)"
+                        @click="handleDialogDisplay({ data: scope.row })"
                     >设置权限</el-button>
                     <el-button
                         :disabled="scope.row.is_root_group"
