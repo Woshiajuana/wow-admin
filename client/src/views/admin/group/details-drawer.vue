@@ -5,7 +5,7 @@
         :before-close="handleClose"
         :visible.sync="operation_visible"
         direction="rtl"
-        size="100%"
+        size="50%"
         custom-class="demo-drawer"
         ref="drawer">
         <div class="demo-drawer__content">
@@ -13,7 +13,7 @@
                 :model="ruleForm"
                 :rules="rules"
                 ref="ruleForm"
-                label-width="100px"
+                label-width="60px"
                 class="demo-ruleForm">
                 <el-form-item label="名称" prop="name">
                     <el-input v-model="ruleForm.name" placeholder="请输入名称" maxlength="20"></el-input>
@@ -145,5 +145,11 @@
         button {
             @extend %df1;
         }
+    }
+    .el-select{
+        @extend %w100;
+    }
+    .el-form-item__label{
+        @extend %fwn;
     }
 </style>
