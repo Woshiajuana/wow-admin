@@ -74,14 +74,14 @@
                         :disabled="scope.row.is_root"
                         type="text"
                         size="mini"
-                        @click="handleDialogEdit(scope.row)"
-                    >禁用</el-button>
+                        @click="handleDisabled(scope.row)"
+                    >{{scope.row.disabled ? '启用' : '禁用' }}</el-button>
                     <el-button
                         :disabled="scope.row.is_root"
                         type="text"
                         size="mini"
-                        @click="handleDialogEdit(scope.row)"
-                    >解锁</el-button>
+                        @click="handleUnlock(scope.row)"
+                    >{{scope.row.lock ? '解锁' : '锁定' }}</el-button>
                     <el-button
                         :disabled="scope.row.is_root"
                         type="text"
@@ -136,7 +136,7 @@
             },
             handleDelete (item) {
                 let { _id, nickname } = item;
-                this.$confirm(`确定删除 ${nickname} ?`, '温馨提示', {
+                this.$confirm(`确定删除昵称为：${nickname} 的账号?`, '温馨提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -150,7 +150,39 @@
                 }).then(() => {
                     this.reqTableDataList();
                 }).toast();
-            }
+            },
+            handleUnlock (item) {
+                let { _id, nickname, lock } = item;
+                this.$confirm(`确定${lock ? '解锁' : '锁定'} 昵称为：${nickname} 的账号?`, '温馨提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$curl(this.$appConst.DO_UNLOCK_USER_INFO, {
+                        id: _id,
+                        lock: !lock,
+                    }).then(() => {
+                        this.$modal.toast(lock ? '解锁账号成功' : '锁定账号成功', 'success');
+                        item.lock = !lock;
+                    }).toast();
+                }).null();
+            },
+            handleDisabled (item) {
+                let { _id, nickname, disabled } = item;
+                this.$confirm(`确定${disabled ? '启用' : '禁用'} 昵称为：${nickname} 的账号?`, '温馨提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$curl(this.$appConst.DO_DISABLED_USER_INFO, {
+                        id: _id,
+                        disabled: !disabled,
+                    }).then(() => {
+                        this.$modal.toast(disabled ? '启用账号成功' : '禁用账号成功', 'success');
+                        item.disabled = !disabled;
+                    }).toast();
+                }).null();
+            },
         },
         components: {
             DetailsDrawer,

@@ -104,6 +104,6 @@ module.exports.populate = [
     },
 ];
 
-module.exports.select = 'nickname avatar phone email group is_root created_at updated_at';
+module.exports.select = 'nickname avatar disabled lock phone email group is_root created_at updated_at';
 
-module.exports.listSelect = 'nickname avatar phone email is_root created_at updated_at';
+module.exports.listSelect = 'nickname avatar disabled lock phone email is_root created_at updated_at';
