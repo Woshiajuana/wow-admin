@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="filter-wrap">
         <div class="input-wrap">
             <template v-for="(item, key) in filterForm">
                 <el-date-picker
@@ -110,7 +110,7 @@
 
 <style lang="scss" scoped>
     @import "~@assets/scss/define.scss";
-    .wrap{
+    .filter-wrap{
         @extend %df;
         @extend %aic;
         @extend %fww;

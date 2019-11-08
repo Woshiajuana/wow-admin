@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap"
+    <div class="table-view"
          element-loading-text="拼命加载中"
          element-loading-spinner="el-icon-loading"
          v-loading="tableUseLoading && loading">
@@ -58,17 +58,22 @@
 
 <style lang="scss" scoped>
     @import "~@assets/scss/define.scss";
-    .wrap{
+    .table-view{
         @extend %df;
         @extend %fdc;
         @extend %df1;
+        margin-top: 10px;
         text-align: center;
-        padding: 10px;
+        .table{
+            @extend %df1;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .pagination{
+            margin-top: 10px;
+            border-radius: 4px;
+            background-color: #fff;
+        }
     }
-    .table{
-        @extend %df1;
-    }
-    .pagination{
-        margin-top: 20px;
-    }
+
 </style>

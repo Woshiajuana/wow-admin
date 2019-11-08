@@ -19,12 +19,11 @@
 
 <style lang="scss" scoped>
     .app-main {
-        /*50 = navbar  */
         min-height: calc(100vh - 50px);
         width: 100%;
         position: relative;
         overflow: hidden;
-        /*background-color: #f2f2f2;*/
+        background-color: rgba(255,255,255,.9);
         height: 100%;
     }
     .fixed-header+.app-main {
@@ -56,5 +55,6 @@
         @extend %h100;
         @extend %df;
         @extend %fdc;
+        padding: 10px;
     }
 </style>

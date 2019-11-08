@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="view-wrap">
         <filter-view
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
@@ -131,8 +131,4 @@
 
 <style lang="scss" scoped>
     @import "~@assets/scss/define.scss";
-    .inner{
-        @extend %bsb;
-        padding: 10px;
-    }
 </style>
