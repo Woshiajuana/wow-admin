@@ -3,26 +3,10 @@ const data = () => {
 
     return {
         arrTable: [],
-
-        objDialog: {
-            is: false, // 是否显示
-            current: 'add',
-            add: {
-                form: {
-                    name: '',
-                    remark: '',
-                },
-                rules: {
-                    name: [
-                        { required: true, message: '请输入用户组名称', trigger: 'blur' },
-                    ],
-                    remark: [
-                        { required: true, message: '请填写备注', trigger: 'blur' }
-                    ],
-                },
-            },
+        objAuthDialog: {
+            is: false,
+            data: '',
         },
-
         objQuery: {
             numIndex: 1,
             numSize: 10,

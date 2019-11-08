@@ -51,7 +51,7 @@
                         :disabled="scope.row.is_root_group"
                         size="mini"
                         type="text"
-                        @click="handleDialogEdit(scope.row)"
+                        @click="handleDialogDisplay({ type: 'edit', data: scope.row })"
                     >编辑</el-button>
                     <el-button
                         :disabled="scope.row.is_root_group"
@@ -73,6 +73,11 @@
             :display.sync="objDialog.is"
             :data="objDialog"
         ></details-drawer>
+        <auth-drawer
+            @refresh="reqTableDataList"
+            :display.sync="objAuthDialog.is"
+            :data="objAuthDialog"
+        ></auth-drawer>
     </div>
 </template>
 
@@ -80,6 +85,7 @@
     import DialogMixin                          from '@/mixins/dialog'
     import FilterMixin                          from '@/mixins/filter'
     import DetailsDrawer                        from './details-drawer'
+    import AuthDrawer                           from './auth-drawer'
     import DataMixin                            from './data.mixin'
 
     export default {
@@ -96,14 +102,14 @@
         },
         methods: {
             reqMenuRouteList () {
-                this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST).then((res) => {
-                    this.arrMenuRouteData = res || [];
-                }).toast();
+                this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST).then((res) =>
+                    this.$set(this.objDialog, 'arrMenu', res || [])
+                ).toast();
             },
             reqApiRouteList () {
-                this.$curl(this.$appConst.REQ_API_ROUTE_LIST).then((res) => {
-                    this.arrApiRouteData = res || [];
-                }).toast();
+                this.$curl(this.$appConst.REQ_API_ROUTE_LIST).then((res) =>
+                    this.$set(this.objDialog, 'arrApi', res || [])
+                ).toast();
             },
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
@@ -123,10 +129,10 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.doDeleteUserGroup(_id);
+                    this.doDeleteDataItem(_id);
                 }).null();
             },
-            doDeleteUserGroup (id) {
+            doDeleteDataItem (id) {
                 this.$curl(this.$appConst.DO_DELETE_USER_GROUP, {
                     id,
                 }).then(() => {
@@ -135,6 +141,7 @@
             }
         },
         components: {
+            AuthDrawer,
             DetailsDrawer,
         },
     }

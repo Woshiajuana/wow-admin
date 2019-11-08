@@ -37,6 +37,11 @@ const methods = {
             this.objDialog.data = item;
         }
     },
+
+    handleDialogDisplay (options, key = 'objDialog') {
+        this[key] = { is: true, ...this[key], ...options };
+    },
+
 };
 
 export default {
