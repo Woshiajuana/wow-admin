@@ -103,12 +103,12 @@
         methods: {
             reqMenuRouteList () {
                 this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST).then((res) =>
-                    this.$set(this.objDialog, 'arrMenu', res || [])
+                    this.$set(this.objAuthDialog, 'arrMenu', res || [])
                 ).toast();
             },
             reqApiRouteList () {
                 this.$curl(this.$appConst.REQ_API_ROUTE_LIST).then((res) =>
-                    this.$set(this.objDialog, 'arrApi', res || [])
+                    this.$set(this.objAuthDialog, 'arrApi', res || [])
                 ).toast();
             },
             reqTableDataList (callback) {

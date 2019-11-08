@@ -6,7 +6,7 @@
         :before-close="handleClose"
         :visible.sync="display"
         direction="rtl"
-        size="80%"
+        size="600px"
         custom-class="demo-drawer"
         ref="drawer">
         <div class="demo-drawer__content">
@@ -21,16 +21,24 @@
                 </el-form-item>
                 <el-form-item label="API" prop="api_routes">
                     <el-transfer
+                        filterable
+                        :filter-method="filterApiMethod"
+                        filter-placeholder="请输入 API 名称"
+                        :titles="['未添加', '已添加']"
                         v-model="ruleForm.api_routes"
-                        :props="{ key: 'value', label: 'desc' }"
+                        :props="{ key: '_id', label: 'name' }"
                         :data="data.arrApi">
                     </el-transfer>
                 </el-form-item>
-                <el-form-item label="API" prop="api_routes">
+                <el-form-item label="菜单" prop="menu_routes">
                     <el-transfer
-                        v-model="ruleForm.api_routes"
-                        :props="{ key: 'value', label: 'desc' }"
-                        :data="data.arrApi">
+                        filterable
+                        :filter-method="filterMenuMethod"
+                        filter-placeholder="请输入菜单名称"
+                        :titles="['未添加', '已添加']"
+                        v-model="ruleForm.menu_routes"
+                        :props="{ key: '_id', label: 'title' }"
+                        :data="data.arrMenu">
                     </el-transfer>
                 </el-form-item>
             </el-form>
@@ -50,10 +58,13 @@
                 ruleForm: {
                     name: '',
                     api_routes: [],
+                    menu_routes: [],
                 },
                 rules: {
 
-                }
+                },
+                filterApiMethod: (query, item) => item.name.indexOf(query) > -1,
+                filterMenuMethod: (query, item) => item.title.indexOf(query) > -1,
             }
         },
         watch: {

@@ -64,5 +64,8 @@
         .el-form-item__label{
             @extend %fwn;
         }
+        .el-transfer-panel__item{
+            @extend %db;
+        }
     }
 </style>
