@@ -17,14 +17,14 @@
                         label-position="left"
                         inline
                         class="demo-table-expand">
-                        <el-form-item label="商品名称">
+                        <el-form-item label="名称">
                             <span>{{ props.row.name }}</span>
                         </el-form-item>
-                        <el-form-item label="所属店铺">
-                            <span>{{ props.row.shop }}</span>
+                        <el-form-item label="备注">
+                            <span>{{ props.row.remark }}</span>
                         </el-form-item>
-                        <el-form-item label="商品 ID">
-                            <span>{{ props.row.id }}</span>
+                        <el-form-item label="日期">
+                            <span>{{ props.row.created_at | filterDate}}</span>
                         </el-form-item>
                     </el-form>
                 </template>
@@ -76,17 +76,19 @@
             :operation_api_data="arrApiRouteData"
             :operation_menu_data="arrMenuRouteData"
         ></operate-dialog>
+
+
     </div>
 </template>
 
 <script>
-    import DialogMixin from '@/mixins/dialog'
-    import FilterMixin from '@/mixins/filter'
-    import OperateDialog from './operation-dialog'
-    import DataMixin from './data.mixin'
+    import DialogMixin                          from '@/mixins/dialog'
+    import FilterMixin                          from '@/mixins/filter'
+    import OperateDialog                        from './operation-dialog'
+    import DataMixin                            from './data.mixin'
 
     export default {
-        name: 'AdminUser',
+        name: 'AdminGroup',
         mixins: [
             DataMixin,
             FilterMixin,
@@ -149,25 +151,25 @@
         @extend %bsb;
         padding: 10px;
     }
-    .el-form-item__label{
-        font-size: 12px !important;
+    .el-table__expanded-cell{
+        padding: 10px 58px !important;
     }
     .demo-table-expand {
         font-size: 0;
-    }
-    .demo-table-expand label {
-        @extend %fwn;
-        width: 90px;
-        color: #99a9bf;
-        font-size: 12px;
-    }
-    .el-form-item__content span {
-        font-size: 12px;
-    }
-    .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 50%;
-        font-size: 12px;
+        label {
+            @extend %fwn;
+            width: 90px;
+            color: #99a9bf;
+            font-size: 12px;
+        }
+        span {
+            font-size: 12px;
+        }
+        .el-form-item {
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+            font-size: 12px;
+        }
     }
 </style>
