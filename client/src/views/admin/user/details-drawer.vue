@@ -105,7 +105,7 @@
                 this.$refs.ruleForm.validate((valid) => {
                     if (!valid) return false;
                     this.loading = true;
-                    let { type, data } = this.operation_data;
+                    let { type, data } = this.data;
                     this.$curl(type === 'add' ? this.$appConst.DO_CREATE_USER_INFO : this.$appConst.DO_UPDATE_USER_INFO, {
                         ...this.ruleForm,
                         password: Md5(this.ruleForm.password.trim())

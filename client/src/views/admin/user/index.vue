@@ -119,7 +119,8 @@
         methods: {
             reqUserGroupList () {
                 this.$curl(this.$appConst.REQ_USER_GROUP_LIST).then((res) => {
-                    this.$set(this.objDialog, 'arrGroup', res || [])
+                    this.$set(this.objDialog, 'arrGroup', res || []);
+                    this.objFilterForm.group.options = res || [];
                 }).toast();
             },
             reqTableDataList (callback) {

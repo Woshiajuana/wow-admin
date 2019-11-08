@@ -58,6 +58,10 @@ const DEFAULT_OPTIONS = {
 
         // 查询管理员用户列表
         REQ_USER_LIST: 'api/v1/user-info/list',
+        // 解锁管理员账号
+        DO_UNLOCK_USER_INFO: 'api/v1/user-info/unlock',
+        // 禁用启用管理员账号
+        DO_DISABLED_USER_INFO: 'api/v1/user-info/disable-enable',
         // 创建管理员用户
         DO_CREATE_USER_INFO: 'api/v1/user-info/create',
         // 编辑管理员用户

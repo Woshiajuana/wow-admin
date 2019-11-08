@@ -8,25 +8,10 @@ const data = () => {
             numSize: 10,
             numTotal: 0,
         },
-        arrUserGroup: [],
         objFilterForm: {
-            nickname: {
+            keyword: {
                 value: '',
-                placeholder: '请输入昵称',
-                style: 'width: 200px; margin-right: 5px;',
-                mode: 'input',
-                event: 'filter',
-            },
-            email: {
-                value: '',
-                placeholder: '请输入邮箱',
-                style: 'width: 200px; margin-right: 5px;',
-                mode: 'input',
-                event: 'filter',
-            },
-            phone: {
-                value: '',
-                placeholder: '请输入手机',
+                placeholder: '请输入昵称/邮箱/手机',
                 style: 'width: 200px; margin-right: 5px;',
                 mode: 'input',
                 event: 'filter',
