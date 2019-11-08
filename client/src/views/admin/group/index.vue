@@ -29,7 +29,6 @@
                         <el-form-item label="权限">
                             <span>{{ props.row.is_root_group ? 'admin' : '非admin'}}</span>
                         </el-form-item>
-
                     </el-form>
                 </template>
             </el-table-column>
