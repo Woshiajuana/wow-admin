@@ -1,9 +1,9 @@
 
 <template>
     <el-drawer
-        :title="operation_data.type === 'add' ? '新增用户组' : '编辑用户组'"
+        :title="data.type === 'add' ? '新增用户组' : '编辑用户组'"
         :before-close="handleClose"
-        :visible.sync="operation_visible"
+        :visible.sync="display"
         direction="rtl"
         size="50%"
         custom-class="demo-drawer"
@@ -18,34 +18,34 @@
                 <el-form-item label="名称" prop="name">
                     <el-input v-model.trim="ruleForm.name" placeholder="请输入名称" maxlength="20"></el-input>
                 </el-form-item>
-                <el-form-item label="API" prop="api_routes">
-                    <el-select
-                        multiple
-                        collapse-tags
-                        v-model="ruleForm.api_routes"
-                        placeholder="请选择API">
-                        <el-option
-                            v-for="(item, index) in operation_api_data"
-                            :key="index"
-                            :label="item.name"
-                            :value="item._id"
-                        ></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="菜单" prop="menu_routes">
-                    <el-select
-                        multiple
-                        collapse-tags
-                        v-model="ruleForm.menu_routes"
-                        placeholder="请选择API">
-                        <el-option
-                            v-for="(item, index) in operation_menu_data"
-                            :key="index"
-                            :label="item.title"
-                            :value="item._id"
-                        ></el-option>
-                    </el-select>
-                </el-form-item>
+<!--                <el-form-item label="API" prop="api_routes">-->
+<!--                    <el-select-->
+<!--                        multiple-->
+<!--                        collapse-tags-->
+<!--                        v-model="ruleForm.api_routes"-->
+<!--                        placeholder="请选择API">-->
+<!--                        <el-option-->
+<!--                            v-for="(item, index) in operation_api_data"-->
+<!--                            :key="index"-->
+<!--                            :label="item.name"-->
+<!--                            :value="item._id"-->
+<!--                        ></el-option>-->
+<!--                    </el-select>-->
+<!--                </el-form-item>-->
+<!--                <el-form-item label="菜单" prop="menu_routes">-->
+<!--                    <el-select-->
+<!--                        multiple-->
+<!--                        collapse-tags-->
+<!--                        v-model="ruleForm.menu_routes"-->
+<!--                        placeholder="请选择API">-->
+<!--                        <el-option-->
+<!--                            v-for="(item, index) in operation_menu_data"-->
+<!--                            :key="index"-->
+<!--                            :label="item.title"-->
+<!--                            :value="item._id"-->
+<!--                        ></el-option>-->
+<!--                    </el-select>-->
+<!--                </el-form-item>-->
                 <el-form-item label="备注" prop="remark">
                     <el-input type="textarea" placeholder="请输入备注" v-model.trim="ruleForm.remark" maxlength="100"></el-input>
                 </el-form-item>
@@ -83,26 +83,23 @@
             }
         },
         watch: {
-            operation_visible (val) {
+            display (val) {
                 if (val) this.assignmentData();
             },
         },
         props: {
-            operation_visible: { default: false },
-            operation_width: { default: '' },
-            operation_data: { default: '' },
-            operation_api_data: { default: '' },
-            operation_menu_data: { default: '' },
+            display: { default: false },
+            data: { default: '' },
         },
         methods: {
             handleClose () {
-                this.$emit('update:operation_visible', false);
+                this.$emit('update:display', false);
                 this.resetForm();
             },
             handleSubmit () {
                 this.$refs.ruleForm.validate((valid) => {
                     if (!valid) return false;
-                    let { type, data } = this.operation_data;
+                    let { type, data } = this.data;
                     this.$curl(type === 'add'
                         ? this.$appConst.DO_CREATE_USER_GROUP
                         : this.$appConst.DO_UPDATE_USER_GROUP, this.ruleForm).then((res) => {
@@ -118,7 +115,7 @@
             assignmentData () {
                 this.$nextTick(() => {
                     this.$refs.ruleForm.resetFields();
-                    let { type, data } = this.operation_data;
+                    let { type, data } = this.data;
                     data && (this.ruleForm = { ...data, id: data._id });
                 })
             },

@@ -70,10 +70,8 @@
         </table-view>
         <details-drawer
             @refresh="reqTableDataList"
-            :operation_visible.sync="objDialog.is"
-            :operation_data="objDialog"
-            :operation_api_data="arrApiRouteData"
-            :operation_menu_data="arrMenuRouteData"
+            :display.sync="objDialog.is"
+            :data="objDialog"
         ></details-drawer>
     </div>
 </template>
