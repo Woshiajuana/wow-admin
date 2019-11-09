@@ -65,7 +65,7 @@ module.exports = class HandleServer extends Service {
     }
 
     // 用户列表
-    async list ({ numIndex, numSize, email, group, nickname, phone }) {
+    async list ({ numIndex, numSize, group, keyword }) {
         const { ctx, app } = this;
         if (numIndex && numSize) {
             let filter = {
