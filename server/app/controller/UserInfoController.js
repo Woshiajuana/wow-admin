@@ -196,9 +196,7 @@ module.exports = class HandleController extends Controller {
      * @apiGroup APP基础
      * @apiParam  {String} [numIndex] 页数
      * @apiParam  {String} [numSize] 大小
-     * @apiParam  {String} [nickname] 昵称
-     * @apiParam  {String} [phone] 手机号
-     * @apiParam  {String} [email] 邮箱
+     * @apiParam  {String} [keyword] 昵称 / 手机号 / 邮箱
      * @apiParam  {String} [group] 用户组 id
      * @apiSuccess (成功) {Object} data
      * @apiSampleRequest /api/v1/user-info/list
@@ -209,10 +207,8 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 numIndex: [],
                 numSize: [],
-                email: [],
+                keyword: [],
                 group: [],
-                nickname: [],
-                phone: [],
             });
             const data = await service.userInfoService.list(objParams);
             ctx.respSuccess(data);
