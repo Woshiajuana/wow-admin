@@ -71,7 +71,9 @@ module.exports = class HandleServer extends Service {
             let filter = {
                 $or: [], // 多字段同时匹配
             };
-            if (email) {
+            if (keyword) {
+                filter.$or.push({ email: { $regex: email, $options: '$i', } });
+                filter.$or.push({ email: { $regex: email, $options: '$i', } });
                 filter.$or.push({ email: { $regex: email, $options: '$i', } });
             }
             if (group) {
