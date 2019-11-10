@@ -78,12 +78,6 @@ module.exports = class HandleServer extends Service {
                 group = app.mongoose.Types.ObjectId(group);
                 filter.$or.push({ group: group });
             }
-            if (nickname) {
-                filter.$or.push({ nickname: { $regex: nickname, $options: '$i', } });
-            }
-            if (phone) {
-                filter.$or.push({ phone: { $regex: phone, $options: '$i' } });
-            }
             if (!filter.$or.length) delete filter.$or;
             const numTotal = await ctx.model.UserInfoModel.count(filter);
             const arrData = await ctx.model.UserInfoModel
