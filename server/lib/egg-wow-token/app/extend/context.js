@@ -2,6 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const ms = require('ms');
+const moment = require('moment');
 
 class Token {
     constructor(ctx, props = {}, options) {
@@ -134,23 +135,17 @@ module.exports = {
     async kickOutUserById (id, options = {}) {
         const { app, logger } = this;
         let { maxUser } = Object.assign({}, app.config.token, options);
-        let arrOtherToken = await this.getTokenByUserId(id) || [];
-        console.log('arrOtherToken => ', arrOtherToken);
-        arrOtherToken.sort((a, b) => a.createAt - b.createAt);
         if (maxUser <= 0) return;
-        const needKickoffUserCount = otherAccessDatas.length - maxUserLoginCount + 1;
-        if (needKickoffUserCount > 0) {
-            const kickoffAccessDatas = otherAccessDatas.slice(0, needKickoffUserCount);
-            for (const kickoffAccessData of kickoffAccessDatas) {
-                kickoffAccessData.maxAge = ms('5m');
-                kickoffAccessData.isDead = true;
-                kickoffAccessData.message = ctx.__(template,
-                    moment().format('YYYY-MM-DD HH:mm'),
-                    `IP: ${ctx.ip} ${ctx.userAgent.ua}`);
-                await kickoffAccessData.save(true);
-                logger.info(`预踢掉在线用户 operator_no ${kickoffAccessData.id} token: ${kickoffAccessData.accessToken}`);
-            }
-        }
+        let arrOtherToken = await this.getTokenByUserId(id) || [];
+        arrOtherToken.sort((a, b) => a.createAt - b.createAt);
+        const arrNeedKickOut = arrOtherToken.slice(0, arrOtherToken.length - maxUser);
+        arrNeedKickOut.forEach((token, index) => {
+            token.isDead = true;
+            token.message = `您的账号 ${moment().format('YYYY-MM-DD HH:mm')} 在客户端 ${this.ip} ${this.userAgent ? this.userAgent.ua : ''} 登录，如果不是您本人操作，请立马更改密码`;
+            token.save();
+            logger.info(`预踢掉在线用户:【${token.id}】token:【${token.accessToken}】.`);
+        });
+        arrOtherToken = await this.getTokenByUserId(id) || [];
     },
 };
 

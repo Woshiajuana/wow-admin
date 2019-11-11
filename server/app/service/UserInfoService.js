@@ -30,6 +30,7 @@ module.exports = class HandleServer extends Service {
         const { _id } = objUser;
         const { accessToken } = await ctx.generateToken({ id: _id, user: objUser });
         objUser.access_token = accessToken;
+        await ctx.kickOutUserById(_id);
         return objUser;
     }
 
