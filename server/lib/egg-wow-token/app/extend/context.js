@@ -112,6 +112,31 @@ module.exports = {
         const { redis } = app;
         logger.info(`accessToken: 【${accessToken}】即将删除`);
         await redis.del(accessToken);
-    }
+    },
+
+    // 查找所有的token
+    async getTokenByUserId (id) {
+        const { app } = this;
+        const { redis } = app;
+        const result = [];
+        let keys = await redis.keys(`acst:${id}:*`);
+        if (!keys || !keys.length) return result;
+        for(let i = 0 ; i < keys.length; i++) {
+            const accessData = await this.getTokenByAccessToken(keys[i]);
+            if (accessData) {
+                result.push(accessData)
+            }
+        }
+        return result;
+    },
+
+    // 登录踢出
+    async kickOutUserById (id, options = {}) {
+        const { app, logger } = this;
+        const { redis } = app;
+        let { maxUser } = Object.assign({}, app.config.token, options);
+        let otherToken = await ctx.getTokenByUserId(id) || [];
+        console.log('otherToken => ', otherToken);
+    },
 };
 

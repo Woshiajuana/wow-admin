@@ -9,6 +9,7 @@
 exports.token = {
     maxAge: '5m',
     secret: '123456',
+    maxUser: 1,
     getClientInfo (ctx) {
         const { request, ips = [], ip = '' } = ctx;
         const deviceUUID = request.headers['device-uuid'] || '';
