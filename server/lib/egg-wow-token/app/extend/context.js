@@ -75,7 +75,6 @@ class Token {
 
 module.exports = {
 
-
     // 生成 token
     async generateToken (data, options) {
         const { app, logger } = this;

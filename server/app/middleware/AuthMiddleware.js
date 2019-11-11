@@ -17,7 +17,7 @@ module.exports = () => {
             const {
                 group,
                 is_root,
-            } = ctx.state.user;
+            } = ctx.state.token.user;
             const {
                 is_root_group,
                 api_routes,
