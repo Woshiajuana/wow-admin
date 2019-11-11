@@ -140,10 +140,13 @@ module.exports = {
         arrOtherToken.sort((a, b) => a.createAt - b.createAt);
         const arrNeedKickOut = arrOtherToken.slice(0, arrOtherToken.length - maxUser);
         arrNeedKickOut.forEach((token, index) => {
-            token.isDead = true;
-            token.message = `您的账号 ${moment().format('YYYY-MM-DD HH:mm')} 在客户端 ${this.ip} ${this.userAgent ? this.userAgent.ua : ''} 登录，如果不是您本人操作，请立马更改密码`;
-            token.save();
-            logger.info(`预踢掉在线用户:【${token.id}】token:【${token.accessToken}】.`);
+            if (!token.isDead) {
+                token.isDead = true;
+                token.maxAge = ms(`${60 * 24 * 30}m`);
+                token.message = `您的账号 ${moment().format('YYYY-MM-DD HH:mm')} 在客户端 ${this.ip} ${this.userAgent ? this.userAgent.ua : ''} 登录，如果不是您本人操作，请立马更改密码`;
+                token.save();
+                logger.info(`预踢掉在线用户:【${token.id}】token:【${token.accessToken}】.`);
+            }
         });
         arrOtherToken = await this.getTokenByUserId(id) || [];
     },
