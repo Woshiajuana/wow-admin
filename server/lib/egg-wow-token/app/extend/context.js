@@ -133,10 +133,24 @@ module.exports = {
     // 登录踢出
     async kickOutUserById (id, options = {}) {
         const { app, logger } = this;
-        const { redis } = app;
         let { maxUser } = Object.assign({}, app.config.token, options);
-        let otherToken = await ctx.getTokenByUserId(id) || [];
-        console.log('otherToken => ', otherToken);
+        let arrOtherToken = await this.getTokenByUserId(id) || [];
+        console.log('arrOtherToken => ', arrOtherToken);
+        arrOtherToken.sort((a, b) => a.createAt - b.createAt);
+        if (maxUser <= 0) return;
+        const needKickoffUserCount = otherAccessDatas.length - maxUserLoginCount + 1;
+        if (needKickoffUserCount > 0) {
+            const kickoffAccessDatas = otherAccessDatas.slice(0, needKickoffUserCount);
+            for (const kickoffAccessData of kickoffAccessDatas) {
+                kickoffAccessData.maxAge = ms('5m');
+                kickoffAccessData.isDead = true;
+                kickoffAccessData.message = ctx.__(template,
+                    moment().format('YYYY-MM-DD HH:mm'),
+                    `IP: ${ctx.ip} ${ctx.userAgent.ua}`);
+                await kickoffAccessData.save(true);
+                logger.info(`预踢掉在线用户 operator_no ${kickoffAccessData.id} token: ${kickoffAccessData.accessToken}`);
+            }
+        }
     },
 };
 

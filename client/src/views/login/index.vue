@@ -66,7 +66,7 @@
                     password: Md5(data.password.trim()),
                 }).then(() => {
                     let redirect = this.$route.query && this.$route.query.redirect;
-                    this.$router.push({ path: redirect || '/' });
+                    this.$router.push({ path: redirect || '/admin/group' });
                 }).toast().finally(() => {
                     this.loading = false;
                 });
