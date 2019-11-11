@@ -4,7 +4,7 @@
 const ms = require('ms');
 
 module.exports = (options = {}) => {
-    return async function jwtMiddleware (ctx, next) {
+    return async function authMiddleware (ctx, next) {
         const {
             logger,
             request,

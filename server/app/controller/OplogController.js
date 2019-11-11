@@ -8,12 +8,12 @@ module.exports = class HandleController extends Controller {
     static route (app, middleware, controller) {
         app.router.mount(
             { name: '查询操作日志列表', path: '/api/v1/oplog/list' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             controller.list
         ).mount(
             { name: '删除操作日志', path: '/api/v1/oplog/delete' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.del,

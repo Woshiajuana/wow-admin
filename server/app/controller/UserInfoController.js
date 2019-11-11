@@ -11,39 +11,39 @@ module.exports = class HandleController extends Controller {
             controller.login,
         ).mount(
             { name: '用户安全退出', path: '/api/v1/user-info/logout' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.logout
         ).mount(
             { name: '解锁管理员账号', path: '/api/v1/user-info/unlock' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.unlock,
         ).mount(
             { name: '禁用启用管理员账号', path: '/api/v1/user-info/disable-enable' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.disableEnable,
         ).mount(
             { name: '查询管理员用户列表', path: '/api/v1/user-info/list' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             controller.list
         ).mount(
             { name: '创建管理员用户', path: '/api/v1/user-info/create' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.create,
         ).mount(
             { name: '更新管理员用户', path: '/api/v1/user-info/update' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.update,
         ).mount(
             { name: '删除管理员用户', path: '/api/v1/user-info/delete' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.del,

@@ -21,10 +21,10 @@ exports.mongoose = {
 };
 
 // token
-exports.jwt = {
+exports.auth = {
     enable: true,
     // package: 'egg-wow-jwt',
-    path: path.join(__dirname, '../lib/egg-wow-jwt')
+    path: path.join(__dirname, '../lib/egg-wow-auth')
 };
 
 // 验证参数

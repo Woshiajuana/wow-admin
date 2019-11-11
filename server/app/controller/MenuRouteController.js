@@ -8,24 +8,24 @@ module.exports = class HandleController extends Controller {
     static route (app, middleware, controller) {
         app.router.mount(
             { name: '查询菜单路由列表', path: '/api/v1/menu-route/list' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             controller.list
         ).mount(
             { name: '创建菜单路由', path: '/api/v1/menu-route/create' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.create,
         ).mount(
             { name: '更新菜单路由', path: '/api/v1/menu-route/update' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.update,
         ).mount(
             { name: '删除菜单路由', path: '/api/v1/menu-route/delete' },
-            middleware.jwtMiddleware(),
+            middleware.authMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.del,
