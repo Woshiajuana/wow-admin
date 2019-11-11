@@ -8,30 +8,30 @@ module.exports = class HandleController extends Controller {
     static route (app, middleware, controller) {
         app.router.mount(
             { name: '查询API路由列表', path: '/api/v1/api-route/list' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             controller.list
         ).mount(
             { name: '初始化路由列表', path: '/api/v1/api-route/init' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.init
         ).mount(
             { name: '创建API路由', path: '/api/v1/api-route/create' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.create,
         ).mount(
             { name: '更新API路由', path: '/api/v1/api-route/update' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.update,
         ).mount(
             { name: '删除API路由', path: '/api/v1/api-route/delete' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.del,
