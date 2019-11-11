@@ -39,7 +39,10 @@ class Token {
 
     // 判断是不是同一台设备
     judgeClient () {
-        return this.client === this.options.getClientInfo(this.ctx);
+        const strNowClient = this.options.getClientInfo(this.ctx);
+        const result = this.client === strNowClient;
+        logger.info(`用户:【${this.id}】登录客户端:【${this.client}】与请求客户端【${strNowClient}】${result ? '一致' : '不一致'}`);
+        return result;
     }
 
     // toJSON
@@ -58,7 +61,7 @@ class Token {
     async save () {
         const { logger } = this.ctx;
         const { redis } = this.ctx.app;
-        logger.info(`redis 创建用户: 【${this.id}, 数据 accessToken:【${this.accessToken}】 有效期:【${this.options.maxAge}】`);
+        logger.info(`redis 创建用户: 【${this.id}】, 数据 accessToken:【${this.accessToken}】 有效期:【${this.options.maxAge}】`);
         await redis.set(this.accessToken, JSON.stringify(this.toJSON()), 'PX', ms(this.options.maxAge) * 0.001);
     }
 
@@ -113,7 +116,7 @@ module.exports = {
         const { app, logger } = this;
         const { redis } = app;
         const strToken = await redis.get(accessToken);
-        if (strToken) {
+        if (!strToken) {
             logger.info(`redis 获取 accessData 数据 accessToken: ${accessToken} 失败 不存在!`);
             throw `F40000`;
         }
@@ -131,6 +134,11 @@ module.exports = {
         return new Token(this, objToken);
     },
 
-
+    // 判断是否要销毁
+    async destructionTokenByAccessToken (accessToken) {
+        const { app, logger } = this;
+        const { redis } = app;
+        await redis.del(accessToken);
+    }
 };
 
