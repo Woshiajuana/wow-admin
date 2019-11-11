@@ -33,7 +33,7 @@ class Token {
         }
         // token
         if (!this.accessToken) {
-            this.accessToken = `acst:${this.id}:${jwt.sign(`${this.id}`, this.options.secret, this.options)}`;
+            this.accessToken = `acst:${this.id}:${jwt.sign({ id: this.id, createAt: this.createAt }, this.options.secret, this.options.jwtOption || {})}`;
         }
     }
 
@@ -58,6 +58,7 @@ class Token {
     async save () {
         const { logger } = this.ctx;
         const { redis } = this.ctx.app;
+        logger.info(`redis 创建用户: 【${this.id}, 数据 accessToken:【${this.accessToken}】 有效期:【${this.options.maxAge}】`);
         await redis.set(this.accessToken, JSON.stringify(this.toJSON()), 'PX', ms(this.options.maxAge) * 0.001);
     }
 
@@ -75,7 +76,7 @@ module.exports = {
                 app,
                 logger,
             } = this;
-            const config = app.config.auth;
+            const config = app.config.token;
             let { secret } = config;
             this[JWT] = {
                 decode: jwt.decode,
@@ -102,30 +103,33 @@ module.exports = {
     // 生成 token
     async generateToken (data, options) {
         const { app, logger } = this;
-        console.log('配置=》', Object.assign({}, app.config.auth, options))
-        return new Token(this, data, Object.assign({}, app.config.auth, options));
+        const token =  new Token(this, data, Object.assign({}, app.config.token, options));
+        await token.save();
+        return token;
     },
 
-    //
-    async getTokenByAccessToken () {
-
-    },
-
-    //
-    async authGetToken (key, value, options = {}) {
+    // 根据 accessToken 获取
+    async getTokenByAccessToken (accessToken) {
         const { app, logger } = this;
         const { redis } = app;
-        const { secret, maxAge, getClientInfo } = Object.assign({}, app.config.auth, options);
-        const numMaxAge = ms(maxAge || '10m') * 0.001;
-        const strClient = getClientInfo(this);
-        if (typeof key === 'object') key = JSON.stringify(key);
-        if (typeof value === 'object') value = JSON.stringify(value);
-        const strToken = jwt.sign(`${key}:${strClient}`, secret, options);
-        await redis.set(strToken, value, 'EX', numMaxAge);
-        logger.info(`用户:【${key}】在客户端:【${strClient}】上登录，生成 token:【${strToken}】, 有效期:【${maxAge}】.`);
-        return strToken;
+        const strToken = await redis.get(accessToken);
+        if (strToken) {
+            logger.info(`redis 获取 accessData 数据 accessToken: ${accessToken} 失败 不存在!`);
+            throw `F40000`;
+        }
+        let objToken = null;
+        try {
+            objToken = JSON.parse(strToken);
+        } catch (err) {
+            logger.info(`accessData:${ accessToken } 数据解析错误: ${err.message} ${strToken}`);
+            throw `F40000`;
+        }
+        if (!objToken) {
+            logger.info(`redis 获取 accessToken: ${accessToken} 为空！`);
+            throw `F40000`;
+        }
+        return new Token(this, objToken);
     },
-
 
 
 };

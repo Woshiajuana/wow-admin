@@ -6,7 +6,7 @@
  * @member Config#jwt
  * @property {String} SOME_KEY - some description
  */
-exports.jwt = {
+exports.token = {
     maxAge: '5m',
     secret: '123456',
     getClientInfo (ctx) {

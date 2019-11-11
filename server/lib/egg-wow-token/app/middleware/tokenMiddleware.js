@@ -4,7 +4,7 @@
 const ms = require('ms');
 
 module.exports = (options = {}) => {
-    return async function authMiddleware (ctx, next) {
+    return async function tokenMiddleware (ctx, next) {
         const {
             logger,
             request,
@@ -24,16 +24,17 @@ module.exports = (options = {}) => {
             if (!accessToken)
                 throw 'F40000';
 
+            const token = await ctx.getTokenByAccessToken(accessToken);
 
-            const strUser = await redis.get(accessToken);
-            if (!strUser)
-                throw 'F40002';
+            console.log('=================')
+            console.log(token)
+            console.log('=================')
 
-            const numMaxAge = ms(app.config.jwt.maxAge || '10m');
+            // const numMaxAge = ms(app.config.jwt.maxAge || '10m');
 
-            await redis.set(accessToken, strUser, 'EX', numMaxAge * 0.001);
+            // await redis.set(accessToken, strUser, 'EX', numMaxAge * 0.001);
 
-            ctx.state.user = Object.assign({ accessToken }, JSON.parse(strUser));
+            ctx.state.user = Object.assign({ accessToken }, token);
 
             await next();
         } catch (err) {

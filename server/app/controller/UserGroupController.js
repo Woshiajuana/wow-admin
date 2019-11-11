@@ -8,24 +8,24 @@ module.exports = class HandleController extends Controller {
     static route (app, middleware, controller) {
         app.router.mount(
             { name: '查询管理员用户组列表', path: '/api/v1/user-group/list' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             controller.list
         ).mount(
             { name: '创建管理员用户组', path: '/api/v1/user-group/create' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.create,
         ).mount(
             { name: '更新管理员用户组', path: '/api/v1/user-group/update' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.update,
         ).mount(
             { name: '删除管理员用户组', path: '/api/v1/user-group/delete' },
-            middleware.authMiddleware(),
+            middleware.tokenMiddleware(),
             middleware.authMiddleware(),
             middleware.oplogMiddleware(),
             controller.del,
