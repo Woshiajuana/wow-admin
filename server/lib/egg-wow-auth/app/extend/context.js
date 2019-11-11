@@ -4,6 +4,29 @@ const jwt = require('jsonwebtoken');
 const JWT = Symbol('Application#jwt');
 const ms = require('ms');
 
+
+class AccessTokenData {
+    constructor(ctx, props = {}) {
+        for (let key in props) {
+            this[key] = props[key];
+        }
+        const timeStamp = new Date().getTime();
+        // 客户端信息
+        if () {
+
+        }
+        // 创建时间
+        if (!this.createAt) {
+            this.createAt = timeStamp;
+        }
+        // 更新时间
+        if (!this.updateAt) {
+            this.updateAt = timeStamp;
+        }
+
+    }
+}
+
 module.exports = {
     get jwt () {
         if (!this[JWT]) {
@@ -35,6 +58,15 @@ module.exports = {
         return this[JWT];
     },
 
+    // 生成 token
+    async auhtGenerateAccessToken () {
+
+    },
+
+    //
+    async authGetAccessTokenByToken () {
+
+    },
 
     async authGetToken (key, value, options = {}) {
         const { app, logger } = this;
