@@ -5,7 +5,7 @@ const data = () => {
 
         objForm: {
             account: {
-                value: '',
+                value: 'admin',
                 icon: 'user',
                 max: 50,
                 placeholder: '请输入账号',
@@ -17,7 +17,7 @@ const data = () => {
                 ],
             },
             password: {
-                value: '',
+                value: '1',
                 type: 'password',
                 icon: 'password',
                 max: 20,

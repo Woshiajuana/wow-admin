@@ -65,8 +65,8 @@
                     ...data,
                     password: Md5(data.password.trim()),
                 }).then(() => {
-                    let redirect = this.$route.query && this.$route.query.redirect;
-                    this.$router.push({ path: redirect || '/' });
+                    // let redirect = this.$route.query && this.$route.query.redirect;
+                    // this.$router.push({ path: redirect || '/' });
                 }).toast().finally(() => {
                     this.loading = false;
                 });
