@@ -57,7 +57,7 @@ module.exports = appInfo => {
     // add token
     exports.token = {
         secret: 'wowadminajuan',
-        maxAge: '10000000m',
+        maxAge: '0.1m',
     };
 
     // add security

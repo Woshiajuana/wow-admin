@@ -63,7 +63,7 @@ class Token {
         const { logger } = this.ctx;
         const { redis } = this.ctx.app;
         logger.info(`redis 创建用户: 【${this.id}】, 数据 accessToken:【${this.accessToken}】 有效期:【${this.options.maxAge}】`);
-        await redis.set(this.accessToken, JSON.stringify(this.toJSON()), 'PX', ms(this.options.maxAge) * 0.001);
+        await redis.set(this.accessToken, JSON.stringify(this.toJSON()), 'PX', ms(this.options.maxAge));
     }
 
     // 更新时间
@@ -90,18 +90,18 @@ module.exports = {
         const strToken = await redis.get(accessToken);
         if (!strToken) {
             logger.info(`redis 获取 accessData 数据 accessToken: ${accessToken} 失败 不存在!`);
-            throw `F40000`;
+            throw `F40001`;
         }
         let objToken = null;
         try {
             objToken = JSON.parse(strToken);
         } catch (err) {
             logger.info(`accessData:${ accessToken } 数据解析错误: ${err.message} ${strToken}`);
-            throw `F40000`;
+            throw `F40001`;
         }
         if (!objToken) {
             logger.info(`redis 获取 accessToken: ${accessToken} 为空！`);
-            throw `F40000`;
+            throw `F40002`;
         }
         return new Token(this, objToken, Object.assign({}, app.config.token, objToken.options));
     },
@@ -110,6 +110,7 @@ module.exports = {
     async destructionTokenByAccessToken (accessToken) {
         const { app, logger } = this;
         const { redis } = app;
+        logger.info(`accessToken: 【${accessToken}】即将删除`);
         await redis.del(accessToken);
     }
 };

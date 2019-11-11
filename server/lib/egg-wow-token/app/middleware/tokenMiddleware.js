@@ -32,7 +32,7 @@ module.exports = (options = {}) => {
             }
             // 判断是否是同一个客户端
             if (!token.judgeClient()) {
-                logger.info(`accessToken: 【${accessToken}】 对应的环境发生变化！即将删除`);
+                logger.info(`accessToken: 【${accessToken}】 对应的环境发生变化.`);
                 await ctx.destructionTokenByAccessToken(accessToken);
                 throw { code: 'F40004', msg: message || 'token无效，请重新登录' };
             }
