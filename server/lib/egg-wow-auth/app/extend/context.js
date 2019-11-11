@@ -49,9 +49,9 @@ module.exports = {
                     const { secret, maxAge } = Object.assign({}, app.config.auth, options);
                     if (typeof key === 'object') key = JSON.stringify(key);
                     if (typeof value === 'object') value = JSON.stringify(value);
-                    const numMaxAge = ms(config.jwt.maxAge || '10m');
+                    const numMaxAge = ms(maxAge || '10m');
                     const token = jwt.sign(key, secret, options);
-                    await redis.set(token);
+                    // await redis.set(token);
                     console.log('==============')
                     const deviceUUID = request.headers['device-uuid'] || '';
                     const userAgent = ctx.get('user-agent') || '';
