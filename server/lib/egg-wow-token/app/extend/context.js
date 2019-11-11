@@ -1,16 +1,15 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const JWT = Symbol('Application#jwt');
 const ms = require('ms');
 
 class Token {
     constructor(ctx, props = {}, options) {
         this.ctx = ctx;
-        this.options = options;
         for (let key in props) {
             this[key] = props[key];
         }
+        this.options = options;
         // id
         if (!this.id) {
             throw new Error('Token id is empty!');
@@ -39,6 +38,7 @@ class Token {
 
     // 判断是不是同一台设备
     judgeClient () {
+        const { logger } = this.ctx;
         const strNowClient = this.options.getClientInfo(this.ctx);
         const result = this.client === strNowClient;
         logger.info(`用户:【${this.id}】登录客户端:【${this.client}】与请求客户端【${strNowClient}】${result ? '一致' : '不一致'}`);
@@ -46,11 +46,12 @@ class Token {
     }
 
     // toJSON
-    toJSON() {
+    toJSON () {
         const obj = {};
         Object.keys(this).forEach(key => {
             if (typeof key !== 'string') return;
             if (key[0] === '_') return;
+            if (key === 'ctx') return;
             if (this[key] === undefined) return;
             obj[key] = this[key];
         });
@@ -73,40 +74,12 @@ class Token {
 }
 
 module.exports = {
-    get jwt () {
-        if (!this[JWT]) {
-            let {
-                app,
-                logger,
-            } = this;
-            const config = app.config.token;
-            let { secret } = config;
-            this[JWT] = {
-                decode: jwt.decode,
-                UnauthorizedError: jwt.UnauthorizedError,
-            };
-            this[JWT].verify = (jwtString, secretOrPublicKey, options = {}) => {
-                return jwt.verify(
-                    jwtString,
-                    secretOrPublicKey || secret,
-                    Object.assign({}, options),
-                );
-            };
-            this[JWT].sign = (payload, secretOrPrivateKey, options = {}) => {
-                return jwt.sign(
-                    payload,
-                    secretOrPrivateKey || secret,
-                    Object.assign({}, options)
-                );
-            };
-        }
-        return this[JWT];
-    },
+
 
     // 生成 token
     async generateToken (data, options) {
         const { app, logger } = this;
-        const token =  new Token(this, data, Object.assign({}, app.config.token, options));
+        const token = new Token(this, data, Object.assign({}, app.config.token, options));
         await token.save();
         return token;
     },
@@ -131,7 +104,7 @@ module.exports = {
             logger.info(`redis 获取 accessToken: ${accessToken} 为空！`);
             throw `F40000`;
         }
-        return new Token(this, objToken);
+        return new Token(this, objToken, Object.assign({}, app.config.token, objToken.options));
     },
 
     // 判断是否要销毁
