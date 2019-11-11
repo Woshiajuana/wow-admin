@@ -9,5 +9,11 @@
 exports.jwt = {
     maxAge: '5m',
     secret: '123456',
-    enable: false,
+    getClientInfo (ctx) {
+        const { request, ips = [], ip = '' } = ctx;
+        const deviceUUID = request.headers['device-uuid'] || '';
+        const userAgent = ctx.get('user-agent') || '';
+        const ipAddress = ips && ips.length ? ips.join('-') : ip || '';
+        return `${ipAddress}:${userAgent}:${deviceUUID}`;
+    }
 };

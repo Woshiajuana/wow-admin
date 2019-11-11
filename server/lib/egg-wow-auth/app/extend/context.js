@@ -39,7 +39,7 @@ module.exports = {
     async authGetToken (key, value, options = {}) {
         const { app, logger } = this;
         const { redis } = app;
-        const { secret, maxAge } = Object.assign({}, app.config.auth, options);
+        const { secret, maxAge, getClientInfo } = Object.assign({}, app.config.auth, options);
         const numMaxAge = ms(maxAge || '10m') * 0.001;
         const strClient = getClientInfo(this);
         if (typeof key === 'object') key = JSON.stringify(key);
@@ -54,11 +54,3 @@ module.exports = {
 
 };
 
-// 获取客户端信息
-function getClientInfo (ctx) {
-    const { request, ips = [], ip = '' } = ctx;
-    const deviceUUID = request.headers['device-uuid'] || '';
-    const userAgent = ctx.get('user-agent') || '';
-    const ipAddress = ips && ips.length ? ips.join('-') : ip || '';
-    return `${ipAddress}:${userAgent}:${deviceUUID}`;
-}
