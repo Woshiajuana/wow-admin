@@ -20,6 +20,9 @@
                         <el-form-item label="昵称">
                             <span>{{ props.row.nickname }}</span>
                         </el-form-item>
+                        <el-form-item label="头像">
+                            <img class="avatar" :src="props.row.avatar" alt="头像"/>
+                        </el-form-item>
                         <el-form-item label="邮箱">
                             <span>{{ props.row.email }}</span>
                         </el-form-item>
@@ -43,15 +46,8 @@
                 label="昵称">
             </el-table-column>
             <el-table-column
-                prop="avatar"
-                label="头像">
-                <template slot-scope="scope">
-                    <img class="avatar" :src="scope.row.avatar" alt="头像"/>
-                </template>
-            </el-table-column>
-            <el-table-column
                 prop="group.name"
-                label="用户组">
+                label="权限">
             </el-table-column>
             <el-table-column
                 prop="created_at"
