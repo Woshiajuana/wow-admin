@@ -2,7 +2,6 @@
 
 const jwt = require('jsonwebtoken');
 const JWT = Symbol('Application#jwt');
-const AUTH = Symbol('Application#auth');
 const ms = require('ms');
 
 module.exports = {
@@ -36,56 +35,30 @@ module.exports = {
         return this[JWT];
     },
 
-    get auth () {
-        if (!this[AUTH]) {
-            let {
-                app,
-                logger,
-                ctx,
-            } = this;
-            const { redis } = app;
-            this[AUTH] = {
-                async getToken (key, value, options) {
-                    const { secret, maxAge } = Object.assign({}, app.config.auth, options);
-                    if (typeof key === 'object') key = JSON.stringify(key);
-                    if (typeof value === 'object') value = JSON.stringify(value);
-                    const numMaxAge = ms(maxAge || '10m');
-                    const token = jwt.sign(key, secret, options);
-                    // await redis.set(token);
-                    console.log('==============')
-                    const deviceUUID = request.headers['device-uuid'] || '';
-                    const userAgent = ctx.get('user-agent') || '';
 
-                    let ipAddress = '';
-                    if (!deviceUUID) {
-                        ipAddress = (ctx.ips && ctx.ips.length ? ctx.ips.join('-') : undefined) || ctx.ip || '';
-                    }
-                    console.log('deviceUUID => ', deviceUUID)
-                    console.log('ctx.ips => ', ctx.ips)
-                    console.log('ctx.ip => ', ctx.ip)
-                    console.log('ipAddress => ', ipAddress)
-                    console.log('userAgent => ', userAgent)
+    async authGetToken (key, value, options = {}) {
+        const { app, logger } = this;
+        const { redis } = app;
+        const { secret, maxAge } = Object.assign({}, app.config.auth, options);
+        const numMaxAge = ms(maxAge || '10m') * 0.001;
+        const strClient = getClientInfo(this);
+        if (typeof key === 'object') key = JSON.stringify(key);
+        if (typeof value === 'object') value = JSON.stringify(value);
+        const strToken = jwt.sign(`${key}:${strClient}`, secret, options);
+        await redis.set(strToken, value, 'EX', numMaxAge);
+        logger.info(`用户:【${key}】在客户端:【${strClient}】上登录，生成 token:【${strToken}】, 有效期:【${maxAge}】.`);
+        return strToken;
+    },
 
-                    console.log('==============')
-                }
 
-            };
-        }
-        return this[AUTH];
-    }
+
 };
 
-
-function getClientMac(ctx) {
-    const request = ctx.request;
+// 获取客户端信息
+function getClientInfo (ctx) {
+    const { request, ips = [], ip = '' } = ctx;
     const deviceUUID = request.headers['device-uuid'] || '';
-    let ipAddress = '';
-    if (!deviceUUID && ctx.app.config.limitRequest.ipEnable) {
-        ipAddress = (ctx.ips && ctx.ips.length ? ctx.ips.join('-') : undefined) || ctx.ip || '';
-    }
-
     const userAgent = ctx.get('user-agent') || '';
-
-    const clientMacContent = `${ipAddress}:${userAgent}:${deviceUUID}`;
-    return crypto.createHash('md5').update(clientMacContent).digest('hex');
+    const ipAddress = ips && ips.length ? ips.join('-') : ip || '';
+    return `${ipAddress}:${userAgent}:${deviceUUID}`;
 }

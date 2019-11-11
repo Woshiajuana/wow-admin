@@ -32,7 +32,7 @@ module.exports = class HandleServer extends Service {
         const { _id } = objUser;
         const strToken = ctx.jwt.sign(_id.toString());
         await redis.set(strToken, JSON.stringify(objUser), 'EX', numMaxAge * 0.001);
-        objUser.access_token = ctx.auth.getToken(_id);
+        objUser.access_token = ctx.authGetToken(_id);
         return objUser;
     }
 
