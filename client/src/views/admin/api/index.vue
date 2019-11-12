@@ -4,13 +4,43 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
-            @add="handleDialogAdd"
             @init="handleInit"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
             :table-query="objQuery"
             :table-data="arrTable">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form
+                        size="mini"
+                        label-position="left"
+                        inline
+                        class="demo-table-expand">
+                        <el-form-item label="昵称">
+                            <span>{{ props.row.nickname }}</span>
+                        </el-form-item>
+                        <el-form-item label="头像">
+                            <img class="avatar" :src="props.row.avatar" alt="头像"/>
+                        </el-form-item>
+                        <el-form-item label="邮箱">
+                            <span>{{ props.row.email }}</span>
+                        </el-form-item>
+                        <el-form-item label="手机">
+                            <span>{{ props.row.phone }}</span>
+                        </el-form-item>
+                        <el-form-item label="用户组">
+                            <span>{{ props.row.group.name }}</span>
+                        </el-form-item>
+                        <el-form-item label="日期">
+                            <span>{{ props.row.created_at | filterDate}}</span>
+                        </el-form-item>
+                        <el-form-item label="根账号">
+                            <span>{{ props.row.is_root ? '是' : '否'}}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="name"
                 label="名称">
@@ -36,11 +66,6 @@
                 <el-button-group slot-scope="scope">
                     <el-button
                         :disabled="scope.row.source === 'INIT'"
-                        size="mini"
-                        @click="handleDialogEdit(scope.row)"
-                    >编辑</el-button>
-                    <el-button
-                        :disabled="scope.row.source === 'INIT'"
                         type="danger"
                         size="mini"
                         @click="handleDelete(scope.row)"
@@ -48,27 +73,18 @@
                 </el-button-group>
             </el-table-column>
         </table-view>
-        <!--    新增    -->
-        <operate-dialog
-            @refresh="reqTableDataList"
-            :operation_visible.sync="objDialog.is"
-            :operation_data="objDialog"
-        ></operate-dialog>
     </div>
 </template>
 
 <script>
-    import DialogMixin from '@/mixins/dialog'
-    import OperateDialog from './operation-dialog'
-    import FilterMixin from '@/mixins/filter'
-    import DataMixin from './data.mixin'
+    import FilterMixin                          from '@/mixins/filter'
+    import DataMixin                            from './data.mixin'
 
     export default {
-        name: 'AdminUser',
+        name: 'AdminApi',
         mixins: [
             DataMixin,
             FilterMixin,
-            DialogMixin,
         ],
         created () {
             this.reqTableDataList();
@@ -92,15 +108,12 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.doDeleteUserGroup(_id);
+                    this.$curl(this.$appConst.DO_DELETE_API_ROUTE, {
+                        id: _id,
+                    }).then(() => {
+                        this.reqTableDataList();
+                    }).toast();
                 }).null();
-            },
-            doDeleteUserGroup (id) {
-                this.$curl(this.$appConst.DO_DELETE_API_ROUTE, {
-                    id,
-                }).then(() => {
-                    this.reqTableDataList();
-                }).toast();
             },
             handleInit () {
                 this.$confirm(`确定刷新初始化获取最新API ?`, '温馨提示', {
@@ -114,16 +127,6 @@
 
             },
         },
-        components: {
-            OperateDialog,
-        },
     }
 </script>
 
-<style lang="scss" scoped>
-    @import "~@assets/scss/define.scss";
-    .inner{
-        @extend %bsb;
-        padding: 10px;
-    }
-</style>

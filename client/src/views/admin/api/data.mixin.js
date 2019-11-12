@@ -7,18 +7,12 @@ const data = () => {
             numIndex: 1,
             numSize: 10,
             numTotal: 0,
+            isLoading: false,
         },
         objFilterForm: {
-            name: {
+            keyword: {
                 value: '',
-                placeholder: '请输入名称关键字',
-                style: 'width: 200px; margin-right: 5px;',
-                mode: 'input',
-                event: 'filter',
-            },
-            path: {
-                value: '',
-                placeholder: '请输入请求路径',
+                placeholder: '请输入名称/路径',
                 style: 'width: 200px; margin-right: 5px;',
                 mode: 'input',
                 event: 'filter',
@@ -47,14 +41,8 @@ const data = () => {
                 event: 'filter',
             },
             {
-                text: '新增',
-                type: 'primary',
-                icon: 'el-icon-plus',
-                event: 'add',
-            },
-            {
                 text: '初始化',
-                type: 'danger',
+                type: 'primary',
                 icon: 'el-icon-connection',
                 event: 'init',
                 tooltip: {

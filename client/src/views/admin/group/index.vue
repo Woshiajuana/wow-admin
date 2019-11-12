@@ -155,6 +155,3 @@
     }
 </script>
 
-<style lang="scss">
-    @import "~@assets/scss/define.scss";
-</style>
