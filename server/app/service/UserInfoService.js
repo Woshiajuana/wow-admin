@@ -42,10 +42,11 @@ module.exports = class HandleServer extends Service {
             times++;
             if (times > maxTimes) {
                 logger.info(`账号:【${account}】密码输入超过最大错误次数:【${maxTimes}】已锁定`);
-                await this.unlock({ id, lock: true });
+                await this.unlock({ id, lock: true }, true);
                 throw 'F40006';
             }
-            logger.info(`账号:【${account}】密码输入错误`);
+            await redis.set(`${_id} auth password times`, times);
+            logger.info(`账号:【${account}】密码输入错误 还有${maxTimes - times}次机会`);
             throw `密码输入错误，您还有${maxTimes - times}次机会`;
         }
         if (times) await redis.del(`${_id} auth password times`);
@@ -142,11 +143,11 @@ module.exports = class HandleServer extends Service {
     }
 
     // 更新
-    async update (data) {
+    async update (data, type) {
         const { ctx, app, logger } = this;
         const { id } = data;
         const { is_root } = await this.findById(id);
-        if (is_root) {
+        if (!type && is_root) {
             logger.info(`拒绝管理员:【${ctx.state.token.user._id}】操作更新 root 账号`);
             throw '不能更新 root 账号';
         }
@@ -156,10 +157,10 @@ module.exports = class HandleServer extends Service {
     }
 
     // 锁定 or 解锁
-    async unlock (data) {
+    async unlock (data, type = false) {
         const { ctx, app, logger } = this;
         const { id, lock } = data;
-        await this.update(data);
+        await this.update(data, type);
         const arrToken = await ctx.getTokenByUserId(id);
         arrToken.forEach((token) => {
             token.user.lock = lock;

@@ -91,7 +91,6 @@ module.exports = appInfo => {
     // add auth 用户登录时验证最大次数
     config.auth = {
         maxTimes: 10,
-        capTimes: 3,
     };
 
     // add curl
