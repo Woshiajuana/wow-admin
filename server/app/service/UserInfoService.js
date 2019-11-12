@@ -127,13 +127,29 @@ module.exports = class HandleServer extends Service {
         await ctx.model.UserInfoModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
     }
 
-    // 锁定
+    // 锁定 or 解锁
     async unlock (data) {
         const { ctx, app, logger } = this;
         const { id, lock } = data;
-        await this.update({ id, lock });
+        await this.update(data);
+        const arrToken = await ctx.getTokenByUserId(id);
+        arrToken.forEach((token) => {
+            token.user.lock = lock;
+            token.save();
+        });
         logger.info(`管理员:【${ctx.state.token.user._id}】${lock ? '锁定' : '解锁'}账号:【${id}】`);
-        
     }
 
+    // 禁用 or 启用
+    async disableEnable (data) {
+        const { ctx, app, logger } = this;
+        const { id, disabled } = data;
+        await this.update(data);
+        const arrToken = await ctx.getTokenByUserId(id);
+        arrToken.forEach((token) => {
+            token.user.disabled = disabled;
+            token.save();
+        });
+        logger.info(`管理员:【${ctx.state.token.user._id}】${disabled ? '禁用' : '启用'}账号:【${id}】`);
+    }
 };
