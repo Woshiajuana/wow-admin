@@ -36,7 +36,8 @@
   "dependencies": {
     "assert": "^1.4.1",
     "ms": "^2.1.2",
-    "jsonwebtoken": "^8.3.0"
+    "jsonwebtoken": "^8.3.0",
+    "moment": "^2.24.0"
   },
   "deprecated": false,
   "description": "egg jwt token 验证",
