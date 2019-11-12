@@ -43,7 +43,7 @@
                 this.$store.dispatch('app/toggleSideBar')
             },
             async logout() {
-                this.$confirm('确认退出改账号?', '温馨提示', {
+                this.$confirm('确认退出该账号?', '温馨提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
