@@ -27,17 +27,28 @@ module.exports = class HandleServer extends Service {
             logger.info(`账号:【${account}】不存在`);
             throw '用户账号不存在或密码错误';
         }
-        let { _id, password } = objUser;
-        if (password !== pwd) {
-            logger.info(`账号:【${account}】密码输入错误`);
-            throw '用户账号不存在或密码错误';
+        let { _id, password, disabled, lock } = objUser;
+        if (disabled) {
+            logger.info(`账号:【${account}】已禁用`);
+            throw 'F40005';
+        }
+        if (lock) {
+            logger.info(`账号:【${account}】已锁定`);
+            throw 'F40006';
         }
         let times = await redis.get(`${_id} auth password times`) || 0;
-        if (times > maxTimes) {
-            await redis.del(`${_id} auth password times`);
-            return objUser;
+        times = +times;
+        if (password !== pwd) {
+            times++;
+            if (times > maxTimes) {
+                logger.info(`账号:【${account}】密码输入超过最大错误次数:【${maxTimes}】已锁定`);
+                await this.unlock({ id, lock: true });
+                throw 'F40006';
+            }
+            logger.info(`账号:【${account}】密码输入错误`);
+            throw `密码输入错误，您还有${maxTimes - times}次机会`;
         }
-
+        if (times) await redis.del(`${_id} auth password times`);
         return objUser;
     }
 
