@@ -85,7 +85,15 @@ module.exports = appInfo => {
             // F40004: '',
             F40005: '你的账号已被禁用，请联系管理员',
             F40006: '你的账号已被锁定，请联系管理员',
+            F41001: '需要校验图形验证码',
+            F41002: '验证码错误',
         },
+    };
+
+    // add auth 用户登录时验证最大次数
+    config.auth = {
+        maxTimes: 10,
+        capTimes: 3,
     };
 
     // add curl

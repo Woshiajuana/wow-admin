@@ -12,12 +12,12 @@ module.exports = class HandleServer extends Service {
     async generate (key) {
         const { app, logger } = this;
         const { redis } = app;
-        let text = randomNum(6);
-        let captchaPng = new CaptchaPng(80, 30, text);
+        let value = randomNum(6);
+        let captchaPng = new CaptchaPng(80, 30, value);
         captchaPng.color(255, 255, 255, 0);  // First color: background (red, green, blue, alpha)
         captchaPng.color(80, 80, 80, 255); // Second color: paint (red, green, blue, alpha)
         // let data = new Buffer(captchaPng.getBase64(), 'base64');
-        let data = captchaPng.getBase64();
+        let captcha = captchaPng.getBase64();
         // let {
         //     text,
         //     data,
@@ -27,22 +27,26 @@ module.exports = class HandleServer extends Service {
         //     noise: 2, // 干扰线条的数量
         //     height: 44
         // });
-        logger.info(`【${key}】生成图形验证码:【${text}】`);
-        await redis.set(`${key} captcha`, JSON.stringify({ value: text, times: 0 }));
+        logger.info(`【${key}】生成图形验证码:【${value}】`);
+        await redis.set(`${key} captcha`, value);
+        return captcha;
     }
 
     // 验证验证图形码
-    async firewall (key, value) {
+    async check (key, captcha) {
         const { app, logger } = this;
         const { redis } = app;
-        let captcha = await redis.get(`${key} captcha`);
-        if (!captcha) return null;
-        captcha = JSON.parse(captcha);
-        await this.filterTimes(email);
-        if (text !== captcha)
-            throw '图形验证码错误';
-        
-    },
+        let value = await redis.get(`${key} captcha`);
+        if (!value) return null;
+        await redis.del(`${key} captcha`);
+        const result = value !== captcha;
+        if (result) {
+            logger.info(`【${key}】图形验证码:【${captcha}】验证失败 期望值:【${value}】`);
+        } else {
+            logger.info(`【${key}】图形验证码:【${captcha}】验证成`);
+        }
+        return result;
+    }
 
 };
 

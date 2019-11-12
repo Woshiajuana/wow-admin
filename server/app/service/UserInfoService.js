@@ -14,13 +14,30 @@ module.exports = class HandleServer extends Service {
     }
 
     // 登录查询
-    async auth ({ account, password }) {
-        let objUser = await this.findOne({ nickname: account, password });
+    async auth ({ account, pwd, captcha }) {
+        const { app, logger } = this;
+        const { redis } = app;
+        const { maxTimes, capTimes } = app.config.auth;
+        let objUser = await this.findOne({ nickname: account });
         if (!objUser)
-            objUser = await this.findOne({ phone: account, password });
+            objUser = await this.findOne({ phone: account });
         if (!objUser)
-            objUser = await this.findOne({ email: account, password });
-        if (!objUser) throw '用户账号不存在或密码错误';
+            objUser = await this.findOne({ email: account });
+        if (!objUser) {
+            logger.info(`账号:【${account}】不存在`);
+            throw '用户账号不存在或密码错误';
+        }
+        let { _id, password } = objUser;
+        if (password !== pwd) {
+            logger.info(`账号:【${account}】密码输入错误`);
+            throw '用户账号不存在或密码错误';
+        }
+        let times = await redis.get(`${_id} auth password times`) || 0;
+        if (times > maxTimes) {
+            await redis.del(`${_id} auth password times`);
+            return objUser;
+        }
+
         return objUser;
     }
 
