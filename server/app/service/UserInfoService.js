@@ -43,6 +43,7 @@ module.exports = class HandleServer extends Service {
             if (times >= maxTimes) {
                 await this.unlock({ id: _id, lock: true }, true);
                 logger.info(`账号:【${account}】密码输入超过最大错误次数:【${maxTimes}】已锁定`);
+                await redis.del(`${_id} auth password times`);
                 throw 'F40006';
             }
             await redis.set(`${_id} auth password times`, times);
@@ -150,10 +151,10 @@ module.exports = class HandleServer extends Service {
         const { id } = data;
         const { is_root } = await this.findById(id);
         if (!type && is_root) {
-            logger.info(`拒绝管理员:【${ctx.state.token.user._id}】操作更新 root 账号`);
+            logger.info(`拒绝更新 root 账号`);
             throw '不能更新 root 账号';
         }
-        logger.info(`管理员:【${ctx.state.token.user._id}】操作更新账号:【${id}】`);
+        logger.info(`更新账号:【${id}】`);
         delete data.id;
         await ctx.model.UserInfoModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
     }
