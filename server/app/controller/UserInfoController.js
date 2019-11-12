@@ -236,7 +236,7 @@ module.exports = class HandleController extends Controller {
                 lock: [ 'nonempty' ],
                 id: [ 'nonempty' ],
             });
-            await service.userInfoService.update(objParams);
+            await service.userInfoService.unlock(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -260,7 +260,7 @@ module.exports = class HandleController extends Controller {
                 disabled: [ 'nonempty' ],
                 id: [ 'nonempty' ],
             });
-            await service.userInfoService.update(objParams);
+            await service.userInfoService.disableEnable(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
