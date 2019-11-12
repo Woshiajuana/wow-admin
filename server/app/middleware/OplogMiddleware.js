@@ -4,26 +4,26 @@
 module.exports = () => {
     return async function (ctx, next) {
         await next();
+        const {
+            logger,
+            request,
+            query,
+            app,
+            body,
+            state,
+            service,
+            ip = '',
+            params = '',
+        } = ctx;
         try {
-            const {
-                logger,
-                request,
-                query,
-                app,
-                body,
-                state,
-                service,
-                ip = '',
-                params = '',
-            } = ctx;
             let {
                 method,
                 path,
                 body: data,
             } = request;
             let {
-                _id: userId,
-            } = state.user || {};
+                id: userId,
+            } = state.token || {};
             if (path === '/api/v1/user-info/login' && body && body.data) {
                 userId = body.data._id;
             }
@@ -43,8 +43,8 @@ module.exports = () => {
                 ip,
                 target,
             });
-        } catch (e) {
-            console.log(e);
+        } catch (err) {
+            ctx.respError(err);
         }
     }
 };

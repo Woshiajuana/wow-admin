@@ -40,9 +40,9 @@ module.exports = class HandleServer extends Service {
         times = +times;
         if (password !== pwd) {
             times++;
-            if (times > maxTimes) {
-                logger.info(`账号:【${account}】密码输入超过最大错误次数:【${maxTimes}】已锁定`);
+            if (times >= maxTimes) {
                 await this.unlock({ id: _id, lock: true }, true);
+                logger.info(`账号:【${account}】密码输入超过最大错误次数:【${maxTimes}】已锁定`);
                 throw 'F40006';
             }
             await redis.set(`${_id} auth password times`, times);
@@ -67,7 +67,8 @@ module.exports = class HandleServer extends Service {
     // 安全退出
     async logout () {
         const { ctx, app } = this;
-        const { accessToken } = ctx.state.token.user;
+        const { accessToken } = ctx.state.token || {};
+        if (!accessToken) return null;
         await ctx.destructionTokenByAccessToken(accessToken);
     }
 
