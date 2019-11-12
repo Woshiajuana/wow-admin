@@ -28,11 +28,13 @@ module.exports = () => {
             if (disabled) {
                 logger.info(`用户:【${_id}】被禁用`);
                 await ctx.destructionTokenByAccessToken(accessToken);
+                ctx.state.token = '';
                 throw 'F40005'
             }
             if (lock) {
                 logger.info(`用户:【${_id}】被锁定`);
                 await ctx.destructionTokenByAccessToken(accessToken);
+                ctx.state.token = '';
                 throw 'F40006'
             }
             const {

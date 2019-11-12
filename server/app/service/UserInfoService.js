@@ -146,9 +146,9 @@ module.exports = class HandleServer extends Service {
         const { id, disabled } = data;
         await this.update(data);
         const arrToken = await ctx.getTokenByUserId(id);
-        arrToken.forEach((token) => {
+        arrToken.forEach(async (token) => {
             token.user.disabled = disabled;
-            token.save();
+            await token.save();
         });
         logger.info(`管理员:【${ctx.state.token.user._id}】${disabled ? '禁用' : '启用'}账号:【${id}】`);
     }

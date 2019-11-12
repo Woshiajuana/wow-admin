@@ -111,8 +111,8 @@ module.exports = {
     async destructionTokenByAccessToken (accessToken) {
         const { app, logger } = this;
         const { redis } = app;
-        logger.info(`accessToken: 【${accessToken}】即将删除`);
         await redis.del(accessToken);
+        logger.info(`accessToken: 【${accessToken}】即将删除`);
     },
 
     // 查找所有的token
@@ -139,12 +139,12 @@ module.exports = {
         let arrOtherToken = await this.getTokenByUserId(id) || [];
         arrOtherToken.sort((a, b) => a.createAt - b.createAt);
         const arrNeedKickOut = arrOtherToken.slice(0, arrOtherToken.length - maxUser);
-        arrNeedKickOut.forEach((token, index) => {
+        arrNeedKickOut.forEach(async (token, index) => {
             if (!token.isDead) {
                 token.isDead = true;
                 token.maxAge = ms(`10m`);
                 token.message = `您的账号 ${moment().format('YYYY-MM-DD HH:mm')} 在客户端 ${this.ip} ${this.userAgent ? this.userAgent.ua : ''} 登录，如果不是您本人操作，请立马更改密码`;
-                token.save();
+                await token.save();
                 logger.info(`预踢掉在线用户:【${token.id}】token:【${token.accessToken}】.`);
             }
         });
