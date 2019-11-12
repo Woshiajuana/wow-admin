@@ -15,9 +15,26 @@ module.exports = () => {
                 path,
             } = request;
             const {
+                accessToken,
+                user = {},
+            } = ctx.state.token;
+            const {
                 group,
                 is_root,
-            } = ctx.state.token.user;
+                disabled,
+                lock,
+                _id
+            } = user;
+            if (disabled) {
+                logger.info(`用户:【${_id}】被禁用`);
+                await ctx.destructionTokenByAccessToken(accessToken);
+                throw 'F40005'
+            }
+            if (lock) {
+                logger.info(`用户:【${_id}】被锁定`);
+                await ctx.destructionTokenByAccessToken(accessToken);
+                throw 'F40006'
+            }
             const {
                 is_root_group,
                 api_routes,
