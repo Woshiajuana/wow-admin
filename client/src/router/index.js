@@ -21,18 +21,21 @@ export const constantRoutes = [
         path: '/login',
         component: () => import('@views/login'),
         hidden: true,
+        meta: { title: '登录' }
     },
 
     {
         path: '/setup',
         component: () => import('@views/setup'),
         hidden: true,
+        meta: { title: '设置' }
     },
 
     {
         path: '/404',
         component: () => import('@views/404'),
         hidden: true,
+        meta: { title: '404' }
     },
 
     {
@@ -90,7 +93,7 @@ router.beforeEach(async(to, from, next) => {
         loadAsyncRouter(objUserInfo.group.menu_routes);
         return next({ ...to, replace: true });
     }
-    window.document.title = `${objAppInfo.name ? objAppInfo.name + '-' : ''}${to.meta.title || ''}`;
+    window.document.title = `${objAppInfo.name ? objAppInfo.name + ' ' : ''}${to.meta.title || ''}`;
     if (toPath === '/404') {
         next();
     } else if (objAppInfo) {
