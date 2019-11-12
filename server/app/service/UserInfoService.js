@@ -14,7 +14,7 @@ module.exports = class HandleServer extends Service {
     }
 
     // 登录查询
-    async auth ({ account, pwd, captcha }) {
+    async auth ({ account, password, captcha }) {
         const { app, logger } = this;
         const { redis } = app;
         const { maxTimes, capTimes } = app.config.auth;
@@ -38,6 +38,9 @@ module.exports = class HandleServer extends Service {
         }
         let times = await redis.get(`${_id} auth password times`) || 0;
         times = +times;
+        console.log('password => ', password)
+        console.log('pwd => ', pwd)
+        console.log('password === pwd => ', password === pwd)
         if (password !== pwd) {
             times++;
             if (times > maxTimes) {

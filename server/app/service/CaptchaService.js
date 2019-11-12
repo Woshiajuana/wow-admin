@@ -1,9 +1,8 @@
 
 'use strict';
 
-import CaptchaPng                       from 'captchapng'
-import svgCaptcha                       from 'svg-captcha'
-
+const CaptchaPng = require('captchapng');
+const svgCaptcha = require('svg-captcha');
 const { Service } = require('egg');
 
 module.exports = class HandleServer extends Service {
