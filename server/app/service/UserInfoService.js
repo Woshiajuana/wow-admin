@@ -170,6 +170,7 @@ module.exports = class HandleServer extends Service {
         await redis.del(`${id} auth password times`);
         arrToken.forEach(async (token) => {
             if (token.user.lock !== lock) {
+                token.maxAge = ms('5m');
                 token.user.lock = lock;
                 await token.save();
             }
@@ -185,6 +186,7 @@ module.exports = class HandleServer extends Service {
         const arrToken = await ctx.getTokenByUserId(id);
         arrToken.forEach(async (token) => {
             if (token.user.disabled !== disabled) {
+                token.maxAge = ms('5m');
                 token.user.disabled = disabled;
                 await token.save();
             }
