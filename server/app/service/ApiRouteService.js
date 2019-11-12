@@ -35,15 +35,13 @@ module.exports = class HandleServer extends Service {
     }
 
     // 列表
-    async list ({ numIndex, numSize, name, path, method }) {
+    async list ({ numIndex, numSize, keyword, method }) {
         const { ctx } = this;
         if (numIndex && numSize) {
             let filter = { $or: [] }; // 多字段同事匹配
-            if (name) {
-                filter.$or.push({ name: { $regex: name, $options: '$i' } });
-            }
-            if (path) {
-                filter.$or.push({ path: { $regex: path, $options: '$i' } });
+            if (keyword) {
+                filter.$or.push({ path: { $regex: keyword, $options: '$i' } });
+                filter.$or.push({ name: { $regex: keyword, $options: '$i' } });
             }
             if (method) {
                 filter.$or.push({ method: { $regex: method, $options: '$i' } });

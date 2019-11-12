@@ -141,8 +141,7 @@ module.exports = class HandleController extends Controller {
      * @apiGroup APP基础
      * @apiParam  {String} [numIndex] 页数
      * @apiParam  {String} [numSize] 大小
-     * @apiParam  {String} [name] 名称
-     * @apiParam  {String} [path] 请求路径
+     * @apiParam  {String} [keyword] 名称 / 路径
      * @apiParam  {String} [method] 请求方法
      * @apiSuccess (成功) {Object} data
      * @apiSampleRequest /api/v1/api-route/list
@@ -153,8 +152,7 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 numIndex: [ ],
                 numSize: [ ],
-                name: [ ],
-                path: [ ],
+                keyword: [ ],
                 method: [ ],
             });
             const data = await service.apiRouteService.list(objParams);

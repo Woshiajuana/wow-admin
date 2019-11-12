@@ -68,7 +68,7 @@
             </el-table-column>
             <el-table-column
                 label="操作"
-                width="50" >
+                width="80" >
                 <el-button-group slot-scope="scope">
                     <el-button
                         :loading="scope.row.isDelLoading"

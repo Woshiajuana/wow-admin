@@ -137,8 +137,7 @@ module.exports = class HandleController extends Controller {
      * @apiGroup APP基础
      * @apiParam  {String} [numIndex] 页数
      * @apiParam  {String} [numSize] 大小
-     * @apiParam  {String} [title] 名称
-     * @apiParam  {String} [path] 路由
+     * @apiParam  {String} [keyword] 路由 / 名称
      * @apiSuccess (成功) {Object} data
      * @apiSampleRequest /api/v1/menu-route/list
      */
@@ -148,8 +147,7 @@ module.exports = class HandleController extends Controller {
             const objParams = await ctx.validateBody({
                 numIndex: [ ],
                 numSize: [ ],
-                title: [ ],
-                path: [ ],
+                keyword: [ ],
             });
             const data = await service.menuRouteService.list(objParams);
             ctx.respSuccess(data);
