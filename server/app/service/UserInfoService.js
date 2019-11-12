@@ -2,7 +2,7 @@
 'use strict';
 
 const { Service } = require('egg');
-const { populate, select, listSelect } = require('./../model/UserInfoModel');
+const { populate, select } = require('./../model/UserInfoModel');
 const ms = require('ms');
 
 module.exports = class HandleServer extends Service {
@@ -37,7 +37,6 @@ module.exports = class HandleServer extends Service {
             throw 'F40006';
         }
         let times = await redis.get(`${_id} auth password times`) || 0;
-        console.log('次数', times)
         times = +times;
         if (password !== pwd) {
             times++;

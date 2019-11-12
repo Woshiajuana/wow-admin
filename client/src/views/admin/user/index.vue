@@ -124,6 +124,7 @@
             },
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
+                this.objQuery.isLoading = true;
                 this.$curl(this.$appConst.REQ_USER_LIST, {
                     ...this.objQuery,
                     ...options,
@@ -131,7 +132,10 @@
                     let { arrData = [], numTotal } = res || {};
                     this.arrTable = arrData;
                     this.objQuery.numTotal = numTotal;
-                }).toast().finally(() => typeof callback === 'function' && callback());
+                }).toast().finally(() => {
+                    typeof callback === 'function' && callback();
+                    this.objQuery.isLoading = false;
+                });
             },
             handleDelete (item, lKey) {
                 let { _id, nickname } = item;

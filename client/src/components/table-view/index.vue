@@ -3,7 +3,7 @@
         <div class="table-section"
              element-loading-text="拼命加载中"
              element-loading-spinner="el-icon-loading"
-             v-loading="tableUseLoading && loading">
+             v-loading="tableQuery.isLoading">
             <el-table
                 class="table"
                 size="mini"
@@ -30,11 +30,6 @@
 
 <script>
     export default {
-        data () {
-            return {
-                loading: false,
-            }
-        },
         props: {
             tableLoading: { default: false },
             tableTotal: { default: 0 },
@@ -42,17 +37,13 @@
             tableData: { default: [] },
             tableUseLoading: { default: true },
         },
-        created () {
-            this.loading = this.tableLoading;
-        },
         methods: {
             handleEmit (eventName, key, event) {
                 if (key === 'numSize') {
                     this.tableQuery.numIndex = 1;
                 }
                 this.tableQuery[key] = event;
-                this.loading = this.tableUseLoading;
-                this.$emit(eventName, () => this.loading = false);
+                this.$emit(eventName);
             },
         },
     }
