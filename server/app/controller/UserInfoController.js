@@ -161,6 +161,7 @@ module.exports = class HandleController extends Controller {
             } = await ctx.validateBody({
                 account: [ 'nonempty' ],
                 password: [ 'nonempty' ],
+                captcha: [],
             });
             let objUser = await service.userInfoService.auth({ account, password });
             objUser = await service.userInfoService.token(objUser);
