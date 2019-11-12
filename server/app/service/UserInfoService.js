@@ -18,16 +18,16 @@ module.exports = class HandleServer extends Service {
         const { app, logger } = this;
         const { redis } = app;
         const { maxTimes, capTimes } = app.config.auth;
-        let objUser = await this.findOne({ nickname: account });
+        let objUser = await this.findOne({ nickname: account }, ' password');
         if (!objUser)
-            objUser = await this.findOne({ phone: account });
+            objUser = await this.findOne({ phone: account }, ' password');
         if (!objUser)
-            objUser = await this.findOne({ email: account });
+            objUser = await this.findOne({ email: account }, ' password');
         if (!objUser) {
             logger.info(`账号:【${account}】不存在`);
             throw '用户账号不存在或密码错误';
         }
-        let { _id, password, disabled, lock } = objUser;
+        let { _id, password: pwd, disabled, lock } = objUser;
         if (disabled) {
             logger.info(`账号:【${account}】已禁用`);
             throw 'F40005';
@@ -38,9 +38,6 @@ module.exports = class HandleServer extends Service {
         }
         let times = await redis.get(`${_id} auth password times`) || 0;
         times = +times;
-        console.log('password => ', password)
-        console.log('pwd => ', pwd)
-        console.log('password === pwd => ', password === pwd)
         if (password !== pwd) {
             times++;
             if (times > maxTimes) {
@@ -53,6 +50,7 @@ module.exports = class HandleServer extends Service {
             throw `密码输入错误，您还有${maxTimes - times}次机会`;
         }
         if (times) await redis.del(`${_id} auth password times`);
+        delete objUser.password;
         return objUser;
     }
 
@@ -74,11 +72,11 @@ module.exports = class HandleServer extends Service {
     }
 
     // 查询用户信息
-    async findOne (data) {
+    async findOne (data, s = '') {
         const { ctx } = this;
         return await ctx.model.UserInfoModel
             .findOne(data)
-            .select(select)
+            .select(select + s)
             .populate(populate)
             .lean();
     }
