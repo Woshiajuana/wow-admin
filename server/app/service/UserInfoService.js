@@ -42,7 +42,7 @@ module.exports = class HandleServer extends Service {
             times++;
             if (times > maxTimes) {
                 logger.info(`账号:【${account}】密码输入超过最大错误次数:【${maxTimes}】已锁定`);
-                await this.unlock({ id, lock: true }, true);
+                await this.unlock({ id: _id, lock: true }, true);
                 throw 'F40006';
             }
             await redis.set(`${_id} auth password times`, times);
