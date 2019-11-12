@@ -65,9 +65,10 @@
                     >设置权限</el-button>
                     <el-button
                         :disabled="scope.row.is_root_group"
+                        :loading="scope.row.isDelLoading"
                         type="text"
                         size="mini"
-                        @click="handleDelete(scope.row)"
+                        @click="handleDelete(scope.row, 'isDelLoading')"
                     >删除</el-button>
                 </template>
             </el-table-column>
@@ -130,14 +131,20 @@
                     this.objQuery.isLoading = false;
                 });
             },
-            handleDelete (item) {
+            handleDelete (item, lKey) {
                 let { _id, name } = item;
-                this.$confirm(`确定删除 ${name} ?`, '温馨提示', {
+                this.$confirm(`确定删除名为：${name} 的用户组?`, '温馨提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.doDeleteDataItem(_id);
+                    this.$set(item, lKey, true);
+                    this.$curl(this.$appConst.DO_DELETE_USER_GROUP, {
+                        id: _id,
+                    }).then(() => {
+                        this.$modal.toast('删除账号成功', 'success');
+                        this.reqTableDataList();
+                    }).toast().finally(() => item[lKey] = false);
                 }).null();
             },
             doDeleteDataItem (id) {
