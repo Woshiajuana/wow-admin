@@ -4,12 +4,37 @@
             :filter-form="objFilterForm"
             :filter-button="arrFilterButton"
             @filter="reqTableDataList"
-            @add="handleDialogAdd"
+            @add="handleDialogDisplay()"
         ></filter-view>
         <table-view
             @refresh="reqTableDataList"
             :table-query="objQuery"
             :table-data="arrTable">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form
+                        size="mini"
+                        label-position="left"
+                        inline
+                        class="demo-table-expand">
+                        <el-form-item label="标题">
+                            <span>{{ props.row.title }}</span>
+                        </el-form-item>
+                        <el-form-item label="路径">
+                            <span>{{ props.row.path }}</span>
+                        </el-form-item>
+                        <el-form-item label="排序">
+                            <span>{{ props.row.sort }}</span>
+                        </el-form-item>
+                        <el-form-item label="组件">
+                            <span>{{ props.row.component }}</span>
+                        </el-form-item>
+                        <el-form-item label="初始菜单">
+                            <span>{{ props.row.source === 'INIT' ? '是' : '否'}}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
             <el-table-column
                 prop="title"
                 label="标题">
@@ -17,10 +42,6 @@
             <el-table-column
                 prop="path"
                 label="路径">
-            </el-table-column>
-            <el-table-column
-                prop="sort"
-                label="排序">
             </el-table-column>
             <el-table-column
                 prop="component"
@@ -35,40 +56,40 @@
             </el-table-column>
             <el-table-column
                 label="操作"
-                width="150" >
-                <el-button-group slot-scope="scope">
+                width="100">
+                <template slot-scope="scope">
                     <el-button
                         :disabled="scope.row.source === 'INIT'"
+                        type="text"
                         size="mini"
                         @click="handleDialogEdit(scope.row)"
                     >编辑</el-button>
                     <el-button
                         :disabled="scope.row.source === 'INIT'"
-                        type="danger"
+                        type="text"
                         size="mini"
                         @click="handleDelete(scope.row)"
                     >删除</el-button>
-                </el-button-group>
+                </template>
             </el-table-column>
         </table-view>
         <!--    新增    -->
-        <operate-dialog
+        <details-drawer
             @refresh="reqTableDataList"
-            :operation_visible.sync="objDialog.is"
-            :operation_data="objDialog"
-            :operation_menu_data="arrOptions"
-        ></operate-dialog>
+            :display.sync="objDialog.is"
+            :data="objDialog"
+        ></details-drawer>
     </div>
 </template>
 
 <script>
-    import DialogMixin from '@/mixins/dialog'
-    import FilterMixin from '@/mixins/filter'
-    import OperateDialog from './operation-dialog'
-    import DataMixin from './data.mixin'
+    import DialogMixin                          from '@/mixins/dialog'
+    import FilterMixin                          from '@/mixins/filter'
+    import DataMixin                            from './data.mixin'
+    import DetailsDrawer                        from './details-drawer'
 
     export default {
-        name: 'AdminUser',
+        name: 'AdminMenu',
         mixins: [
             DataMixin,
             FilterMixin,
@@ -80,12 +101,13 @@
         methods: {
             beforeDialogShow () {
                 return this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST).then((res) => {
-                    this.arrOptions = res || [];
+                    this.$set(this.objDialog, 'arrMenu', res || []);
                     return Promise.resolve();
                 }).catch(() => Promise.reject());
             },
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
+                this.objQuery.isLoading = true;
                 this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST, {
                     ...this.objQuery,
                     ...options,
@@ -93,7 +115,10 @@
                     let { arrData = [], numTotal } = res || {};
                     this.arrTable = arrData;
                     this.objQuery.numTotal = numTotal;
-                }).toast().finally(() => typeof callback === 'function' && callback());
+                }).toast().finally(() => {
+                    typeof callback === 'function' && callback();
+                    this.objQuery.isLoading = false;
+                });
             },
             handleDelete (item) {
                 let { _id, title } = item;
@@ -114,7 +139,7 @@
             },
         },
         components: {
-            OperateDialog,
+            DetailsDrawer,
         },
     }
 </script>

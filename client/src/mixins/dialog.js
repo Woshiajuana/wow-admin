@@ -19,6 +19,9 @@ const methods = {
     },
 
     handleDialogDisplay (options, key = 'objDialog') {
+        if (this.beforeDialogShow) {
+            return this.beforeDialogShow().then(() => this[key] = { ...this[key], is: true, ...(options || {}) })
+        }
         this[key] = { ...this[key], is: true, ...(options || {}) };
     },
 

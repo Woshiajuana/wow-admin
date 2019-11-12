@@ -2,7 +2,7 @@
 <template>
     <el-drawer
         class="drawer-view"
-        :title="data.type === 'add' ? '新增用户' : '编辑用户'"
+        :title="data.type === 'add' ? '新增菜单' : '编辑菜单'"
         :before-close="handleClose"
         :visible.sync="display"
         direction="rtl"
@@ -16,27 +16,35 @@
                 ref="ruleForm"
                 label-width="80px"
                 class="demo-ruleForm">
-                <el-form-item label="昵称" prop="nickname">
-                    <el-input v-model="ruleForm.nickname" placeholder="请输入昵称" maxlength="20"></el-input>
+                <el-form-item label="标题" prop="title">
+                    <el-input v-model.trim="ruleForm.title" maxlength="20"></el-input>
                 </el-form-item>
-                <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="ruleForm.email" placeholder="请输入邮箱" maxlength="20"></el-input>
+                <el-form-item label="路径" prop="path">
+                    <el-input v-model.trim="ruleForm.path"></el-input>
                 </el-form-item>
-                <el-form-item label="手机" prop="phone">
-                    <el-input v-model="ruleForm.phone" placeholder="请输入手机号" maxlength="11"></el-input>
+                <el-form-item label="排序" prop="sort">
+                    <el-input v-model.trim="ruleForm.sort"></el-input>
                 </el-form-item>
-                <el-form-item label="头像" prop="avatar">
-                    <el-input v-model="ruleForm.avatar" placeholder="请输入头像链接"></el-input>
+                <el-form-item label="组件" prop="component">
+                    <el-input v-model.trim="ruleForm.component"></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="password">
-                    <el-input v-model="ruleForm.password" type="password" placeholder="请输入密码" maxlength="20"></el-input>
+                <el-form-item label="图标" prop="icon">
+                    <el-input v-model.trim="ruleForm.icon"></el-input>
                 </el-form-item>
-                <el-form-item label="用户组" prop="group">
-                    <el-select v-model="ruleForm.group" filterable placeholder="请选择用户组">
+                <el-form-item label="重定向" prop="redirect">
+                    <el-input v-model.trim="ruleForm.redirect"></el-input>
+                </el-form-item>
+                <el-form-item label="参数" prop="params">
+                    <el-input v-model.trim="ruleForm.params"></el-input>
+                </el-form-item>
+                <el-form-item label="父路由" prop="father">
+                    <el-select
+                        v-model="ruleForm.father"
+                        placeholder="请选择父菜单">
                         <el-option
-                            v-for="(item, index) in data.arrGroup"
+                            v-for="(item, index) in data.arrMenu"
                             :key="index"
-                            :label="item.name"
+                            :label="item.title"
                             :value="item._id"
                         ></el-option>
                     </el-select>
@@ -51,38 +59,34 @@
 </template>
 
 <script>
-    import Md5                              from 'md5'
 
     export default {
         data () {
             return {
                 loading: false,
                 ruleForm: {
-                    nickname: '',
-                    email: '',
-                    phone: '',
-                    avatar: '',
-                    group: '',
-                    password: '',
+                    title: '',
+                    path: '',
+                    params: '',
+                    father: null,
+                    sort: '',
+                    component: '',
+                    redirect: '',
+                    icon: '',
                 },
                 rules: {
-                    nickname: [
-                        { required: true, message: '请输入用户名称', trigger: 'blur' },
+                    title: [
+                        { required: true, message: '请输入菜单名称', trigger: 'blur' },
+                        { min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur' }
                     ],
-                    email: [
-                        { required: true, message: '请填写邮箱', trigger: 'blur' }
+                    path: [
+                        { required: true, message: '请填写路径', trigger: 'blur' }
                     ],
-                    phone: [
-                        { required: true, message: '请填写手机号', trigger: 'blur' }
+                    component: [
+                        { required: true, message: '请填写组件', trigger: 'blur' }
                     ],
-                    avatar: [
-                        { required: true, message: '请填写头像', trigger: 'blur' }
-                    ],
-                    password: [
-                        { required: true, message: '请输入密码', trigger: 'blur' }
-                    ],
-                    group: [
-                        { required: true, message: '请选择用户组', trigger: 'blur' }
+                    sort: [
+                        { required: true, message: '请填写排序', trigger: 'blur' }
                     ],
                 }
             }
@@ -106,10 +110,9 @@
                     if (!valid) return false;
                     this.loading = true;
                     let { type, data } = this.data;
-                    this.$curl(type === 'add' ? this.$appConst.DO_CREATE_USER_INFO : this.$appConst.DO_UPDATE_USER_INFO, {
-                        ...this.ruleForm,
-                        password: Md5(this.ruleForm.password.trim())
-                    }).then((res) => {
+                    this.$curl(type === 'add'
+                        ? this.$appConst.DO_CREATE_MENU_ROUTE
+                        : this.$appConst.DO_UPDATE_MENU_ROUTE, this.ruleForm).then((res) => {
                         this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();

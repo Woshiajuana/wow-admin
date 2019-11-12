@@ -58,7 +58,7 @@
             </el-table-column>
             <el-table-column
                 label="操作"
-                width="200" >
+                width="170">
                 <template slot-scope="scope">
                     <el-button
                         :disabled="scope.row.is_root"

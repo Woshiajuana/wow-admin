@@ -3,23 +3,16 @@ const data = () => {
 
     return {
         arrTable: [],
-        arrOptions: [],
         objQuery: {
             numIndex: 1,
             numSize: 10,
             numTotal: 0,
+            isLoading: false,
         },
         objFilterForm: {
-            title: {
+            keyword: {
                 value: '',
-                placeholder: '请输入标题关键字',
-                style: 'width: 200px; margin-right: 5px;',
-                mode: 'input',
-                event: 'filter',
-            },
-            path: {
-                value: '',
-                placeholder: '请输入请求路径',
+                placeholder: '请输入标题/路径',
                 style: 'width: 200px; margin-right: 5px;',
                 mode: 'input',
                 event: 'filter',
