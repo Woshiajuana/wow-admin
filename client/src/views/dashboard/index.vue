@@ -37,9 +37,9 @@
         border-radius: 4px;
     }
     .view-logo{
-        width: 150px;
-        height: 150px;
-        margin-right: 20px;
+        width: 140px;
+        height: 140px;
+        margin-right: 10px;
     }
     .view-title{
         line-height: 1.5;
