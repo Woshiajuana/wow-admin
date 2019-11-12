@@ -103,20 +103,37 @@ module.exports = class HandleServer extends Service {
 
     // 删除
     async del (id) {
-        const { ctx, app } = this;
+        const { ctx, app, logger } = this;
         const { is_root } = await this.findById(id);
-        if (is_root) throw '不能删除 root 账号';
+        if (is_root) {
+            logger.info(`拒绝管理员:【${ctx.state.token.user._id}】操作删除 root 账号`);
+            throw '不能删除 root 账号';
+        }
+        logger.info(`管理员:【${ctx.state.token.user._id}】操作删除账号:【${id}】`);
         await ctx.model.UserInfoModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
     }
 
     // 更新
     async update (data) {
-        const { ctx, app } = this;
+        const { ctx, app, logger } = this;
         const { id } = data;
         const { is_root } = await this.findById(id);
-        if (is_root) throw '不能删除 root 账号';
+        if (is_root) {
+            logger.info(`拒绝管理员:【${ctx.state.token.user._id}】操作更新 root 账号`);
+            throw '不能更新 root 账号';
+        }
+        logger.info(`管理员:【${ctx.state.token.user._id}】操作更新账号:【${id}】`);
         delete data.id;
         await ctx.model.UserInfoModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
+    }
+
+    // 锁定
+    async unlock (data) {
+        const { ctx, app, logger } = this;
+        const { id, lock } = data;
+        await this.update({ id, lock });
+        logger.info(`管理员:【${ctx.state.token.user._id}】${lock ? '锁定' : '解锁'}账号:【${id}】`);
+        
     }
 
 };

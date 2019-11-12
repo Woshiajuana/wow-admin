@@ -40,8 +40,10 @@ module.exports = () => {
                 api_routes,
             } = group || {};
             if (is_root || is_root_group || checkApiRoutes(path, method, api_routes)) {
+                logger.info(`用户:【${_id}】权限API:【${path}】验证通过`);
                 await next();
             } else {
+                logger.info(`用户:【${_id}】权限API:【${path}】验证失败`);
                 throw 'F40003';
             }
         } catch (err) {
