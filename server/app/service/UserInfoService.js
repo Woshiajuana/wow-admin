@@ -37,6 +37,7 @@ module.exports = class HandleServer extends Service {
             throw 'F40006';
         }
         let times = await redis.get(`${_id} auth password times`) || 0;
+        console.log('次数', times)
         times = +times;
         if (password !== pwd) {
             times++;
@@ -138,10 +139,10 @@ module.exports = class HandleServer extends Service {
         const { ctx, app, logger } = this;
         const { is_root } = await this.findById(id);
         if (is_root) {
-            logger.info(`拒绝管理员:【${ctx.state.token.user._id}】操作删除 root 账号`);
+            logger.info(`拒绝删除 root 账号`);
             throw '不能删除 root 账号';
         }
-        logger.info(`管理员:【${ctx.state.token.user._id}】操作删除账号:【${id}】`);
+        logger.info(`删除账号:【${id}】`);
         await ctx.model.UserInfoModel.remove({ _id: app.mongoose.Types.ObjectId(id) });
     }
 
@@ -163,13 +164,17 @@ module.exports = class HandleServer extends Service {
     async unlock (data, type = false) {
         const { ctx, app, logger } = this;
         const { id, lock } = data;
+        const { redis } = app;
         await this.update(data, type);
         const arrToken = await ctx.getTokenByUserId(id);
-        arrToken.forEach((token) => {
-            token.user.lock = lock;
-            token.save();
+        await redis.del(`${id} auth password times`);
+        arrToken.forEach(async (token) => {
+            if (token.user.lock !== lock) {
+                token.user.lock = lock;
+                await token.save();
+            }
         });
-        logger.info(`管理员:【${ctx.state.token.user._id}】${lock ? '锁定' : '解锁'}账号:【${id}】`);
+        logger.info(`${lock ? '锁定' : '解锁'}账号:【${id}】`);
     }
 
     // 禁用 or 启用
@@ -179,8 +184,10 @@ module.exports = class HandleServer extends Service {
         await this.update(data);
         const arrToken = await ctx.getTokenByUserId(id);
         arrToken.forEach(async (token) => {
-            token.user.disabled = disabled;
-            await token.save();
+            if (token.user.disabled !== disabled) {
+                token.user.disabled = disabled;
+                await token.save();
+            }
         });
         logger.info(`管理员:【${ctx.state.token.user._id}】${disabled ? '禁用' : '启用'}账号:【${id}】`);
     }
