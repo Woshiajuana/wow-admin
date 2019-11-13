@@ -99,7 +99,8 @@ module.exports.populate = [
             },
             {
                 path: 'menu_routes',
-            }
+                options: { sort: { 'sort': -1 } }
+            },
         ],
     },
 ];
