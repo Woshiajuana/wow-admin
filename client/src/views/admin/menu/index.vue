@@ -62,13 +62,14 @@
                         :disabled="scope.row.source === 'INIT'"
                         type="text"
                         size="mini"
-                        @click="handleDialogEdit(scope.row)"
+                        @click="handleDialogDisplay({ type: 'edit', data: scope.row })"
                     >编辑</el-button>
                     <el-button
                         :disabled="scope.row.source === 'INIT'"
+                        :loading="scope.row.isDelLoading"
                         type="text"
                         size="mini"
-                        @click="handleDelete(scope.row)"
+                        @click="handleDelete(scope.row, 'isDelLoading')"
                     >删除</el-button>
                 </template>
             </el-table-column>
@@ -120,22 +121,21 @@
                     this.objQuery.isLoading = false;
                 });
             },
-            handleDelete (item) {
+            handleDelete (item, lKey) {
                 let { _id, title } = item;
-                this.$confirm(`确定删除 ${title} ?`, '温馨提示', {
+                this.$confirm(`确定删除菜单： ${title} ?`, '温馨提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.doDeleteItem(_id);
+                    this.$set(item, lKey, true);
+                    this.$curl(this.$appConst.DO_DELETE_MENU_ROUTE, {
+                        id: _id,
+                    }).then(() => {
+                        this.$modal.toast('删除账号成功', 'success');
+                        this.reqTableDataList();
+                    }).toast().finally(() => item[lKey] = false);
                 }).null();
-            },
-            doDeleteItem (id) {
-                this.$curl(this.$appConst.DO_DELETE_MENU_ROUTE, {
-                    id,
-                }).then(() => {
-                    this.reqTableDataList();
-                }).toast();
             },
         },
         components: {

@@ -147,13 +147,6 @@
                     }).toast().finally(() => item[lKey] = false);
                 }).null();
             },
-            doDeleteDataItem (id) {
-                this.$curl(this.$appConst.DO_DELETE_USER_GROUP, {
-                    id,
-                }).then(() => {
-                    this.reqTableDataList();
-                }).toast();
-            }
         },
         components: {
             AuthDrawer,
