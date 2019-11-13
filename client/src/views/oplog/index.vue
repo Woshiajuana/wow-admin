@@ -41,7 +41,7 @@
                                 <span :style="{ cursor: 'pointer', color: props.row.result.code === 'S00000' ? '#67C23A' : '#F56C6C'}">{{props.row.result.code === 'S00000' ? '成功' : '失败'}}</span>
                             </el-tooltip>
                         </el-form-item>
-                        <el-form-item label="转化路径" v-if="props.row.target">
+                        <el-form-item label="转发路径" v-if="props.row.target">
                             <span>{{ props.row.target }}</span>
                         </el-form-item>
                     </el-form>
