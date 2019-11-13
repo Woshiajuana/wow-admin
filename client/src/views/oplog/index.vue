@@ -17,16 +17,16 @@
                         inline
                         class="demo-table-expand">
                         <el-form-item label="操作员">
-                            <span>{{ props.row.user.nickname }}</span>
+                            <span>{{ props.row.user && props.row.user.nickname }}</span>
                         </el-form-item>
                         <el-form-item label="手机号">
-                            <span>{{ props.row.user.phone }}</span>
+                            <span>{{ props.row.user && props.row.user.phone }}</span>
                         </el-form-item>
                         <el-form-item label="接口">
-                            <span>{{ props.row.api.name }}</span>
+                            <span>{{ props.row.api && props.row.api.name }}</span>
                         </el-form-item>
                         <el-form-item label="路径">
-                            <span>{{ props.row.api.path }}</span>
+                            <span>{{ props.row.api && props.row.api.path }}</span>
                         </el-form-item>
                         <el-form-item label="日期">
                             <span>{{ props.row.created_at | filterDate}}</span>

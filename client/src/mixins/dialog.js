@@ -10,7 +10,7 @@ const data = () => {
 };
 
 const methods = {
-    handleDialogDisplay (options, key = 'objDialog') {
+    handleDialogDisplay (options = { type: 'add', data: '', }, key = 'objDialog') {
         if (this.beforeDialogShow) {
             return this.beforeDialogShow().then(() => this[key] = { ...this[key], is: true, ...(options || {}) })
         }
