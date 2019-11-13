@@ -25,17 +25,24 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "~@assets/scss/define.scss";
+
     .wscn-http404-container{
-        transform: translate(-50%,-50%);
-        position: absolute;
-        top: 40%;
-        left: 50%;
+        @extend %w100;
+        @extend %h100;
+        @extend %pr;
+        background-color: #fff !important;
     }
     .wscn-http404 {
         position: relative;
         width: 1200px;
         padding: 0 50px;
         overflow: hidden;
+
+        transform: translate(-50%,-50%);
+        position: absolute;
+        top: 40%;
+        left: 50%;
         .pic-404 {
             position: relative;
             float: left;
