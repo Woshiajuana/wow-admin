@@ -123,7 +123,7 @@
                 this.$nextTick(() => {
                     this.$refs.ruleForm.resetFields();
                     let { data } = this.data;
-                    data && (this.ruleForm = { ...data, id: data._id, group: data.group._id });
+                    data && (this.ruleForm = { ...data, id: data._id });
                 });
             },
         },
