@@ -40,7 +40,7 @@ const DEFAULT_OPTIONS = {
     // API配置
     httpRequest: {
         baseURL: '',
-        timeout: 3000,
+        timeout: 30000,
         method: 'POST',
         callbackSuccess: response => response,
         callbackError: () => {},
