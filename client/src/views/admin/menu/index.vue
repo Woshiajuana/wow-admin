@@ -80,9 +80,6 @@
             this.reqTableDataList();
         },
         methods: {
-            handleClick (res) {
-                console.log(res);
-            },
             beforeDialogShow () {
                 return this.$curl(this.$appConst._REQ_MENU_ROUTE_LIST).then((res) => {
                     this.$set(this.objDialog, 'arrMenu', res || []);
