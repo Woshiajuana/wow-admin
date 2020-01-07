@@ -35,8 +35,11 @@
     "scripts": {
         "start": "egg-scripts start --daemon --title=template-admin-service --framework=egg-wow-admin-framework",
         "stop": "egg-scripts stop --title=template-admin-service",
-        "copy": "cp -r ../../egg-wow-admin-framework ./lib/",
-        "dev": "npm run copy && npm run apidoc && egg-bin dev --framework=../lib/egg-wow-admin-framework",
+        "copy:framework": "cp -r ../../egg-wow-admin-framework/* ./lib/egg-wow-admin-framework",
+        "copy:token": "cp -r ../../egg-wow-token/* ./lib/egg-wow-token",
+        "copy:response": "cp -r ../../egg-wow-response/* ./lib/egg-wow-response",
+        "copy:validate": "cp -r ../../egg-wow-validate/* ./lib/egg-wow-validate",
+        "dev": "npm run copy:framework&&npm run copy:token&&npm run copy:response&&npm run copy:validate&&npm run apidoc && egg-bin dev --framework=../lib/egg-wow-admin-framework",
         "debug": "egg-bin debug",
         "test": "npm run lint -- --fix && npm run test-local",
         "test-local": "egg-bin test",
