@@ -15,6 +15,7 @@
             </el-table>
         </div>
         <el-pagination
+            v-if="tableQuery.numSize"
             size="mini"
             class="pagination"
             @size-change="handleEmit('refresh', 'numSize', $event)"
@@ -76,5 +77,4 @@
             background-color: #fff;
         }
     }
-
 </style>

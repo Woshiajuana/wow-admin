@@ -113,12 +113,17 @@
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
-                    let { arrData = [], numTotal } = res || {};
-                    this.arrTable = arrData;
-                    this.objQuery.numTotal = numTotal;
+                    this.arrTable = res || [];
                 }).toast().finally(() => {
                     typeof callback === 'function' && callback();
                     this.objQuery.isLoading = false;
+                });
+            },
+            // 过滤菜单
+            formatData (data = []) {
+                let arr = [];
+                data.forEach((item) => {
+                    // if
                 });
             },
             handleDelete (item, lKey) {
