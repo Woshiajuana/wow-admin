@@ -144,7 +144,7 @@
                     this.objQuery.numTotal = numTotal;
                 }).toast().finally(() => {
                     typeof callback === 'function' && callback();
-                    this.objQuery.isLoading = false;
+                    // this.objQuery.isLoading = false;
                 });
             },
             handleDelete (item, lKey) {

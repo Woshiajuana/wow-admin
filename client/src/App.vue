@@ -94,4 +94,10 @@
             font-size: 12px;
         }
     }
+    .drawer-bg{
+        z-index: 3000 !important;
+    }
+    .sidebar-container{
+        z-index: 3001 !important;
+    }
 </style>
