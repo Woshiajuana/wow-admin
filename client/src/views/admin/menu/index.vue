@@ -93,26 +93,27 @@
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
-                    // this.arrTable = res || [];
-                    this.formatData(res);
+                    this.arrTable = this.formatData(JSON.parse(JSON.stringify(res)));
                 }).toast().finally(() => {
                     typeof callback === 'function' && callback();
                     this.objQuery.isLoading = false;
                 });
             },
             // 过滤菜单
-            formatData (data = []) {
-                let arr = [];
-                // 循环得到一级菜单
-                data.forEach((item) => !item.father && arr.push(Object.assign(item, { children: [] })));
-                arr.forEach((menu) => {
-                    data.forEach((item) => {
-                        if (menu._id === item.father) {
-                            menu.children.push(item);
+            formatData (source = []) {
+                let arrNeedDelIndex = [];
+                source.forEach((item, index) => {
+                    source.forEach((menu) => {
+                        if (item.father === menu._id) {
+                            menu.children ? menu.children.push(item) : menu.children = [item];
+                            arrNeedDelIndex.push(index);
                         }
-                    });
+                    })
                 });
-                this.arrTable = arr;
+                arrNeedDelIndex.forEach((item, index) => {
+                    source.splice(item - index, 1);
+                });
+                return source;
             },
             handleDelete (item, lKey) {
                 let { _id, title } = item;
