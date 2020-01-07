@@ -108,8 +108,24 @@
         methods: {
             reqMenuRouteList () {
                 this.$curl(this.$appConst._REQ_MENU_ROUTE_LIST).then((res) =>
-                    this.$set(this.objAuthDialog, 'arrMenu', res || [])
+                    this.$set(this.objAuthDialog, 'arrMenu', this.formatData(res || []))
                 ).toast();
+            },
+            // 过滤菜单
+            formatData (source = []) {
+                let arrNeedDelIndex = [];
+                source.forEach((item, index) => {
+                    source.forEach((menu) => {
+                        if (item.father === menu._id) {
+                            menu.children ? menu.children.push(item) : menu.children = [item];
+                            arrNeedDelIndex.push(index);
+                        }
+                    })
+                });
+                arrNeedDelIndex.forEach((item, index) => {
+                    source.splice(item - index, 1);
+                });
+                return source;
             },
             reqApiRouteList () {
                 this.$curl(this.$appConst._REQ_API_ROUTE_LIST).then((res) =>

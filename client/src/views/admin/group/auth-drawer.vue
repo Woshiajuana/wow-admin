@@ -31,15 +31,16 @@
                     </el-transfer>
                 </el-form-item>
                 <el-form-item label="菜单" prop="menu_routes">
-                    <el-transfer
-                        filterable
-                        :filter-method="filterMenuMethod"
-                        filter-placeholder="请输入菜单名称"
-                        :titles="['未添加', '已添加']"
-                        v-model="ruleForm.menu_routes"
-                        :props="{ key: '_id', label: 'title' }"
-                        :data="data.arrMenu">
-                    </el-transfer>
+                    <el-tree
+                        ref="tree"
+                        :data="data.arrMenu"
+                        @check="handleInput"
+                        show-checkbox
+                        default-expand-all
+                        node-key="_id"
+                        :default-checked-keys="ruleForm.menu_routes"
+                        :props="{ children: 'children', label: 'title' }">
+                    </el-tree>
                 </el-form-item>
             </el-form>
         </div>
@@ -80,6 +81,7 @@
             handleClose () {
                 this.$emit('update:display', false);
                 this.$refs.ruleForm.resetFields();
+                this.$refs.tree.setCheckedKeys([]);
             },
             handleSubmit () {
                 this.$refs.ruleForm.validate((valid) => {
@@ -101,6 +103,9 @@
                     let { type, data } = this.data;
                     data && (this.ruleForm = { ...data, id: data._id });
                 });
+            },
+            handleInput () {
+                this.ruleForm.menu_routes = this.$refs.tree.getCheckedKeys();
             },
         },
     };
