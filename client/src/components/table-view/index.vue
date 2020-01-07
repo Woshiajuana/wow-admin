@@ -9,7 +9,10 @@
                 size="mini"
                 :data="tableData"
                 height="100"
+                row-key="_id"
                 stripe
+                default-expand-all
+                :tree-props="{children: 'children'}"
                 style="width: 100%">
                 <slot></slot>
             </el-table>
