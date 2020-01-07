@@ -113,7 +113,8 @@
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
-                    this.arrTable = res || [];
+                    // this.arrTable = res || [];
+                    this.formatData(res);
                 }).toast().finally(() => {
                     typeof callback === 'function' && callback();
                     this.objQuery.isLoading = false;
@@ -122,9 +123,19 @@
             // 过滤菜单
             formatData (data = []) {
                 let arr = [];
-                data.forEach((item) => {
-                    // if
+                // 循环得到一级菜单
+                data.forEach((item) => !item.father && arr.push(Object.assign(item, { children: [] })));
+                console.log('arr => ', arr); // 循环菜单
+                data.forEach((menu) => {
+                    if (menu.father) {
+                        arr.forEach((item) => {
+                            if (item._id === menu.father) {
+                                item.children.push(item);
+                            }
+                        });
+                    }
                 });
+                console.log('arr => ', arr);
             },
             handleDelete (item, lKey) {
                 let { _id, title } = item;
