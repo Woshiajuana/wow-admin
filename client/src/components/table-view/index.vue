@@ -11,7 +11,7 @@
                 height="100"
                 row-key="_id"
                 stripe
-                default-expand-all
+                :default-expand-all="defaultExpandAll"
                 :tree-props="{children: 'children'}"
                 style="width: 100%">
                 <slot></slot>
@@ -40,6 +40,7 @@
             tableQuery: { default: {} },
             tableData: { default: [] },
             tableUseLoading: { default: true },
+            defaultExpandAll: { default: false },
         },
         methods: {
             handleEmit (eventName, key, event) {
