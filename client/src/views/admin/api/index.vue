@@ -68,7 +68,7 @@
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
                 this.objQuery.isLoading = true;
-                this.$curl(this.$appConst.REQ_API_ROUTE_LIST, {
+                this.$curl(this.$appConst._REQ_API_ROUTE_LIST, {
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
@@ -86,7 +86,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$curl(this.$appConst.DO_INIT_API_ROUTE).then(() => {
+                    this.$curl(this.$appConst._DO_INIT_API_ROUTE).then(() => {
                     }).null().finally(() => this.reqTableDataList());
                 }).null();
 

@@ -106,7 +106,7 @@
                     if (!valid) return false;
                     this.loading = true;
                     let { type, data } = this.data;
-                    this.$curl(type === 'add' ? this.$appConst.DO_CREATE_USER_INFO : this.$appConst.DO_UPDATE_USER_INFO, {
+                    this.$curl(type === 'add' ? this.$appConst._DO_CREATE_USER_INFO : this.$appConst._DO_UPDATE_USER_INFO, {
                         ...this.ruleForm,
                         password: Md5(this.ruleForm.password.trim())
                     }).then((res) => {

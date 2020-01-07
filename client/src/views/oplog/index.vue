@@ -102,19 +102,19 @@
         },
         methods: {
             reqApiRouteList () {
-                this.$curl(this.$appConst.REQ_API_ROUTE_LIST).then((res) => {
+                this.$curl(this.$appConst._REQ_API_ROUTE_LIST).then((res) => {
                     this.objFilterForm.api.options = res || [];
                 }).toast();
             },
             reqUserInfoList () {
-                this.$curl(this.$appConst.REQ_USER_LIST).then((res) => {
+                this.$curl(this.$appConst._REQ_USER_LIST).then((res) => {
                     this.objFilterForm.user.options = res || [];
                 }).toast();
             },
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
                 this.objQuery.isLoading = true;
-                this.$curl(this.$appConst.REQ_OPLOG_LIST, {
+                this.$curl(this.$appConst._REQ_OPLOG_LIST, {
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
@@ -134,7 +134,7 @@
                     type: 'warning'
                 }).then(() => {
                     this.$set(item, lKey, true);
-                    this.$curl(this.$appConst.DO_DELETE_OPLOG, {
+                    this.$curl(this.$appConst._DO_DELETE_OPLOG, {
                         id: _id,
                     }).then(() => {
                         this.$modal.toast('删除账号成功', 'success');

@@ -77,7 +77,7 @@
                     return this.numCurrent++;
                 let data = this.$verify.input(...this.arrForm);
                 this.loading = true;
-                this.$curl(this.$appConst.DO_APP_INIT, {
+                this.$curl(this.$appConst._DO_APP_INIT, {
                     ...data,
                     password: Md5(data.password.trim()),
                 }).then(() => {

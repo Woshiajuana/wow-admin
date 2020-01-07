@@ -48,60 +48,60 @@ const DEFAULT_OPTIONS = {
     // app 常量配置
     appConst: {
         // 查询 APPINFO
-        REQ_APP_INFO: 'api/v1/app/info',
+        _REQ_APP_INFO: 'api/v1/app/info',
         // 设置 APPINFO
-        DO_APP_INIT: 'api/v1/app/init',
+        _DO_APP_INIT: 'api/v1/app/init',
         // 管理员用户登录
-        DO_USER_LOGIN: 'api/v1/user-info/login',
+        _DO_USER_LOGIN: 'api/v1/user-info/login',
         // 管理员用户安全退出
-        DO_USER_LOGOUT: 'api/v1/user-info/logout',
+        _DO_USER_LOGOUT: 'api/v1/user-info/logout',
 
         // 查询管理员用户列表
-        REQ_USER_LIST: 'api/v1/user-info/list',
+        _REQ_USER_LIST: 'api/v1/user-info/list',
         // 解锁管理员账号
-        DO_UNLOCK_USER_INFO: 'api/v1/user-info/unlock',
+        _DO_UNLOCK_USER_INFO: 'api/v1/user-info/unlock',
         // 禁用启用管理员账号
-        DO_DISABLED_USER_INFO: 'api/v1/user-info/disable-enable',
+        _DO_DISABLED_USER_INFO: 'api/v1/user-info/disable-enable',
         // 创建管理员用户
-        DO_CREATE_USER_INFO: 'api/v1/user-info/create',
+        _DO_CREATE_USER_INFO: 'api/v1/user-info/create',
         // 编辑管理员用户
-        DO_UPDATE_USER_INFO: 'api/v1/user-info/update',
+        _DO_UPDATE_USER_INFO: 'api/v1/user-info/update',
         // 删除管理员用户
-        DO_DELETE_USER_INFO: 'api/v1/user-info/delete',
+        _DO_DELETE_USER_INFO: 'api/v1/user-info/delete',
 
         // 查询管理元用户组列表
-        REQ_USER_GROUP_LIST: 'api/v1/user-group/list',
+        _REQ_USER_GROUP_LIST: 'api/v1/user-group/list',
         // 创建用户组
-        DO_CREATE_USER_GROUP: 'api/v1/user-group/create',
+        _DO_CREATE_USER_GROUP: 'api/v1/user-group/create',
         // 编辑用户组
-        DO_UPDATE_USER_GROUP: 'api/v1/user-group/update',
+        _DO_UPDATE_USER_GROUP: 'api/v1/user-group/update',
         // 删除用户组
-        DO_DELETE_USER_GROUP: 'api/v1/user-group/delete',
+        _DO_DELETE_USER_GROUP: 'api/v1/user-group/delete',
 
         // 查询API路由列表
-        REQ_API_ROUTE_LIST: 'api/v1/api-route/list',
+        _REQ_API_ROUTE_LIST: 'api/v1/api-route/list',
         // 初始化路由列表
-        DO_INIT_API_ROUTE: 'api/v1/api-route/init',
+        _DO_INIT_API_ROUTE: 'api/v1/api-route/init',
         // 创建API路由
-        DO_CREATE_API_ROUTE: 'api/v1/api-route/create',
+        _DO_CREATE_API_ROUTE: 'api/v1/api-route/create',
         // 更新API路由
-        DO_UPDATE_API_ROUTE: 'api/v1/api-route/update',
+        _DO_UPDATE_API_ROUTE: 'api/v1/api-route/update',
         // 删除API路由
-        DO_DELETE_API_ROUTE: 'api/v1/api-route/delete',
+        _DO_DELETE_API_ROUTE: 'api/v1/api-route/delete',
 
         // 查询菜单路由列表
-        REQ_MENU_ROUTE_LIST: 'api/v1/menu-route/list',
+        _REQ_MENU_ROUTE_LIST: 'api/v1/menu-route/list',
         // 创建菜单路由
-        DO_CREATE_MENU_ROUTE: 'api/v1/menu-route/create',
+        _DO_CREATE_MENU_ROUTE: 'api/v1/menu-route/create',
         // 更新菜单路由
-        DO_UPDATE_MENU_ROUTE: 'api/v1/menu-route/update',
+        _DO_UPDATE_MENU_ROUTE: 'api/v1/menu-route/update',
         // 删除菜单路由
-        DO_DELETE_MENU_ROUTE: 'api/v1/menu-route/delete',
+        _DO_DELETE_MENU_ROUTE: 'api/v1/menu-route/delete',
 
         // 查询操作日志列表
-        REQ_OPLOG_LIST: 'api/v1/oplog/list',
+        _REQ_OPLOG_LIST: 'api/v1/oplog/list',
         // 删除操作日志
-        DO_DELETE_OPLOG: 'api/v1/oplog/delete',
+        _DO_DELETE_OPLOG: 'api/v1/oplog/delete',
     },
     // 组件配置
     component: {

@@ -111,8 +111,8 @@
                     this.loading = true;
                     let { type, data } = this.data;
                     this.$curl(type === 'add'
-                        ? this.$appConst.DO_CREATE_MENU_ROUTE
-                        : this.$appConst.DO_UPDATE_MENU_ROUTE, this.ruleForm).then((res) => {
+                        ? this.$appConst._DO_CREATE_MENU_ROUTE
+                        : this.$appConst._DO_UPDATE_MENU_ROUTE, this.ruleForm).then((res) => {
                         this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();

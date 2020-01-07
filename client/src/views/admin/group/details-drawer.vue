@@ -70,8 +70,8 @@
                     this.loading = true;
                     let { type, data } = this.data;
                     this.$curl(type === 'add'
-                        ? this.$appConst.DO_CREATE_USER_GROUP
-                        : this.$appConst.DO_UPDATE_USER_GROUP, this.ruleForm).then((res) => {
+                        ? this.$appConst._DO_CREATE_USER_GROUP
+                        : this.$appConst._DO_UPDATE_USER_GROUP, this.ruleForm).then((res) => {
                         this.$modal.toast(type === 'add' ? '新增成功' : '编辑成功', 'success');
                         this.$emit('refresh');
                         this.handleClose();

@@ -101,7 +101,7 @@
         },
         methods: {
             beforeDialogShow () {
-                return this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST).then((res) => {
+                return this.$curl(this.$appConst._REQ_MENU_ROUTE_LIST).then((res) => {
                     this.$set(this.objDialog, 'arrMenu', res || []);
                     return Promise.resolve();
                 }).catch(() => Promise.reject());
@@ -109,7 +109,7 @@
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
                 this.objQuery.isLoading = true;
-                this.$curl(this.$appConst.REQ_MENU_ROUTE_LIST, {
+                this.$curl(this.$appConst._REQ_MENU_ROUTE_LIST, {
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
@@ -129,7 +129,7 @@
                     type: 'warning'
                 }).then(() => {
                     this.$set(item, lKey, true);
-                    this.$curl(this.$appConst.DO_DELETE_MENU_ROUTE, {
+                    this.$curl(this.$appConst._DO_DELETE_MENU_ROUTE, {
                         id: _id,
                     }).then(() => {
                         this.$modal.toast('删除账号成功', 'success');

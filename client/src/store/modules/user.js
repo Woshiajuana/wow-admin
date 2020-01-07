@@ -22,7 +22,7 @@ const actions = {
     login({ commit }, data) {
         return new Promise((resolve, reject) => {
             let { $curl, $appConst } = Vue.prototype;
-            $curl($appConst.DO_USER_LOGIN, data).then((objUserInfo) => {
+            $curl($appConst._DO_USER_LOGIN, data).then((objUserInfo) => {
                 commit('SET_USER_INFO', objUserInfo);
                 resolve(objUserInfo);
             }).catch((err) => {
@@ -47,7 +47,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             let { $curl, $appConst, $storage } = Vue.prototype;
             const { access_token = '' } = $storage.local.get('USER_INFO') || {};
-            access_token && $curl($appConst.DO_USER_LOGOUT).null();
+            access_token && $curl($appConst._DO_USER_LOGOUT).null();
             commit('SET_USER_INFO', '');
             resetRouter();
             dispatch('tagsView/delAllCachedViews', {}, { root: true });

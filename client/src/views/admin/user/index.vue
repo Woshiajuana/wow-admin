@@ -117,7 +117,7 @@
         },
         methods: {
             reqUserGroupList () {
-                this.$curl(this.$appConst.REQ_USER_GROUP_LIST).then((res) => {
+                this.$curl(this.$appConst._REQ_USER_GROUP_LIST).then((res) => {
                     this.$set(this.objDialog, 'arrGroup', res || []);
                     this.objFilterForm.group.options = res || [];
                 }).toast();
@@ -125,7 +125,7 @@
             reqTableDataList (callback) {
                 let options = this.$verify.input(this.objFilterForm);
                 this.objQuery.isLoading = true;
-                this.$curl(this.$appConst.REQ_USER_LIST, {
+                this.$curl(this.$appConst._REQ_USER_LIST, {
                     ...this.objQuery,
                     ...options,
                 }).then((res) => {
@@ -145,7 +145,7 @@
                     type: 'warning'
                 }).then(() => {
                     this.$set(item, lKey, true);
-                    this.$curl(this.$appConst.DO_DELETE_USER_INFO, {
+                    this.$curl(this.$appConst._DO_DELETE_USER_INFO, {
                         id: _id,
                     }).then(() => {
                         this.$modal.toast('删除账号成功', 'success');
@@ -161,7 +161,7 @@
                     type: 'warning'
                 }).then(() => {
                     this.$set(item, lKey, true);
-                    this.$curl(this.$appConst.DO_UNLOCK_USER_INFO, {
+                    this.$curl(this.$appConst._DO_UNLOCK_USER_INFO, {
                         id: _id,
                         lock: !lock,
                     }).then(() => {
@@ -178,7 +178,7 @@
                     type: 'warning'
                 }).then(() => {
                     this.$set(item, lKey, true);
-                    this.$curl(this.$appConst.DO_DISABLED_USER_INFO, {
+                    this.$curl(this.$appConst._DO_DISABLED_USER_INFO, {
                         id: _id,
                         disabled: !disabled,
                     }).then(() => {
