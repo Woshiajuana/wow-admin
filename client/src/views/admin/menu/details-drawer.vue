@@ -17,25 +17,25 @@
                 label-width="80px"
                 class="demo-ruleForm">
                 <el-form-item label="标题" prop="title">
-                    <el-input v-model.trim="ruleForm.title" maxlength="20"></el-input>
+                    <el-input v-model.trim="ruleForm.title" maxlength="20" placeholder="菜单标题"></el-input>
                 </el-form-item>
                 <el-form-item label="路径" prop="path">
-                    <el-input v-model.trim="ruleForm.path"></el-input>
+                    <el-input v-model.trim="ruleForm.path" placeholder="请求路径，例：admin"></el-input>
                 </el-form-item>
                 <el-form-item label="排序" prop="sort">
-                    <el-input v-model.trim="ruleForm.sort"></el-input>
+                    <el-input v-model.trim="ruleForm.sort" placeholder="排序，越大排在前面"></el-input>
                 </el-form-item>
                 <el-form-item label="组件" prop="component">
-                    <el-input v-model.trim="ruleForm.component"></el-input>
+                    <el-input v-model.trim="ruleForm.component" placeholder="对应组件目录，例：admin/user"></el-input>
                 </el-form-item>
                 <el-form-item label="图标" prop="icon">
-                    <el-input v-model.trim="ruleForm.icon"></el-input>
+                    <el-input v-model.trim="ruleForm.icon" placeholder="菜单图标"></el-input>
                 </el-form-item>
                 <el-form-item label="重定向" prop="redirect">
-                    <el-input v-model.trim="ruleForm.redirect"></el-input>
+                    <el-input v-model.trim="ruleForm.redirect" placeholder="重定向路径，例：admin/user"></el-input>
                 </el-form-item>
                 <el-form-item label="参数" prop="params">
-                    <el-input v-model.trim="ruleForm.params"></el-input>
+                    <el-input v-model.trim="ruleForm.params" placeholder="初始化参数"></el-input>
                 </el-form-item>
                 <el-form-item label="父路由" prop="father">
                     <el-select
@@ -50,10 +50,10 @@
                     </el-select>
                 </el-form-item>
             </el-form>
-            <div class="demo-drawer__footer">
-                <el-button type="primary" :loading="loading" @click="handleSubmit">{{ loading ? '提交中...' : '确认' }}</el-button>
-                <el-button @click="handleClose">关闭</el-button>
-            </div>
+        </div>
+        <div class="demo-drawer__footer">
+            <el-button type="primary" :loading="loading" @click="handleSubmit">{{ loading ? '提交中...' : '确认' }}</el-button>
+            <el-button @click="handleClose">关闭</el-button>
         </div>
     </el-drawer>
 </template>

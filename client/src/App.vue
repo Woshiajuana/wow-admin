@@ -38,7 +38,7 @@
         .el-drawer__body{
             @extend %df;
             @extend %fdc;
-            padding: 20px;
+            height: 300px;
         }
 
         .demo-drawer__content{
@@ -47,6 +47,7 @@
             @extend %h100;
             @extend %fdc;
             @extend %oya;
+            padding: 0 20px;
             form {
                 @extend %df1;
             }
@@ -54,6 +55,7 @@
         .demo-drawer__footer {
             @extend %df;
             margin-top: 10px;
+            padding: 0 20px 20px;
             button {
                 @extend %df1;
             }
