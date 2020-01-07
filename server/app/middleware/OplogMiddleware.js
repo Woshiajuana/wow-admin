@@ -34,7 +34,7 @@ module.exports = () => {
             let {
                 _id: apiId,
             } = await service.base.apiRouteService.findOne({ path, method }) || {};
-            await service.oplogService.create({
+            await service.base.oplogService.create({
                 user: userId,
                 api: apiId,
                 result: { code: body.code, msg: body.msg },
