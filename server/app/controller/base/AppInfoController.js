@@ -26,7 +26,7 @@ module.exports = class HandleController extends Controller {
     async info () {
         const { ctx, service, app } = this;
         try {
-            const objApp = await service.appInfoService.find();
+            const objApp = await service.base.appInfoService.find();
             ctx.respSuccess(objApp);
         } catch (e) {
             ctx.respError(e);
@@ -78,9 +78,9 @@ module.exports = class HandleController extends Controller {
                 email: [ 'nonempty' ],
             });
             // 判断 APP 是否已初始化
-            await service.appInfoService.count();
+            await service.base.appInfoService.count();
             // 初始化 APP
-            await service.appInfoService.init({
+            await service.base.appInfoService.init({
                 name,
                 logo,
                 bg,
@@ -88,13 +88,13 @@ module.exports = class HandleController extends Controller {
                 ownership,
             });
             // 初始化超级管理员用户组
-            const objAdminGroup = await service.userGroupService.create({
+            const objAdminGroup = await service.base.userGroupService.create({
                 name: '超级管理组',
                 remark: '初始化的超级管理组',
                 is_root_group: true,
             });
             // 初始化超级管理员用户
-            await service.userInfoService.create({
+            await service.base.userInfoService.create({
                 nickname,
                 password,
                 avatar,
@@ -104,9 +104,9 @@ module.exports = class HandleController extends Controller {
                 group: objAdminGroup._id,
             });
             // 初始化菜单
-            await service.menuRouteService.init();
+            await service.base.menuRouteService.init();
             // 初始化 API
-            await service.apiRouteService.init();
+            await service.base.apiRouteService.init();
             ctx.respSuccess();
         } catch (e) {
             ctx.respError(e);

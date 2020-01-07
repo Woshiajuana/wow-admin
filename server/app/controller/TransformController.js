@@ -30,7 +30,7 @@ module.exports = class HandleController extends Controller {
                 body = '',
             } = ctx;
             const strTargetUrl = params[0] || '';
-            const data = await service.demo.transformService.curl(strTargetUrl,  {
+            const data = await service.transformService.curl(strTargetUrl,  {
                 method,
                 data: method === 'get' ? query : body,
             });

@@ -61,7 +61,7 @@ module.exports = class HandleController extends Controller {
                 params: [ ],
                 father: [ ],
             });
-            await service.menuRouteService.create(objParams);
+            await service.base.menuRouteService.create(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -85,7 +85,7 @@ module.exports = class HandleController extends Controller {
             } = await ctx.validateBody({
                 id: [ 'nonempty' ],
             });
-            await service.menuRouteService.del(id);
+            await service.base.menuRouteService.del(id);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -123,7 +123,7 @@ module.exports = class HandleController extends Controller {
                 params: [ ],
                 father: [ ],
             });
-            await service.menuRouteService.update(objParams);
+            await service.base.menuRouteService.update(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -149,7 +149,7 @@ module.exports = class HandleController extends Controller {
                 numSize: [ ],
                 keyword: [ ],
             });
-            const data = await service.menuRouteService.list(objParams);
+            const data = await service.base.menuRouteService.list(objParams);
             ctx.respSuccess(data);
         } catch (err) {
             ctx.respError(err);

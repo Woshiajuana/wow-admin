@@ -77,7 +77,7 @@ module.exports = class HandleController extends Controller {
                 email: [ 'nonempty' ],
                 group: [ 'nonempty' ],
             });
-            await service.userInfoService.create(objParams);
+            await service.base.userInfoService.create(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -101,7 +101,7 @@ module.exports = class HandleController extends Controller {
             } = await ctx.validateBody({
                 id: [ 'nonempty' ],
             });
-            await service.userInfoService.del(id);
+            await service.base.userInfoService.del(id);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -135,7 +135,7 @@ module.exports = class HandleController extends Controller {
                 email: [ 'nonempty' ],
                 group: [ 'nonempty' ],
             });
-            await service.userInfoService.update(objParams);
+            await service.base.userInfoService.update(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -163,10 +163,10 @@ module.exports = class HandleController extends Controller {
                 password: [ 'nonempty' ],
                 // captcha: [],
             });
-            let objUser = await service.userInfoService.auth({ account, password });
-            objUser = await service.userInfoService.token(objUser);
+            let objUser = await service.base.userInfoService.auth({ account, password });
+            objUser = await service.base.userInfoService.token(objUser);
             if (objUser.group.is_root_group) {
-                objUser.group.menu_routes = await service.menuRouteService.list({});
+                objUser.group.menu_routes = await service.base.menuRouteService.list({});
             }
             ctx.respSuccess(objUser);
         } catch (err) {
@@ -185,7 +185,7 @@ module.exports = class HandleController extends Controller {
     async logout () {
         const { ctx, service, app } = this;
         try {
-            await service.userInfoService.logout();
+            await service.base.userInfoService.logout();
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -213,7 +213,7 @@ module.exports = class HandleController extends Controller {
                 keyword: [],
                 group: [],
             });
-            const data = await service.userInfoService.list(objParams);
+            const data = await service.base.userInfoService.list(objParams);
             ctx.respSuccess(data);
         } catch (err) {
             ctx.respError(err);
@@ -237,7 +237,7 @@ module.exports = class HandleController extends Controller {
                 lock: [ 'nonempty' ],
                 id: [ 'nonempty' ],
             });
-            await service.userInfoService.unlock(objParams);
+            await service.base.userInfoService.unlock(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
@@ -261,7 +261,7 @@ module.exports = class HandleController extends Controller {
                 disabled: [ 'nonempty' ],
                 id: [ 'nonempty' ],
             });
-            await service.userInfoService.disableEnable(objParams);
+            await service.base.userInfoService.disableEnable(objParams);
             ctx.respSuccess();
         } catch (err) {
             ctx.respError(err);
