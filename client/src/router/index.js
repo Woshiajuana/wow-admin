@@ -15,7 +15,7 @@ const route404 = {
     hidden: true,
 };
 
-export let constantRoutes = [
+let constantRoutes = [
 
     {
         path: '/login',
@@ -58,7 +58,7 @@ const createRouter = () => new Router({
     routes: constantRoutes,
 });
 
-let router = createRouter();
+let router;
 let asyncRouter = null;
 let objRouter = {};
 
@@ -68,71 +68,6 @@ export function resetRouter() {
     router.options.routes = [...constantRoutes];
     router.matcher = newRouter.matcher; // reset router
 }
-
-router.beforeEach(async(to, from, next) => {
-    NProgress.start();
-    let {
-        objAppInfo = '',
-        objUserInfo = '',
-    } = store.getters;
-    let {
-        path: toPath,
-    } = to;
-    let {
-        path: fromPath,
-    } = from;
-    if (!objUserInfo)
-        objUserInfo = await store.dispatch('user/getInfo');
-    let {
-        $modal,
-    } = Vue.prototype;
-    let {
-        access_token,
-    } = objUserInfo || {};
-    if (!asyncRouter && objUserInfo && objUserInfo.group) {
-        loadAsyncRouter(objUserInfo.group.menu_routes);
-        return next({ ...to, replace: true });
-    }
-    window.document.title = `${objAppInfo.name ? objAppInfo.name + ' ' : ''}${to.meta.title || ''}`;
-    if (toPath === '/404') {
-        next();
-    } else if (objAppInfo) {
-        if (toPath === '/setup') {
-            next('/');
-        } else {
-            if (access_token) {
-                toPath === '/login' ? next('/') : next()
-            } else {
-                toPath === '/login' ? next() : next(`/login?redirect=${to.path}`)
-            }
-        }
-    } else {
-        try {
-            await store.dispatch('app/getInfo');
-            if (toPath === '/setup') {
-                next('/');
-            } else {
-                if (access_token) {
-                    toPath === '/login' ? next('/') : next()
-                } else {
-                    toPath === '/login' ? next() : next(`/login?redirect=${to.path}`)
-                }
-            }
-        } catch (e) {
-            $modal.toast(e, 'error');
-            if (e.code === 'F00001') {
-                toPath === '/setup' ? next() : next(`/setup?redirect=${toPath}`);
-            } else {
-                next('/404');
-            }
-        }
-    }
-    NProgress.done();
-});
-
-router.afterEach(() => {
-    NProgress.done();
-});
 
 function loadAsyncRouter (routes) {
     routes = JSON.parse(JSON.stringify(routes));
@@ -159,14 +94,95 @@ function loadAsyncRouter (routes) {
     router.options.routes = [ ...router.options.routes, ...asyncRouter ];
 }
 
-export default (views, routes = []) => {
-    views && (objRouter = views);
-    console.log('views =>', views);
-    console.log('routes =>', routes);
-    if (routes) {
-        // 初始化首页
-        constantRoutes = constantRoutes.concat(routes);
-        router.options.routes = [ ...constantRoutes ];
+// 创建导航守卫
+function initNavigationGuard() {
+    router.beforeEach(async(to, from, next) => {
+        NProgress.start();
+        let {
+            objAppInfo = '',
+            objUserInfo = '',
+        } = store.getters;
+        let {
+            path: toPath,
+        } = to;
+        let {
+            path: fromPath,
+        } = from;
+        if (!objUserInfo)
+            objUserInfo = await store.dispatch('user/getInfo');
+        let {
+            $modal,
+        } = Vue.prototype;
+        let {
+            access_token,
+        } = objUserInfo || {};
+        if (!asyncRouter && objUserInfo && objUserInfo.group) {
+            loadAsyncRouter(objUserInfo.group.menu_routes);
+            return next({ ...to, replace: true });
+        }
+        window.document.title = `${objAppInfo.name ? objAppInfo.name + ' ' : ''}${to.meta.title || ''}`;
+        if (toPath === '/404') {
+            next();
+        } else if (objAppInfo) {
+            if (toPath === '/setup') {
+                next('/');
+            } else {
+                if (access_token) {
+                    toPath === '/login' ? next('/') : next()
+                } else {
+                    toPath === '/login' ? next() : next(`/login?redirect=${to.path}`)
+                }
+            }
+        } else {
+            try {
+                await store.dispatch('app/getInfo');
+                if (toPath === '/setup') {
+                    next('/');
+                } else {
+                    if (access_token) {
+                        toPath === '/login' ? next('/') : next()
+                    } else {
+                        toPath === '/login' ? next() : next(`/login?redirect=${to.path}`)
+                    }
+                }
+            } catch (e) {
+                $modal.toast(e, 'error');
+                if (e.code === 'F00001') {
+                    toPath === '/setup' ? next() : next(`/setup?redirect=${toPath}`);
+                } else {
+                    next('/404');
+                }
+            }
+        }
+        NProgress.done();
+    });
+    router.afterEach(() => {
+        NProgress.done();
+    });
+}
+
+export default (views, routes) => {
+    // 初始化路由
+    if (!router) {
+        // 注入新页面
+        if (views)
+            objRouter = views;
+        // 注入初始导航
+        if (routes) {
+            if (typeof routes === 'function')
+                routes = routes({ Layout });
+            constantRoutes.forEach((item, index) => {
+                routes.forEach((route) => {
+                    if (item.path === route.path) {
+                        constantRoutes[index] = route;
+                    }
+                });
+            });
+        }
+        // 创建路由
+        router = createRouter();
+        // 创建导航守卫
+        initNavigationGuard();
     }
     return router;
 };

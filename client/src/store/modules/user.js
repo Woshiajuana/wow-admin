@@ -3,8 +3,6 @@ import Vue from 'vue'
 import storage from '@utils/storage'
 import generateRouter, { resetRouter } from '@router'
 
-const router = generateRouter();
-
 const state = {
     objUserInfo: '',
 };
@@ -52,7 +50,7 @@ const actions = {
             resetRouter();
             dispatch('tagsView/delAllCachedViews', {}, { root: true });
             dispatch('tagsView/delAllVisitedViews', {}, { root: true });
-            router.push(`/login`);
+            generateRouter().push(`/login`);
             resolve();
         });
     },
