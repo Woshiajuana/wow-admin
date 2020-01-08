@@ -69,6 +69,10 @@ const DEFAULT_OPTIONS = {
         // 删除管理员用户
         _DO_DELETE_USER_INFO: 'api/v1/user-info/delete',
 
+        // 修改个人信息
+        _DO_CHANGE_USER_CENTER_INFO: 'api/v1/user-info/change',
+
+
         // 查询管理元用户组列表
         _REQ_USER_GROUP_LIST: 'api/v1/user-group/list',
         // 创建用户组
@@ -158,7 +162,6 @@ window.wowRuntime = {
         importComponents.forEach((componentFiles) => {
             componentFiles.keys().forEach((key) => {
                 let strName = key.substring(2, key.indexOf('/index.vue'));
-                console.log('strName => ', strName)
                 Vue.component(strName, componentFiles(key).default || componentFiles(key));
             });
         });

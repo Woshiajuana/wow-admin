@@ -63,7 +63,7 @@ let constantRoutes = [
                 meta: { title: '个人中心' }
             },
             {
-                path: 'center',
+                path: 'setting',
                 component: () => import('@views/other/setting'),
                 meta: { title: '设置中心' }
             }
@@ -148,7 +148,6 @@ function loadAsyncRoutes (routes) {
     asyncRoutes.push(route404);
     router.addRoutes(asyncRoutes);
     router.options.routes = [ ...router.options.routes, ...asyncRoutes ];
-    // console.log('router.options.routes => ', router.options.routes);
 }
 
 // 创建导航守卫
@@ -176,10 +175,7 @@ function initNavigationGuard() {
 
         if (!asyncRoutes && objUserInfo && objUserInfo.group) {
             loadAsyncRoutes(objUserInfo.group.menu_routes);
-            console.log('to => ', to);
-            console.log('from => ', from);
             return next({ ...to, replace: true });
-            // return next();
         }
         window.document.title = `${objAppInfo.name ? objAppInfo.name + ' ' : ''}${to.meta.title || ''}`;
         if (toPath === '/404') {
