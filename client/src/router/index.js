@@ -51,6 +51,26 @@ let constantRoutes = [
     },
 
     {
+        path: '/other',
+        component: Layout,
+        hidden: true,
+        redirect: '/other/center',
+        meta: { title: '其他' },
+        children: [
+            {
+                path: 'center',
+                component: () => import('@views/other/center'),
+                meta: { title: '个人中心' }
+            },
+            {
+                path: 'center',
+                component: () => import('@views/other/setting'),
+                meta: { title: '设置中心' }
+            }
+        ],
+    },
+
+    {
         path: '/menu',
         component: Layout,
         redirect: '/menu/menu1/menu1-1',

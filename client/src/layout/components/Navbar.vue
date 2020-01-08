@@ -10,10 +10,10 @@
                     <i class="el-icon-caret-bottom"></i>
                 </div>
                 <el-dropdown-menu slot="dropdown" class="user-dropdown">
-                    <router-link to="/">
-                        <el-dropdown-item>首页</el-dropdown-item>
+                    <router-link to="/other/center">
+                        <el-dropdown-item>个人中心</el-dropdown-item>
                     </router-link>
-                    <el-dropdown-item divided>
+                    <el-dropdown-item>
                         <span style="display:block;" @click="logout">安全退出</span>
                     </el-dropdown-item>
                 </el-dropdown-menu>
