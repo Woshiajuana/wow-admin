@@ -105,7 +105,9 @@ const DEFAULT_OPTIONS = {
     },
     // 组件配置
     component: {
-        importComponents: [ componentFiles ],
+        importComponents: [
+            componentFiles,
+        ],
     },
     // 路由配置
     routerConfig: {
@@ -156,6 +158,7 @@ window.wowRuntime = {
         importComponents.forEach((componentFiles) => {
             componentFiles.keys().forEach((key) => {
                 let strName = key.substring(2, key.indexOf('/index.vue'));
+                console.log('strName => ', strName)
                 Vue.component(strName, componentFiles(key).default || componentFiles(key));
             });
         });

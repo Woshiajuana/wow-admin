@@ -3,6 +3,19 @@
         <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
         <breadcrumb class="breadcrumb-container" />
         <div class="right-menu">
+
+            <el-tooltip content="全屏" effect="dark" placement="bottom">
+                <screenfull id="screenfull" class="right-menu-item hover-effect" />
+            </el-tooltip>
+
+            <el-tooltip content="设置中心" effect="dark" placement="bottom">
+                <div class="right-menu-item hover-effect">
+                    <router-link to="/other/setting">
+                        <svg-icon class="icon-size" icon-class="el-icon-s-tools"></svg-icon>
+                    </router-link>
+                </div>
+            </el-tooltip>
+
             <el-dropdown class="avatar-container" trigger="click">
                 <div class="avatar-wrapper">
                     <img :src="objUserInfo.avatar" class="user-avatar">
@@ -80,41 +93,41 @@
         .breadcrumb-container {
             float: left;
         }
-
         .right-menu {
+            @extend %df;
+            @extend %aic;
             float: right;
             height: 100%;
-
             &:focus {
                 outline: none;
             }
-
             .right-menu-item {
-                display: inline-block;
+                @extend %df;
+                @extend %aic;
+                @extend %jcc;
                 padding: 0 8px;
                 height: 100%;
                 font-size: 18px;
                 color: #5a5e66;
-                vertical-align: text-bottom;
-
+                *{
+                    @extend %db;
+                }
                 &.hover-effect {
                     cursor: pointer;
                     transition: background .3s;
-
                     &:hover {
                         background: rgba(0, 0, 0, .025)
                     }
                 }
             }
-
             .avatar-container {
-                margin-right: 30px;
-
+                @extend %h100;
+                padding: 0 30px 0 10px;
                 .avatar-wrapper {
                     @extend %cp;
                     @extend %df;
                     @extend %aic;
-                    margin-top: 5px;
+                    @extend %h100;
                     position: relative;
                     span{
                         font-size: 20px;
@@ -135,6 +148,15 @@
                     }
                 }
             }
+        }
+    }
+    .icon-size{
+        /*width: 22px !important;*/
+        /*height: 22px !important;*/
+        font-size: 22px;
+        color: #595d66;
+        &.el-svg-icon{
+            margin-right: 0 !important;
         }
     }
 </style>
