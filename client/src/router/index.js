@@ -39,6 +39,20 @@ let constantRoutes = [
     },
 
     {
+        path: '/test',
+        component: Layout,
+        redirect: '/dashboard',
+        children: [
+            {
+                path: 'dashboard',
+                name: 'Dashboard',
+                component: () => import('@views/dashboard'),
+                meta: { title: '三级菜单', icon: 'dashboard' }
+            }
+        ],
+    },
+
+    {
         path: '/',
         component: Layout,
         redirect: '/dashboard',
