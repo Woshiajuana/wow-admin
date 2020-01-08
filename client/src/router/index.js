@@ -39,15 +39,37 @@ let constantRoutes = [
     },
 
     {
-        path: '/test',
+        path: '/menu',
         component: Layout,
-        redirect: '/dashboard',
+        redirect: '/menu/menu1/menu1-1',
+        meta: { title: '测试菜单', icon: 'table' },
         children: [
             {
-                path: 'dashboard',
+                path: 'menu1',
                 name: 'Dashboard',
-                component: () => import('@views/dashboard'),
-                meta: { title: '三级菜单', icon: 'dashboard' }
+                redirect: '/test/test1/test1-1',
+                component: () => import('@views/menu/menu1'),
+                meta: { title: 'menu1' },
+                children: [
+                    {
+                        path: 'menu1-1',
+                        name: 'Dashboard',
+                        component: () => import('@views/menu/menu1/menu1-1'),
+                        meta: { title: 'menu1-1' }
+                    },
+                    {
+                        path: 'menu1-2',
+                        name: 'Dashboard',
+                        component: () => import('@views/menu/menu1/menu1-2'),
+                        meta: { title: 'menu1-2' }
+                    }
+                ],
+            },
+            {
+                path: 'menu2',
+                name: 'Dashboard',
+                component: () => import('@views/menu/menu2'),
+                meta: { title: '测试一级菜单2' }
             }
         ],
     },
@@ -73,19 +95,19 @@ const createRouter = () => new Router({
 });
 
 let router;
-let asyncRouter = null;
+let asyncRoutes = null;
 let objRouter = {};
 
 export function resetRouter() {
     const newRouter = createRouter();
-    asyncRouter = null;
+    asyncRoutes = null;
     router.options.routes = [...constantRoutes];
     router.matcher = newRouter.matcher; // reset router
 }
 
-function loadAsyncRouter (routes) {
+function loadAsyncRoutes (routes) {
     routes = JSON.parse(JSON.stringify(routes));
-    asyncRouter = routes.filter((item) => {
+    asyncRoutes = routes.filter((item) => {
         let { path, component, icon, title, father, redirect } = item;
         item.path = father ? path : `/${path}`;
         item.meta = { title, icon };
@@ -97,15 +119,13 @@ function loadAsyncRouter (routes) {
     routes.forEach((item, index) => {
         let { path, component, icon, title, father } = item;
         if (father) {
-            const fRouter = asyncRouter.filter((item) => item._id === father)[0];
-            fRouter.children
-                ? fRouter.children.push(item)
-                : fRouter.children = [item];
+            const fRouter = asyncRoutes.filter((item) => item._id === father)[0];
+            fRouter.children ? fRouter.children.push(item) : fRouter.children = [item];
         }
     });
-    asyncRouter.push(route404);
-    router.addRoutes(asyncRouter);
-    router.options.routes = [ ...router.options.routes, ...asyncRouter ];
+    asyncRoutes.push(route404);
+    router.addRoutes(asyncRoutes);
+    router.options.routes = [ ...router.options.routes, ...asyncRoutes ];
 }
 
 // 创建导航守卫
@@ -130,8 +150,8 @@ function initNavigationGuard() {
         let {
             access_token,
         } = objUserInfo || {};
-        if (!asyncRouter && objUserInfo && objUserInfo.group) {
-            loadAsyncRouter(objUserInfo.group.menu_routes);
+        if (!asyncRoutes && objUserInfo && objUserInfo.group) {
+            loadAsyncRoutes(objUserInfo.group.menu_routes);
             return next({ ...to, replace: true });
         }
         window.document.title = `${objAppInfo.name ? objAppInfo.name + ' ' : ''}${to.meta.title || ''}`;
