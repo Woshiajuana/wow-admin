@@ -44,6 +44,12 @@ module.exports = class HandleController extends Controller {
             middleware.oplogMiddleware(),
             controller.update,
         ).mount(
+            { name: '修改管理员个人信息', path: '/api/v1/user-info/change' },
+            middleware.tokenMiddleware(),
+            middleware.authMiddleware(),
+            middleware.oplogMiddleware(),
+            controller.change,
+        ).mount(
             { name: '删除管理员用户', path: '/api/v1/user-info/delete' },
             middleware.tokenMiddleware(),
             middleware.authMiddleware(),
@@ -135,6 +141,34 @@ module.exports = class HandleController extends Controller {
                 email: [ 'nonempty' ],
                 group: [ 'nonempty' ],
             });
+            await service.base.userInfoService.update(objParams);
+            ctx.respSuccess();
+        } catch (err) {
+            ctx.respError(err);
+        }
+    }
+
+    /**
+     * @apiVersion 1.0.0
+     * @api {get} /api/v1/user-info/change 修改管理员用户
+     * @apiDescription 修改管理员用户
+     * @apiGroup APP基础
+     * @apiParam  {String} [nickname] 昵称
+     * @apiParam  {String} [password] 密码
+     * @apiParam  {String} [avatar] 头像
+     * @apiSuccess (成功) {Object} data
+     * @apiSampleRequest /api/v1/user-info/change
+     */
+    async change () {
+        const { ctx, service, app } = this;
+        try {
+            let objParams = await ctx.validateBody({
+                nickname: [ 'nonempty' ],
+                password: [ 'nonempty' ],
+                avatar: [ 'nonempty' ],
+            });
+            const { id } = ctx.state.user;
+            objParams.id = id;
             await service.base.userInfoService.update(objParams);
             ctx.respSuccess();
         } catch (err) {
