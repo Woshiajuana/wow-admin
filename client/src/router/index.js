@@ -39,42 +39,6 @@ let constantRoutes = [
     },
 
     {
-        path: '/menu',
-        component: Layout,
-        redirect: '/menu/menu1/menu1-1',
-        meta: { title: '测试菜单', icon: 'table' },
-        children: [
-            {
-                path: 'menu1',
-                name: 'Dashboard',
-                redirect: '/test/test1/test1-1',
-                component: () => import('@views/menu/menu1'),
-                meta: { title: 'menu1' },
-                children: [
-                    {
-                        path: 'menu1-1',
-                        name: 'Dashboard',
-                        component: () => import('@views/menu/menu1/menu1-1'),
-                        meta: { title: 'menu1-1' }
-                    },
-                    {
-                        path: 'menu1-2',
-                        name: 'Dashboard',
-                        component: () => import('@views/menu/menu1/menu1-2'),
-                        meta: { title: 'menu1-2' }
-                    }
-                ],
-            },
-            {
-                path: 'menu2',
-                name: 'Dashboard',
-                component: () => import('@views/menu/menu2'),
-                meta: { title: '测试一级菜单2' }
-            }
-        ],
-    },
-
-    {
         path: '/',
         component: Layout,
         redirect: '/dashboard',
@@ -84,6 +48,44 @@ let constantRoutes = [
             component: () => import('@views/dashboard'),
             meta: { title: 'Dashboard', icon: 'dashboard' }
         }],
+    },
+
+    {
+        path: '/menu',
+        component: Layout,
+        redirect: '/menu/menu1/menu1-1',
+        meta: { title: '测试菜单', icon: 'table' },
+        children: [
+            {
+                path: 'menu1',
+                redirect: '/menu/menu1/menu1-1',
+                component: () => import('@views/menu/menu1'),
+                meta: { title: 'menu1' },
+                children: [
+                    {
+                        path: 'menu1-1',
+                        component: () => import('@views/menu/menu1/menu1-1'),
+                        meta: { title: 'menu1-1' }
+                    },
+                    {
+                        path: 'menu1-2',
+                        component: () => import('@views/menu/menu1/menu1-2'),
+                        meta: { title: 'menu1-2' }
+                    },
+                    {
+                        path: 'menu1-3',
+                        hidden: true,
+                        component: () => import('@views/menu/menu1/menu1-3'),
+                        meta: { title: 'menu1-3' }
+                    }
+                ],
+            },
+            {
+                path: 'menu2',
+                component: () => import('@views/menu/menu2'),
+                meta: { title: '测试一级菜单2' }
+            }
+        ],
     },
 
 ];
@@ -126,6 +128,7 @@ function loadAsyncRoutes (routes) {
     asyncRoutes.push(route404);
     router.addRoutes(asyncRoutes);
     router.options.routes = [ ...router.options.routes, ...asyncRoutes ];
+    // console.log('router.options.routes => ', router.options.routes);
 }
 
 // 创建导航守卫
@@ -150,9 +153,13 @@ function initNavigationGuard() {
         let {
             access_token,
         } = objUserInfo || {};
+
         if (!asyncRoutes && objUserInfo && objUserInfo.group) {
             loadAsyncRoutes(objUserInfo.group.menu_routes);
+            console.log('to => ', to);
+            console.log('from => ', from);
             return next({ ...to, replace: true });
+            // return next();
         }
         window.document.title = `${objAppInfo.name ? objAppInfo.name + ' ' : ''}${to.meta.title || ''}`;
         if (toPath === '/404') {
