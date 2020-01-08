@@ -34,7 +34,7 @@ const data = () => {
                 color: {
                     value: '',
                     icon: 'bg-color',
-                    max: 10,
+                    max: 20,
                     placeholder: '管理台覆盖色 (非必填)',
                 },
                 ownership: {

@@ -156,7 +156,10 @@ module.exports = class HandleServer extends Service {
         }
         logger.info(`更新账号:【${id}】`);
         delete data.id;
-        await ctx.model.UserInfoModel.update({ _id: app.mongoose.Types.ObjectId(id) }, data);
+        return await ctx.model.UserInfoModel.findByIdAndUpdate({ _id: app.mongoose.Types.ObjectId(id) }, data, { new: true })
+            .select(select)
+            .populate(populate)
+            .lean();
     }
 
     // 锁定 or 解锁

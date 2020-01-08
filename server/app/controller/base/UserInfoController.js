@@ -167,10 +167,10 @@ module.exports = class HandleController extends Controller {
                 password: [ 'nonempty' ],
                 avatar: [ 'nonempty' ],
             });
-            const { id } = ctx.state.user;
+            const { id } = ctx.state.token;
             objParams.id = id;
-            await service.base.userInfoService.update(objParams);
-            ctx.respSuccess();
+            const data = await service.base.userInfoService.update(objParams, true);
+            ctx.respSuccess(data);
         } catch (err) {
             ctx.respError(err);
         }

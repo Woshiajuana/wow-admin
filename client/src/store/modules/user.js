@@ -12,6 +12,10 @@ const mutations = {
         state.objUserInfo = Object.assign({}, objUserInfo);
         storage.local.set('USER_INFO', objUserInfo);
     },
+    UPT_USER_INFO: (state, objUserInfo) => {
+        state.objUserInfo = Object.assign({}, state.objUserInfo, objUserInfo);
+        storage.local.set('USER_INFO', state.objUserInfo);
+    },
 };
 
 const actions = {

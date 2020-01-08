@@ -3,7 +3,7 @@
         <div class="view-inner">
             <el-form
                 style="max-width: 500px"
-                ref="form"
+                ref="ruleForm"
                 :model="ruleForm"
                 :rules="rules"
                 label-width="80px">
@@ -82,7 +82,9 @@
                         password: Md5(this.ruleForm.password.trim())
                     }).then((res) => {
                         this.$modal.toast('更新成功', 'success');
-                        this.$store.commit('SET_USER_INFO', res || {});
+                        delete res.group;
+                        this.ruleForm.password = '';
+                        this.$store.commit('user/UPT_USER_INFO', res || {});
                     }).toast().finally(() => this.loading = false);
                 });
             },

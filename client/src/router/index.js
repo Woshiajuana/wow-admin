@@ -172,7 +172,6 @@ function initNavigationGuard() {
         let {
             access_token,
         } = objUserInfo || {};
-
         if (!asyncRoutes && objUserInfo && objUserInfo.group) {
             loadAsyncRoutes(objUserInfo.group.menu_routes);
             return next({ ...to, replace: true });
