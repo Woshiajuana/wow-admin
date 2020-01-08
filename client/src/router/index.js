@@ -15,7 +15,7 @@ const route404 = {
     hidden: true,
 };
 
-export const constantRoutes = [
+export let constantRoutes = [
 
     {
         path: '/login',
@@ -58,7 +58,7 @@ const createRouter = () => new Router({
     routes: constantRoutes,
 });
 
-const router = createRouter();
+let router = createRouter();
 let asyncRouter = null;
 let objRouter = {};
 
@@ -130,8 +130,6 @@ router.beforeEach(async(to, from, next) => {
     NProgress.done();
 });
 
-
-
 router.afterEach(() => {
     NProgress.done();
 });
@@ -161,7 +159,14 @@ function loadAsyncRouter (routes) {
     router.options.routes = [ ...router.options.routes, ...asyncRouter ];
 }
 
-export default (views) => {
+export default (views, routes = []) => {
     views && (objRouter = views);
+    console.log('views =>', views);
+    console.log('routes =>', routes);
+    if (routes) {
+        // 初始化首页
+        constantRoutes = constantRoutes.concat(routes);
+        router.options.routes = [ ...constantRoutes ];
+    }
     return router;
 };
