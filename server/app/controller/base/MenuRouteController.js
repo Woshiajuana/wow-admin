@@ -106,6 +106,7 @@ module.exports = class HandleController extends Controller {
      * @apiParam  {String} [icon] icon
      * @apiParam  {String} [params] 参数
      * @apiParam  {String} [father] 父菜单
+     * @apiParam  {String} [hidden] 父菜单
      * @apiSuccess (成功) {Object} data
      * @apiSampleRequest /api/v1/menu-route/update
      */
@@ -118,6 +119,7 @@ module.exports = class HandleController extends Controller {
                 path: [ 'nonempty' ],
                 sort: [ 'nonempty' ],
                 component: [ 'nonempty' ],
+                hidden: [ 'nonempty' ],
                 redirect: [ ],
                 icon: [ ],
                 params: [ ],

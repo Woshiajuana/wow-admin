@@ -49,6 +49,9 @@
                         ></el-option>
                     </el-select>
                 </el-form-item>
+                <el-form-item label="是否隐藏" prop="hidden">
+                    <el-switch v-model="ruleForm.hidden"></el-switch>
+                </el-form-item>
             </el-form>
         </div>
         <div class="demo-drawer__footer">
@@ -73,6 +76,7 @@
                     component: '',
                     redirect: '',
                     icon: '',
+                    hidden: false,
                 },
                 rules: {
                     title: [

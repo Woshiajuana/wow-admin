@@ -24,6 +24,13 @@
                 label="组件">
             </el-table-column>
             <el-table-column
+                prop="hidden"
+                label="是否隐藏">
+                <template slot-scope="scope">
+                    <span>{{scope.row.hidden ? '是' : '否'}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
                 prop="sort"
                 label="排序">
             </el-table-column>
