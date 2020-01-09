@@ -10,6 +10,12 @@ module.exports = class HandleController extends Controller {
             { name: '查询应用基础信息', path: '/api/v1/app/info', usePush: false },
             controller.info
         ).mount(
+            { name: '修改应用基础信息', path: '/api/v1/app/change' },
+            middleware.tokenMiddleware(),
+            middleware.authMiddleware(),
+            middleware.oplogMiddleware(),
+            controller.change
+        ).mount(
             { name: '初始化应用信息', path: '/api/v1/app/init', usePush: false },
             controller.init
         );
@@ -30,6 +36,38 @@ module.exports = class HandleController extends Controller {
             ctx.respSuccess(objApp);
         } catch (e) {
             ctx.respError(e);
+        }
+    }
+
+    /**
+     * @apiVersion 1.0.0
+     * @api {get} /api/v1/app/change 修改应用基础信息
+     * @apiDescription 修改应用基础信息
+     * @apiGroup APP基础
+     * @apiParam  {String} [id] id
+     * @apiParam  {String} [name] 管理台名称
+     * @apiParam  {String} [logo] 管理台LOGO
+     * @apiParam  {String} [bg] 背景图
+     * @apiParam  {String} [color] 覆盖色
+     * @apiParam  {String} [ownership] 所有权
+     * @apiSuccess (成功) {Object} data
+     * @apiSampleRequest /api/v1/app/change
+     */
+    async change () {
+        const { ctx, service, app } = this;
+        try {
+            let objParams = await ctx.validateBody({
+                id: [ 'nonempty' ],
+                name: [ 'nonempty' ],
+                logo: [ ],
+                bg: [ ],
+                color: [ ],
+                ownership: [ 'nonempty' ],
+            });
+            await service.base.appInfoService.update(objParams);
+            ctx.respSuccess();
+        } catch (err) {
+            ctx.respError(err);
         }
     }
 

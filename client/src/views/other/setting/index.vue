@@ -6,9 +6,9 @@
                 ref="ruleForm"
                 :model="ruleForm"
                 :rules="rules"
-                label-width="80px">
-                <el-form-item label="管理台名称" prop="nickname">
-                    <el-input v-model.trim="ruleForm.nickname" clearable placeholder="请输入管理台名称" maxlength="20"></el-input>
+                label-width="120px">
+                <el-form-item label="管理台名称" prop="name">
+                    <el-input v-model.trim="ruleForm.name" clearable placeholder="请输入管理台名称" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="管理台LOGO" prop="logo">
                     <el-input v-model.trim="ruleForm.logo" clearable placeholder="管理台LOGO (url链接) (非必填)"></el-input>
@@ -32,10 +32,9 @@
 
 <script>
     import { mapGetters }                   from 'vuex'
-    import Md5                              from 'md5'
 
     export default {
-        name: 'OtherCenter',
+        name: 'OtherSetting',
         data () {
             return {
                 loading: false,
@@ -58,12 +57,12 @@
         },
         computed: {
             ...mapGetters([
-                'sidebar',
-                'objUserInfo',
+                'objAppInfo',
+                'objDefAppInfo',
             ]),
         },
         created () {
-            this.ruleForm = { ...this.ruleForm, ...this.objUserInfo };
+            this.ruleForm = { ...this.ruleForm, ...this.objDefAppInfo, ...this.objAppInfo };
         },
         methods: {
             handleSubmit () {
@@ -72,12 +71,11 @@
                     this.loading = true;
                     this.$curl(this.$appConst._DO_CHANGE_USER_CENTER_INFO, {
                         ...this.ruleForm,
-                        password: Md5(this.ruleForm.password.trim())
                     }).then((res) => {
                         this.$modal.toast('更新成功', 'success');
                         delete res.group;
                         this.ruleForm.password = '';
-                        this.$store.commit('user/UPT_USER_INFO', res || {});
+                        this.$store.commit('app/SET_DEF_APP_INFO', res || {});
                     }).toast().finally(() => this.loading = false);
                 });
             },
@@ -94,7 +92,7 @@
         @extend %bsb;
         @extend %df1;
         @extend %oya;
-        padding: 50px 10px;
+        padding: 80px 10px;
         background-color: #fff;
         border-radius: 4px;
     }

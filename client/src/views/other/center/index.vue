@@ -6,7 +6,7 @@
                 ref="ruleForm"
                 :model="ruleForm"
                 :rules="rules"
-                label-width="80px">
+                label-width="120px">
                 <el-form-item label="昵称" prop="nickname">
                     <el-input v-model.trim="ruleForm.nickname" clearable placeholder="请输入昵称" maxlength="20"></el-input>
                 </el-form-item>
@@ -65,7 +65,6 @@
         },
         computed: {
             ...mapGetters([
-                'sidebar',
                 'objUserInfo',
             ]),
         },
@@ -101,7 +100,7 @@
         @extend %bsb;
         @extend %df1;
         @extend %oya;
-        padding: 50px 10px;
+        padding: 80px 10px;
         background-color: #fff;
         border-radius: 4px;
     }

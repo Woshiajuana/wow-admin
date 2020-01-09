@@ -71,7 +71,8 @@ const DEFAULT_OPTIONS = {
 
         // 修改个人信息
         _DO_CHANGE_USER_CENTER_INFO: 'api/v1/user-info/change',
-
+        // 修改管理台信息
+        _DO_CHANGE_APP_INFO: 'api/v1/app/change',
 
         // 查询管理元用户组列表
         _REQ_USER_GROUP_LIST: 'api/v1/user-group/list',
