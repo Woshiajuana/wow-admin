@@ -100,7 +100,10 @@
     .sidebar-container{
         z-index: 3001 !important;
     }
-    .el-message-box__wrapper{
+    .v-modal{
         z-index: 3002 !important;
+    }
+    .el-message-box__wrapper{
+        z-index: 3003 !important;
     }
 </style>
