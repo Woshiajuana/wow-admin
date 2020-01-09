@@ -69,13 +69,14 @@
                 this.$refs.ruleForm.validate((valid) => {
                     if (!valid) return false;
                     this.loading = true;
-                    this.$curl(this.$appConst._DO_CHANGE_USER_CENTER_INFO, {
+                    this.$curl(this.$appConst._DO_CHANGE_APP_INFO, {
                         ...this.ruleForm,
+                        id: this.ruleForm._id,
                     }).then((res) => {
                         this.$modal.toast('更新成功', 'success');
                         delete res.group;
                         this.ruleForm.password = '';
-                        this.$store.commit('app/SET_DEF_APP_INFO', res || {});
+                        this.$store.commit('app/SET_APP_INFO', res || {});
                     }).toast().finally(() => this.loading = false);
                 });
             },

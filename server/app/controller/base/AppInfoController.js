@@ -64,8 +64,8 @@ module.exports = class HandleController extends Controller {
                 color: [ ],
                 ownership: [ 'nonempty' ],
             });
-            await service.base.appInfoService.update(objParams);
-            ctx.respSuccess();
+            const data = await service.base.appInfoService.update(objParams);
+            ctx.respSuccess(data);
         } catch (err) {
             ctx.respError(err);
         }
