@@ -17,22 +17,22 @@
                 label-width="80px"
                 class="demo-ruleForm">
                 <el-form-item label="昵称" prop="nickname">
-                    <el-input v-model.trim="ruleForm.nickname" placeholder="请输入昵称" maxlength="20"></el-input>
+                    <el-input v-model.trim="ruleForm.nickname" clearable placeholder="请输入昵称" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱" prop="email">
-                    <el-input v-model.trim="ruleForm.email" placeholder="请输入邮箱" maxlength="20"></el-input>
+                    <el-input v-model.trim="ruleForm.email" clearable placeholder="请输入邮箱" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="手机" prop="phone">
-                    <el-input v-model.trim="ruleForm.phone" placeholder="请输入手机号" maxlength="11"></el-input>
+                    <el-input v-model.trim="ruleForm.phone" clearable placeholder="请输入手机号" maxlength="11"></el-input>
                 </el-form-item>
                 <el-form-item label="头像" prop="avatar">
-                    <el-input v-model.trim="ruleForm.avatar" placeholder="请输入头像链接"></el-input>
+                    <el-input v-model.trim="ruleForm.avatar" clearable placeholder="请输入头像链接"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input v-model.trim="ruleForm.password" type="password" placeholder="请输入密码" maxlength="20"></el-input>
+                    <el-input v-model.trim="ruleForm.password" clearable type="password" placeholder="请输入密码" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="用户组" prop="group">
-                    <el-select v-model="ruleForm.group" filterable placeholder="请选择用户组">
+                    <el-select v-model="ruleForm.group" clearable filterable placeholder="请选择用户组">
                         <el-option
                             v-for="(item, index) in data.arrGroup"
                             :key="index"

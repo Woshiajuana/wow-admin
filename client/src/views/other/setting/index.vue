@@ -61,6 +61,17 @@
                 'objDefAppInfo',
             ]),
         },
+        watch: {
+            'ruleForm.color' (value) {
+                this.$store.commit('app/SET_DEF_APP_INFO', { color: value });
+            },
+            'ruleForm.bg' (value) {
+                this.$store.commit('app/SET_DEF_APP_INFO', { bg: value });
+            },
+            'ruleForm.logo' (value) {
+                this.$store.commit('app/SET_DEF_APP_INFO', { logo: value });
+            },
+        },
         created () {
             this.ruleForm = { ...this.ruleForm, ...this.objDefAppInfo, ...this.objAppInfo };
         },

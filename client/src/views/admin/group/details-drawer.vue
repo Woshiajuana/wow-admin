@@ -17,10 +17,10 @@
                 label-width="60px"
                 class="demo-ruleForm">
                 <el-form-item label="名称" prop="name">
-                    <el-input v-model.trim="ruleForm.name" placeholder="请输入名称" maxlength="20"></el-input>
+                    <el-input v-model.trim="ruleForm.name" clearable placeholder="请输入名称" maxlength="20"></el-input>
                 </el-form-item>
                 <el-form-item label="备注" prop="remark">
-                    <el-input type="textarea" placeholder="请输入备注" v-model.trim="ruleForm.remark" maxlength="100"></el-input>
+                    <el-input type="textarea" placeholder="请输入备注" clearable v-model.trim="ruleForm.remark" maxlength="100"></el-input>
                 </el-form-item>
             </el-form>
             <div class="demo-drawer__footer">
