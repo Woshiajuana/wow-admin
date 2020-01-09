@@ -94,6 +94,10 @@
             font-size: 12px;
         }
     }
+    /*.el-drawer{*/
+    /*    width: 50% !important;*/
+    /*    min-width: 600px !important;*/
+    /*}*/
     /*.drawer-bg{*/
     /*    z-index: 3000 !important;*/
     /*}*/

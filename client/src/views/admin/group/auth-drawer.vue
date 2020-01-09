@@ -6,7 +6,7 @@
         :before-close="handleClose"
         :visible.sync="display"
         direction="rtl"
-        size="600px"
+        size="50%"
         custom-class="demo-drawer"
         ref="drawer">
         <div class="demo-drawer__content">
