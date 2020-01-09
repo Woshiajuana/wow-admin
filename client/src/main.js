@@ -205,43 +205,43 @@ window.wowRuntime = {
 };
 
 
-let { wow, app } = window.wowRuntime.init({
-    // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
-    extendUtils: {
-
-    },
-    // API配置
-    httpRequest: {
-        baseURL: `${window.location.protocol}//${window.location.hostname}:7001/`,
-        timeout: 30 * 1000,
-    },
-    // app 常量配置
-    appConst: {
-
-    },
-    // 路由配置
-    routerConfig: {
-        // 固定路由
-        constantRoutes: ({ Layout }) => {
-            return [
-                {
-                    path: '/',
-                    component: Layout,
-                    redirect: '/dashboard',
-                    children: [{
-                        path: 'dashboard',
-                        name: 'Dashboard',
-                        component: () => import('@views/home'),
-                        meta: { title: 'Dashboard', icon: 'dashboard' }
-                    }],
-                },
-            ]
-        },
-    },
-    // 组件配置
-    component: {
-        importComponents: [ ],
-    },
-});
-
-console.log(wow);
+// let { wow, app } = window.wowRuntime.init({
+//     // 扩展类配置, 这个类里面的数据都会扩展挂载到 VUE 上
+//     extendUtils: {
+//
+//     },
+//     // API配置
+//     httpRequest: {
+//         baseURL: `${window.location.protocol}//${window.location.hostname}:7001/`,
+//         timeout: 30 * 1000,
+//     },
+//     // app 常量配置
+//     appConst: {
+//
+//     },
+//     // 路由配置
+//     routerConfig: {
+//         // 固定路由
+//         constantRoutes: ({ Layout }) => {
+//             return [
+//                 {
+//                     path: '/',
+//                     component: Layout,
+//                     redirect: '/dashboard',
+//                     children: [{
+//                         path: 'dashboard',
+//                         name: 'Dashboard',
+//                         component: () => import('@views/dashboard'),
+//                         meta: { title: 'Dashboard', icon: 'dashboard' }
+//                     }],
+//                 },
+//             ]
+//         },
+//     },
+//     // 组件配置
+//     component: {
+//         importComponents: [ ],
+//     },
+// });
+//
+// console.log(wow);

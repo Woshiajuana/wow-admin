@@ -70,43 +70,43 @@ let constantRoutes = [
         ],
     },
 
-    {
-        path: '/menu',
-        component: Layout,
-        redirect: '/menu/menu1/menu1-1',
-        meta: { title: '测试菜单', icon: 'table' },
-        children: [
-            {
-                path: 'menu1',
-                redirect: '/menu/menu1/menu1-1',
-                component: () => import('@views/menu/menu1'),
-                meta: { title: 'menu1' },
-                children: [
-                    {
-                        path: 'menu1-1',
-                        component: () => import('@views/menu/menu1/menu1-1'),
-                        meta: { title: 'menu1-1' }
-                    },
-                    {
-                        path: 'menu1-2',
-                        component: () => import('@views/menu/menu1/menu1-2'),
-                        meta: { title: 'menu1-2' }
-                    },
-                    {
-                        path: 'menu1-3',
-                        hidden: true,
-                        component: () => import('@views/menu/menu1/menu1-3'),
-                        meta: { title: 'menu1-3' }
-                    }
-                ],
-            },
-            {
-                path: 'menu2',
-                component: () => import('@views/menu/menu2'),
-                meta: { title: '测试一级菜单2' }
-            }
-        ],
-    },
+    // {
+    //     path: '/menu',
+    //     component: Layout,
+    //     redirect: '/menu/menu1/menu1-1',
+    //     meta: { title: '测试菜单', icon: 'table' },
+    //     children: [
+    //         {
+    //             path: 'menu1',
+    //             redirect: '/menu/menu1/menu1-1',
+    //             component: () => import('@views/menu/menu1'),
+    //             meta: { title: 'menu1' },
+    //             children: [
+    //                 {
+    //                     path: 'menu1-1',
+    //                     component: () => import('@views/menu/menu1/menu1-1'),
+    //                     meta: { title: 'menu1-1' }
+    //                 },
+    //                 {
+    //                     path: 'menu1-2',
+    //                     component: () => import('@views/menu/menu1/menu1-2'),
+    //                     meta: { title: 'menu1-2' }
+    //                 },
+    //                 {
+    //                     path: 'menu1-3',
+    //                     hidden: true,
+    //                     component: () => import('@views/menu/menu1/menu1-3'),
+    //                     meta: { title: 'menu1-3' }
+    //                 }
+    //             ],
+    //         },
+    //         {
+    //             path: 'menu2',
+    //             component: () => import('@views/menu/menu2'),
+    //             meta: { title: '测试一级菜单2' }
+    //         }
+    //     ],
+    // },
 
 ];
 
